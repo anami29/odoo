@@ -1,0 +1,1594 @@
+2026-07-06 09:34:55,366 2536 INFO ? odoo: Odoo version 18.0 
+2026-07-06 09:34:55,367 2536 INFO ? odoo: Using configuration file at C:\Users\KAVITA\coding\odoo\odoo.conf 
+2026-07-06 09:34:55,367 2536 INFO ? odoo: addons paths: ['C:\\Users\\KAVITA\\coding\\odoo\\odoo\\addons', 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\addons\\18.0', 'c:\\users\\kavita\\coding\\odoo\\addons', 'c:\\users\\kavita\\coding\\odoo\\custom_addons', 'c:\\users\\kavita\\coding\\odoo\\odoo\\addons'] 
+2026-07-06 09:34:55,367 2536 INFO ? odoo: database: odoo@localhost:5432 
+2026-07-06 09:34:56,546 2536 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltopdf to print a pdf version of the reports. 
+2026-07-06 09:34:56,551 2536 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltoimage to generate images from html. 
+2026-07-06 09:34:58,795 2536 INFO ? odoo.service.server: HTTP service (werkzeug) running on DESKTOP-5I94JCE:8069 
+2026-07-06 09:36:22,952 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:22] "GET / HTTP/1.1" 303 - 1 0.049 0.151
+2026-07-06 09:36:23,069 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:23] "GET /odoo HTTP/1.1" 303 - 2 0.009 0.093
+2026-07-06 09:36:24,723 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:24] "GET /web/database/selector HTTP/1.1" 200 - 2 0.010 1.638
+2026-07-06 09:36:37,911 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:37] "GET /web/static/src/libs/fontawesome/css/font-awesome.css HTTP/1.1" 200 - 1 0.006 12.787
+2026-07-06 09:36:37,925 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:37] "GET /web/static/lib/bootstrap/dist/css/bootstrap.css HTTP/1.1" 200 - 1 0.005 12.801
+2026-07-06 09:36:37,947 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:37] "GET /web/static/lib/bootstrap/js/dist/dom/data.js HTTP/1.1" 200 - 1 0.005 8.221
+2026-07-06 09:36:37,948 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:37] "GET /web/static/lib/bootstrap/js/dist/dom/manipulator.js HTTP/1.1" 200 - 1 0.008 7.917
+2026-07-06 09:36:37,965 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:37] "GET /web/static/lib/bootstrap/js/dist/dom/event-handler.js HTTP/1.1" 200 - 1 0.007 7.936
+2026-07-06 09:36:38,006 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/util/index.js HTTP/1.1" 200 - 1 0.005 12.879
+2026-07-06 09:36:38,436 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/util/config.js HTTP/1.1" 200 - 1 0.004 0.192
+2026-07-06 09:36:38,438 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/dom/selector-engine.js HTTP/1.1" 200 - 1 0.006 0.206
+2026-07-06 09:36:38,603 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/util/component-functions.js HTTP/1.1" 200 - 1 0.006 0.342
+2026-07-06 09:36:38,608 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/util/focustrap.js HTTP/1.1" 200 - 1 0.006 0.330
+2026-07-06 09:36:38,610 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/util/scrollbar.js HTTP/1.1" 200 - 1 0.009 0.282
+2026-07-06 09:36:38,615 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/util/backdrop.js HTTP/1.1" 200 - 1 0.006 0.352
+2026-07-06 09:36:38,950 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:38] "GET /web/static/lib/bootstrap/js/dist/base-component.js HTTP/1.1" 200 - 1 0.011 0.197
+2026-07-06 09:36:39,140 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:39] "GET /web/static/img/logo2.png HTTP/1.1" 200 - 1 0.005 0.223
+2026-07-06 09:36:39,154 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:39] "GET /web/static/src/public/database_manager.js HTTP/1.1" 200 - 1 0.007 0.235
+2026-07-06 09:36:39,162 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:39] "GET /web/static/lib/bootstrap/js/dist/modal.js HTTP/1.1" 200 - 1 0.005 0.413
+2026-07-06 09:36:39,597 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:39] "GET /web/static/src/libs/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 200 - 1 0.006 0.059
+2026-07-06 09:36:39,849 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:36:39] "GET /web/static/img/favicon.ico HTTP/1.1" 200 - 1 0.004 0.051
+2026-07-06 09:41:11,909 2536 INFO None odoo.service.db: Create database `odoo`. 
+2026-07-06 09:41:13,540 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:41:13,542 2536 WARNING None odoo.service.db: Unable to create PostgreSQL extensions : connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+ 
+2026-07-06 09:41:14,222 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:41:14,222 2536 WARNING None odoo.service.db: Unable to make public schema public-accessible: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+ 
+2026-07-06 09:41:14,264 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:41:14,264 2536 ERROR None odoo.service.db: CREATE DATABASE failed: 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 68, in _initialize_db
+    with closing(db.cursor()) as cr:
+                 ^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:41:14,334 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:41:14,334 2536 ERROR None odoo.addons.web.controllers.database: Database creation error. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 83, in create
+    request.session.authenticate(name, credential)
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1092, in authenticate
+    registry = Registry(dbname)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:41:15,355 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:41:15,356 2536 ERROR None odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 89, in create
+    return self._render_template(error=error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:41:15,365 2536 INFO None werkzeug: 127.0.0.1 - - [06/Jul/2026 09:41:15] "POST /web/database/create HTTP/1.1" 500 - 4 1.539 5.823
+2026-07-06 09:41:16,042 2536 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 09:41:16,042 2536 WARNING ? odoo.http: Database or registry unusable, trying without 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:41:16,046 2536 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:41:16] "GET /favicon.ico HTTP/1.1" 404 - 1 0.009 0.227
+2026-07-06 09:42:25,087 2536 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 09:42:25,087 2536 WARNING ? odoo.http: Database or registry unusable, trying without 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:42:27,251 2536 ERROR None odoo.addons.web.controllers.database: Database creation error. 
+Traceback (most recent call last):
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 81, in create
+    dispatch_rpc('db', 'create_database', [master_pwd, name, bool(post.get('demo')), lang, password, post['login'], country_code, post['phone']])
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 412, in dispatch_rpc
+    return dispatch(method, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 522, in dispatch
+    check_super(passwd)
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 62, in check_super
+    raise odoo.exceptions.AccessDenied()
+odoo.exceptions.AccessDenied: Access Denied
+2026-07-06 09:42:28,496 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:42:28,496 2536 ERROR None odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2577, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2081, in _serve_db
+    self.registry, cr_readwrite = self._open_registry()
+                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1696, in _open_registry
+    raise RegistryError(f"Cannot get registry {self.db}") from e
+odoo.http.RegistryError: Cannot get registry odoo
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2590, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 89, in create
+    return self._render_template(error=error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:42:28,501 2536 INFO None werkzeug: 127.0.0.1 - - [06/Jul/2026 09:42:28] "POST /web/database/create HTTP/1.1" 500 - 2 0.056 3.521
+2026-07-06 09:43:41,288 2536 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 09:43:41,289 2536 WARNING ? odoo.http: Database or registry unusable, trying without 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:43:42,973 2536 ERROR None odoo.addons.web.controllers.database: Database creation error. 
+Traceback (most recent call last):
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 81, in create
+    dispatch_rpc('db', 'create_database', [master_pwd, name, bool(post.get('demo')), lang, password, post['login'], country_code, post['phone']])
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 412, in dispatch_rpc
+    return dispatch(method, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 522, in dispatch
+    check_super(passwd)
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 62, in check_super
+    raise odoo.exceptions.AccessDenied()
+odoo.exceptions.AccessDenied: Access Denied
+2026-07-06 09:43:43,973 2536 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:43:43,973 2536 ERROR None odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2577, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2081, in _serve_db
+    self.registry, cr_readwrite = self._open_registry()
+                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1696, in _open_registry
+    raise RegistryError(f"Cannot get registry {self.db}") from e
+odoo.http.RegistryError: Cannot get registry odoo
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2590, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 89, in create
+    return self._render_template(error=error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:43:43,977 2536 INFO None werkzeug: 127.0.0.1 - - [06/Jul/2026 09:43:43] "POST /web/database/create HTTP/1.1" 500 - 2 0.010 2.774
+2026-07-06 09:45:03,244 2536 INFO ? odoo.service.server: Initiating shutdown 
+2026-07-06 09:45:03,244 2536 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2026-07-06 09:45:04,316 2536 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 2 connections  
+2026-07-06 09:48:16,719 14128 DEBUG ? odoo.netsvc: logger level set: "odoo.http.rpc.request:INFO" 
+2026-07-06 09:48:16,720 14128 DEBUG ? odoo.netsvc: logger level set: "odoo.http.rpc.response:INFO" 
+2026-07-06 09:48:16,720 14128 DEBUG ? odoo.netsvc: logger level set: ":INFO" 
+2026-07-06 09:48:16,720 14128 DEBUG ? odoo.netsvc: logger level set: "odoo:DEBUG" 
+2026-07-06 09:48:16,720 14128 DEBUG ? odoo.netsvc: logger level set: "odoo.sql_db:INFO" 
+2026-07-06 09:48:16,720 14128 DEBUG ? odoo.netsvc: logger level set: ":INFO" 
+2026-07-06 09:48:16,721 14128 INFO ? odoo: Odoo version 18.0 
+2026-07-06 09:48:16,721 14128 INFO ? odoo: Using configuration file at C:\Users\KAVITA\coding\odoo\odoo.conf 
+2026-07-06 09:48:16,721 14128 INFO ? odoo: addons paths: ['C:\\Users\\KAVITA\\coding\\odoo\\odoo\\addons', 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\addons\\18.0', 'c:\\users\\kavita\\coding\\odoo\\addons', 'c:\\users\\kavita\\coding\\odoo\\custom_addons', 'c:\\users\\kavita\\coding\\odoo\\odoo\\addons'] 
+2026-07-06 09:48:16,721 14128 INFO ? odoo: database: odoo@localhost:5432 
+2026-07-06 09:48:16,922 14128 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltopdf to print a pdf version of the reports. 
+2026-07-06 09:48:16,925 14128 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltoimage to generate images from html. 
+2026-07-06 09:48:17,432 14128 DEBUG ? odoo.service.server: Setting signal handlers 
+2026-07-06 09:48:17,443 14128 INFO ? odoo.service.server: HTTP service (werkzeug) running on DESKTOP-5I94JCE:8069 
+2026-07-06 09:48:17,446 14128 DEBUG ? odoo.service.server: cron0 started! 
+2026-07-06 09:48:17,446 14128 DEBUG ? odoo.service.server: cron1 started! 
+2026-07-06 09:49:15,455 14128 DEBUG ? odoo.http: HTTP sessions stored in: c:\users\kavita\appdata\local\openerp s.a\odoo\sessions 
+2026-07-06 09:49:15,456 14128 DEBUG ? odoo.tools._vendor.sessions: Could not load session from disk. Use empty session. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\_vendor\sessions.py", line 216, in get
+    f = open(self.get_session_filename(sid), "r", encoding="utf-8")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\sessions\\hR\\hRsBaQrv1c9g9sHBL8zsU-P6ub12Udd4f8TjJuGuHEMhZkbCf_Za8qqSLjqspXB2MuQf98KdKBAwmNZ8-m-p'
+2026-07-06 09:49:15,586 14128 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:15,587 14128 WARNING ? odoo.http: Database or registry unusable, trying without 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:49:16,825 14128 INFO None odoo.service.db: Create database `admin`. 
+2026-07-06 09:49:17,280 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:17,281 14128 WARNING None odoo.service.db: Unable to create PostgreSQL extensions : connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+ 
+2026-07-06 09:49:17,367 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:17,367 14128 WARNING None odoo.service.db: Unable to make public schema public-accessible: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+ 
+2026-07-06 09:49:17,411 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:17,411 14128 ERROR None odoo.service.db: CREATE DATABASE failed: 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2577, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2081, in _serve_db
+    self.registry, cr_readwrite = self._open_registry()
+                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1696, in _open_registry
+    raise RegistryError(f"Cannot get registry {self.db}") from e
+odoo.http.RegistryError: Cannot get registry odoo
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 68, in _initialize_db
+    with closing(db.cursor()) as cr:
+                 ^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:49:17,452 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:17,452 14128 ERROR None odoo.addons.web.controllers.database: Database creation error. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2577, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2081, in _serve_db
+    self.registry, cr_readwrite = self._open_registry()
+                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1696, in _open_registry
+    raise RegistryError(f"Cannot get registry {self.db}") from e
+odoo.http.RegistryError: Cannot get registry odoo
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'admin'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 83, in create
+    request.session.authenticate(name, credential)
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1092, in authenticate
+    registry = Registry(dbname)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:49:17,538 14128 DEBUG ? odoo.service.server: cron0 polling for jobs 
+2026-07-06 09:49:18,545 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:18,545 14128 ERROR None odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1690, in _open_registry
+    registry = Registry(self.db)
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2577, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2081, in _serve_db
+    self.registry, cr_readwrite = self._open_registry()
+                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1696, in _open_registry
+    raise RegistryError(f"Cannot get registry {self.db}") from e
+odoo.http.RegistryError: Cannot get registry odoo
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2590, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 89, in create
+    return self._render_template(error=error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:49:18,552 14128 INFO None werkzeug: 127.0.0.1 - - [06/Jul/2026 09:49:18] "POST /web/database/create HTTP/1.1" 500 - 4 0.389 2.712
+2026-07-06 09:49:18,657 14128 DEBUG ? odoo.service.server: cron1 polling for jobs 
+2026-07-06 09:49:34,123 14128 DEBUG ? odoo.tools._vendor.sessions: Could not load session from disk. Use empty session. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\_vendor\sessions.py", line 216, in get
+    f = open(self.get_session_filename(sid), "r", encoding="utf-8")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\sessions\\hR\\hRsBaQrv1c9g9sHBL8zsU-P6ub12Udd4f8TjJuGuHEMhZkbCf_Za8qqSLjqspXB2MuQf98KdKBAwmNZ8-m-p'
+2026-07-06 09:49:34,181 14128 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:49:34] "GET / HTTP/1.1" 303 - 1 0.006 0.053
+2026-07-06 09:49:34,191 14128 DEBUG ? odoo.tools._vendor.sessions: Could not load session from disk. Use empty session. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\_vendor\sessions.py", line 216, in get
+    f = open(self.get_session_filename(sid), "r", encoding="utf-8")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\sessions\\hR\\hRsBaQrv1c9g9sHBL8zsU-P6ub12Udd4f8TjJuGuHEMhZkbCf_Za8qqSLjqspXB2MuQf98KdKBAwmNZ8-m-p'
+2026-07-06 09:49:34,284 14128 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:49:34] "GET /odoo HTTP/1.1" 303 - 2 0.009 0.084
+2026-07-06 09:49:34,603 14128 DEBUG ? odoo.tools._vendor.sessions: Could not load session from disk. Use empty session. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\_vendor\sessions.py", line 216, in get
+    f = open(self.get_session_filename(sid), "r", encoding="utf-8")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\sessions\\hR\\hRsBaQrv1c9g9sHBL8zsU-P6ub12Udd4f8TjJuGuHEMhZkbCf_Za8qqSLjqspXB2MuQf98KdKBAwmNZ8-m-p'
+2026-07-06 09:49:35,683 14128 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 09:49:35,683 14128 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:49:35,685 14128 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 09:49:35] "GET /web/database/selector HTTP/1.1" 500 - 2 0.009 1.073
+2026-07-06 09:50:17,552 14128 DEBUG ? odoo.service.server: cron0 polling for jobs 
+2026-07-06 09:50:19,669 14128 DEBUG ? odoo.service.server: cron1 polling for jobs 
+2026-07-06 09:50:38,944 14128 DEBUG ? odoo.tools._vendor.sessions: Could not load session from disk. Use empty session. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\_vendor\sessions.py", line 216, in get
+    f = open(self.get_session_filename(sid), "r", encoding="utf-8")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\sessions\\hR\\hRsBaQrv1c9g9sHBL8zsU-P6ub12Udd4f8TjJuGuHEMhZkbCf_Za8qqSLjqspXB2MuQf98KdKBAwmNZ8-m-p'
+2026-07-06 09:50:40,786 14128 INFO None odoo.service.db: Create database `odoo18`. 
+2026-07-06 09:50:41,168 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:50:41,168 14128 WARNING None odoo.service.db: Unable to create PostgreSQL extensions : connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+ 
+2026-07-06 09:50:41,233 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:50:41,233 14128 WARNING None odoo.service.db: Unable to make public schema public-accessible: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+ 
+2026-07-06 09:50:41,266 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:50:41,267 14128 ERROR None odoo.service.db: CREATE DATABASE failed: 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 68, in _initialize_db
+    with closing(db.cursor()) as cr:
+                 ^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:50:41,298 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:50:41,298 14128 ERROR None odoo.addons.web.controllers.database: Database creation error. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 92, in __new__
+    return cls.registries[db_name]
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\lru.py", line 33, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: 'odoo18'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 83, in create
+    request.session.authenticate(name, credential)
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 1092, in authenticate
+    registry = Registry(dbname)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 94, in __new__
+    return cls.new(db_name)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 102, in new
+    registry.init(db_name)
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 196, in init
+    with closing(self.cursor()) as cr:
+                 ^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\modules\registry.py", line 1022, in cursor
+    return self._db.cursor()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:50:42,449 14128 INFO None odoo.sql_db: Connection to the database failed 
+2026-07-06 09:50:42,449 14128 ERROR None odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 89, in create
+    return self._render_template(error=error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 09:50:42,451 14128 INFO None werkzeug: 127.0.0.1 - - [06/Jul/2026 09:50:42] "POST /web/database/create HTTP/1.1" 500 - 4 0.301 3.207
+2026-07-06 09:51:17,563 14128 DEBUG ? odoo.service.server: cron0 polling for jobs 
+2026-07-06 09:51:20,692 14128 DEBUG ? odoo.service.server: cron1 polling for jobs 
+2026-07-06 09:52:02,773 14128 INFO ? odoo.service.server: Initiating shutdown 
+2026-07-06 09:52:02,773 14128 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2026-07-06 09:52:03,249 14128 DEBUG ? odoo.service.server: current thread: <_MainThread(MainThread, started 16268)> 
+2026-07-06 09:52:03,252 14128 DEBUG ? odoo.service.server: process <_MainThread(MainThread, started 16268)> (False) 
+2026-07-06 09:52:03,252 14128 DEBUG ? odoo.service.server: process <Thread(odoo.service.cron.cron0, started daemon 13696)> (True) 
+2026-07-06 09:52:03,252 14128 DEBUG ? odoo.service.server: process <Thread(odoo.service.cron.cron1, started daemon 4716)> (True) 
+2026-07-06 09:52:03,252 14128 DEBUG ? odoo.service.server: process <Thread(odoo.service.http.request.21404, started 21404)> (False) 
+2026-07-06 09:52:03,252 14128 DEBUG ? odoo.service.server: join and sleep 
+2026-07-06 09:52:03,362 14128 DEBUG ? odoo.service.server: join and sleep 
+2026-07-06 09:52:03,471 14128 DEBUG ? odoo.service.server: join and sleep 
+2026-07-06 09:52:03,581 14128 DEBUG ? odoo.service.server: join and sleep 
+2026-07-06 09:52:03,691 14128 DEBUG ? odoo.service.server: join and sleep 
+2026-07-06 09:52:03,801 14128 DEBUG ? odoo.service.server: process <Thread(odoo.service.http.request.20364, started 20364)> (False) 
+2026-07-06 09:52:03,807 14128 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 2 connections  
+2026-07-06 09:52:03,818 14128 DEBUG ? odoo.service.server: -- 
+2026-07-06 10:15:26,241 3056 INFO ? odoo: Odoo version 18.0 
+2026-07-06 10:15:26,242 3056 INFO ? odoo: Using configuration file at C:\Users\KAVITA\coding\odoo\odoo.conf 
+2026-07-06 10:15:26,242 3056 INFO ? odoo: addons paths: ['C:\\Users\\KAVITA\\coding\\odoo\\odoo\\addons', 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\addons\\18.0', 'c:\\users\\kavita\\coding\\odoo\\addons', 'c:\\users\\kavita\\coding\\odoo\\custom_addons', 'c:\\users\\kavita\\coding\\odoo\\odoo\\addons'] 
+2026-07-06 10:15:26,242 3056 INFO ? odoo: database: odoo@localhost:5432 
+2026-07-06 10:15:26,618 3056 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltopdf to print a pdf version of the reports. 
+2026-07-06 10:15:26,622 3056 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltoimage to generate images from html. 
+2026-07-06 10:15:27,236 3056 INFO ? odoo.service.server: HTTP service (werkzeug) running on DESKTOP-5I94JCE:8069 
+2026-07-06 10:15:51,081 3056 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:15:51] "GET / HTTP/1.1" 303 - 1 0.052 0.087
+2026-07-06 10:15:51,295 3056 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:15:51] "GET /odoo HTTP/1.1" 303 - 2 0.010 0.197
+2026-07-06 10:15:51,860 3056 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 10:15:51,860 3056 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 10:15:52,176 3056 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:15:52] "GET /web/database/selector HTTP/1.1" 500 - 2 0.009 0.560
+2026-07-06 10:16:09,373 3056 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:16:09] "GET / HTTP/1.1" 303 - 1 0.008 0.055
+2026-07-06 10:16:09,498 3056 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:16:09] "GET /odoo HTTP/1.1" 303 - 2 0.011 0.108
+2026-07-06 10:16:09,987 3056 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 10:16:09,987 3056 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 10:16:09,991 3056 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:16:09] "GET /web/database/selector HTTP/1.1" 500 - 2 0.010 0.169
+2026-07-06 10:17:03,130 3056 INFO ? odoo.service.server: Initiating shutdown 
+2026-07-06 10:17:03,136 3056 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2026-07-06 10:17:04,236 3056 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 2 connections  
+2026-07-06 10:17:33,469 10384 INFO ? odoo: Odoo version 18.0 
+2026-07-06 10:17:33,469 10384 INFO ? odoo: Using configuration file at C:\Users\KAVITA\coding\odoo\odoo.conf 
+2026-07-06 10:17:33,469 10384 INFO ? odoo: addons paths: ['C:\\Users\\KAVITA\\coding\\odoo\\odoo\\addons', 'c:\\users\\kavita\\appdata\\local\\openerp s.a\\odoo\\addons\\18.0', 'c:\\users\\kavita\\coding\\odoo\\addons', 'c:\\users\\kavita\\coding\\odoo\\custom_addons', 'c:\\users\\kavita\\coding\\odoo\\odoo\\addons'] 
+2026-07-06 10:17:33,469 10384 INFO ? odoo: database: odoo@localhost:5432 
+2026-07-06 10:17:33,682 10384 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltopdf to print a pdf version of the reports. 
+2026-07-06 10:17:33,686 10384 INFO ? odoo.addons.base.models.ir_actions_report: You need Wkhtmltoimage to generate images from html. 
+2026-07-06 10:17:34,239 10384 INFO ? odoo.service.server: HTTP service (werkzeug) running on DESKTOP-5I94JCE:8069 
+2026-07-06 10:17:49,048 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:17:49] "GET / HTTP/1.1" 303 - 1 0.049 0.089
+2026-07-06 10:17:49,147 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:17:49] "GET /odoo HTTP/1.1" 303 - 2 0.008 0.081
+2026-07-06 10:17:49,334 10384 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 10:17:49,334 10384 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 10:17:49,348 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:17:49] "GET /web/database/selector HTTP/1.1" 500 - 2 0.012 0.169
+2026-07-06 10:18:02,017 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:18:02] "GET / HTTP/1.1" 303 - 1 0.021 0.060
+2026-07-06 10:18:02,269 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:18:02] "GET /odoo HTTP/1.1" 303 - 2 0.009 0.084
+2026-07-06 10:18:02,483 10384 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 10:18:02,484 10384 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 10:18:02,486 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:18:02] "GET /web/database/selector HTTP/1.1" 500 - 2 0.013 0.137
+2026-07-06 10:20:17,303 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:17] "GET / HTTP/1.1" 303 - 1 0.072 0.203
+2026-07-06 10:20:17,458 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:17] "GET /odoo HTTP/1.1" 303 - 2 0.013 0.117
+2026-07-06 10:20:17,779 10384 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 10:20:17,779 10384 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 10:20:17,799 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:17] "GET /web/database/selector HTTP/1.1" 500 - 2 0.013 0.322
+2026-07-06 10:20:25,873 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:25] "GET / HTTP/1.1" 303 - 1 0.013 0.074
+2026-07-06 10:20:26,133 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:26] "GET /odoo HTTP/1.1" 303 - 2 0.015 0.231
+2026-07-06 10:20:26,325 10384 INFO ? odoo.sql_db: Connection to the database failed 
+2026-07-06 10:20:26,325 10384 ERROR ? odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2592, in __call__
+    response = request._serve_nodb()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2064, in _serve_nodb
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 2297, in dispatch
+    return endpoint(**self.request.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\http.py", line 754, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 63, in selector
+    return self._render_template(manage=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\kavita\coding\odoo\addons\web\controllers\database.py", line 40, in _render_template
+    d['incompatible_databases'] = odoo.service.db.list_db_incompatible(d['databases'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\service\db.py", line 468, in list_db_incompatible
+    with closing(db_connect(database_name).cursor()) as cr:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 812, in cursor
+    return Cursor(self.__pool, self.__dbname, self.__dsn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 295, in __init__
+    self._cnx = pool.borrow(dsn)
+                ^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\odoo\sql_db.py", line 739, in borrow
+    result = psycopg2.connect(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAVITA\coding\odoo\venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  collations with different collate and ctype values are not supported on this platform
+
+2026-07-06 10:20:26,332 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:26] "GET /web/database/selector HTTP/1.1" 500 - 2 0.012 0.180
+2026-07-06 10:20:26,700 10384 INFO ? werkzeug: 127.0.0.1 - - [06/Jul/2026 10:20:26] "GET /favicon.ico HTTP/1.1" 404 - 1 0.005 0.058
+2026-07-06 10:20:44,323 10384 INFO ? odoo.service.server: Initiating shutdown 
+2026-07-06 10:20:44,323 10384 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2026-07-06 10:20:44,446 10384 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 2 connections  
