@@ -10,5 +10,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY custom_addons /mnt/extra-addons
+COPY odoo.conf /etc/odoo/odoo.conf
 
 USER odoo
+
+CMD ["odoo", \
+"--config=/etc/odoo/odoo.conf", \
+"--db_host=${PGHOST}", \
+"--db_port=${PGPORT}", \
+"--db_user=${PGUSER}", \
+"--db_password=${PGPASSWORD}"]
