@@ -2883,3 +2883,260 @@ Field: Title (name)
 2026-07-06 12:00:03,373 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:00:03] "GET /home-theme/static/description/icon.png HTTP/1.1" 404 - 8 0.009 0.027
 2026-07-06 12:00:10,523 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:00:10] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 55 0.059 0.058
 2026-07-06 12:00:10,548 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:00:10] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 2 0.009 0.007
+2026-07-06 12:30:34,736 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:34] "POST /web/action/load HTTP/1.1" 200 - 9 0.089 0.300
+2026-07-06 12:30:35,105 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:35] "POST /web/dataset/call_kw/base.module.update/get_views HTTP/1.1" 200 - 12 0.043 0.236
+2026-07-06 12:30:35,183 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:35] "POST /web/dataset/call_kw/base.module.update/onchange HTTP/1.1" 200 - 2 0.007 0.035
+2026-07-06 12:30:37,016 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:37] "POST /web/dataset/call_kw/base.module.update/web_save HTTP/1.1" 200 - 5 0.049 0.029
+2026-07-06 12:30:37,064 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:30:39,587 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:39] "POST /web/dataset/call_button/base.module.update/update_module HTTP/1.1" 200 - 1725 0.857 1.695
+2026-07-06 12:30:45,118 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:45] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 55 0.049 0.039
+2026-07-06 12:30:45,171 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:45] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.005 0.042
+2026-07-06 12:30:45,261 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:45] "GET /home-theme/static/description/icon.png HTTP/1.1" 404 - 8 0.009 0.053
+2026-07-06 12:30:59,507 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:59] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 55 0.042 0.133
+2026-07-06 12:30:59,656 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:59] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 4 0.038 0.286
+2026-07-06 12:30:59,830 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:30:59] "GET /home-theme/static/description/icon.png HTTP/1.1" 404 - 8 0.007 0.033
+2026-07-06 12:31:03,596 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:03] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 55 0.036 0.047
+2026-07-06 12:31:03,628 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:03] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.005 0.020
+2026-07-06 12:31:03,672 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:03] "GET /home-theme/static/description/icon.png HTTP/1.1" 404 - 8 0.007 0.017
+2026-07-06 12:31:44,902 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:44] "POST /web/dataset/call_kw/base.module.update/onchange HTTP/1.1" 200 - 1 0.001 0.076
+2026-07-06 12:31:46,641 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:46] "POST /web/dataset/call_kw/base.module.update/web_save HTTP/1.1" 200 - 3 0.020 0.035
+2026-07-06 12:31:46,702 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:31:49,573 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:49] "POST /web/dataset/call_button/base.module.update/update_module HTTP/1.1" 200 - 1736 1.020 1.897
+2026-07-06 12:31:56,317 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:56] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.008 0.106
+2026-07-06 12:31:56,341 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:56] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 55 0.070 0.057
+2026-07-06 12:31:56,396 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:56] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.005 0.031
+2026-07-06 12:31:56,453 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:56] "GET /muk_web_theme/static/description/icon.png HTTP/1.1" 404 - 8 0.030 0.050
+2026-07-06 12:31:56,509 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:56] "GET /home-theme/static/description/icon.png HTTP/1.1" 404 - 8 0.072 0.042
+2026-07-06 12:31:59,521 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:59] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 55 0.040 0.046
+2026-07-06 12:31:59,560 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:59] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.009 0.023
+2026-07-06 12:31:59,618 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:59] "GET /home-theme/static/description/icon.png HTTP/1.1" 404 - 8 0.013 0.025
+2026-07-06 12:31:59,622 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:31:59] "GET /muk_web_theme/static/description/icon.png HTTP/1.1" 404 - 8 0.016 0.023
+2026-07-06 12:32:01,365 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_install on ['MuK Backend Theme'] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:32:01,367 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: User #2 triggered module installation 
+2026-07-06 12:32:01,373 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.button_install on ['MuK Backend Theme'] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:32:01,775 11204 WARNING helpdesk18 odoo.http: You try to install module "muk_web_theme" that depends on module "muk_web_dialog".
+But the latter module is not available in your system. 
+2026-07-06 12:32:01,776 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:01] "POST /web/dataset/call_button/ir.module.module/button_immediate_install HTTP/1.1" 200 - 10 0.013 0.414
+2026-07-06 12:32:31,004 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:31] "POST /web/dataset/call_kw/base.module.update/onchange HTTP/1.1" 200 - 1 0.004 0.070
+2026-07-06 12:32:32,439 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:32] "POST /web/dataset/call_kw/base.module.update/web_save HTTP/1.1" 200 - 3 0.051 0.028
+2026-07-06 12:32:32,473 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:32:35,445 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:35] "POST /web/dataset/call_button/base.module.update/update_module HTTP/1.1" 200 - 1752 1.133 1.860
+2026-07-06 12:32:37,596 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_install on ['MuK Backend Theme'] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:32:37,596 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: User #2 triggered module installation 
+2026-07-06 12:32:37,599 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.button_install on ['MuK Backend Theme'] to user kavita.nbc.9876@gmail.com #2 via 127.0.0.1 
+2026-07-06 12:32:38,099 11204 INFO helpdesk18 odoo.modules.loading: loading 1 modules... 
+2026-07-06 12:32:38,247 11204 INFO helpdesk18 odoo.modules.loading: 1 modules loaded in 0.15s, 0 queries (+0 extra) 
+2026-07-06 12:32:38,456 11204 INFO helpdesk18 odoo.modules.loading: updating modules list 
+2026-07-06 12:32:38,459 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2026-07-06 12:32:40,137 11204 INFO helpdesk18 odoo.modules.loading: loading 33 modules... 
+2026-07-06 12:32:40,287 11204 INFO helpdesk18 odoo.modules.loading: 33 modules loaded in 0.15s, 0 queries (+0 extra) 
+2026-07-06 12:32:40,290 11204 INFO helpdesk18 odoo.modules.loading: loading 38 modules... 
+2026-07-06 12:32:40,291 11204 INFO helpdesk18 odoo.modules.loading: Loading module muk_web_dialog (10/38) 
+2026-07-06 12:32:40,783 11204 INFO helpdesk18 odoo.modules.registry: module muk_web_dialog: creating or updating database tables 
+2026-07-06 12:32:41,264 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_dialog/views/res_users.xml 
+2026-07-06 12:32:41,581 11204 INFO helpdesk18 odoo.modules.loading: Module muk_web_dialog loaded in 1.29s, 89 queries (+89 other) 
+2026-07-06 12:32:41,582 11204 INFO helpdesk18 odoo.modules.loading: Loading module muk_web_appsbar (15/38) 
+2026-07-06 12:32:41,935 11204 INFO helpdesk18 odoo.modules.registry: module muk_web_appsbar: creating or updating database tables 
+2026-07-06 12:32:42,140 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_appsbar/templates/webclient.xml 
+2026-07-06 12:32:42,199 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_appsbar/views/res_users.xml 
+2026-07-06 12:32:42,240 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_appsbar/views/res_config_settings.xml 
+2026-07-06 12:32:42,391 11204 INFO helpdesk18 odoo.modules.loading: Module muk_web_appsbar loaded in 0.81s, 138 queries (+138 other) 
+2026-07-06 12:32:42,391 11204 INFO helpdesk18 odoo.modules.loading: Loading module muk_web_chatter (25/38) 
+2026-07-06 12:32:42,624 11204 INFO helpdesk18 odoo.modules.registry: module muk_web_chatter: creating or updating database tables 
+2026-07-06 12:32:42,780 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_chatter/views/res_users.xml 
+2026-07-06 12:32:42,856 11204 INFO helpdesk18 odoo.modules.loading: Module muk_web_chatter loaded in 0.47s, 89 queries (+89 other) 
+2026-07-06 12:32:42,856 11204 INFO helpdesk18 odoo.modules.loading: Loading module muk_web_colors (26/38) 
+2026-07-06 12:32:43,249 11204 INFO helpdesk18 odoo.modules.registry: module muk_web_colors: creating or updating database tables 
+2026-07-06 12:32:45,241 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_colors/templates/webclient.xml 
+2026-07-06 12:32:45,273 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_colors/views/res_config_settings.xml 
+2026-07-06 12:32:45,359 11204 INFO helpdesk18 odoo.modules.loading: Module muk_web_colors loaded in 2.50s, 78 queries (+78 other) 
+2026-07-06 12:32:45,359 11204 INFO helpdesk18 odoo.modules.loading: Loading module muk_web_theme (31/38) 
+2026-07-06 12:32:45,669 11204 INFO helpdesk18 odoo.modules.registry: module muk_web_theme: creating or updating database tables 
+2026-07-06 12:32:45,845 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_theme/templates/web_layout.xml 
+2026-07-06 12:32:45,878 11204 INFO helpdesk18 odoo.modules.loading: loading muk_web_theme/views/res_config_settings.xml 
+2026-07-06 12:32:46,177 11204 INFO helpdesk18 odoo.modules.loading: Module muk_web_theme loaded in 0.82s, 107 queries (+107 other) 
+2026-07-06 12:32:46,177 11204 INFO helpdesk18 odoo.modules.loading: 38 modules loaded in 5.89s, 501 queries (+501 extra) 
+2026-07-06 12:32:47,242 11204 INFO helpdesk18 odoo.modules.loading: Modules loaded. 
+2026-07-06 12:32:47,251 11204 INFO helpdesk18 odoo.modules.registry: Registry changed, signaling through the database 
+2026-07-06 12:32:47,253 11204 INFO helpdesk18 odoo.modules.registry: Registry loaded in 9.347s 
+2026-07-06 12:32:47,253 11204 INFO helpdesk18 odoo.addons.base.models.ir_module: getting next ir.actions.todo() 
+2026-07-06 12:32:47,275 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:47] "POST /web/dataset/call_button/ir.module.module/button_immediate_install HTTP/1.1" 200 - 2991 2.300 7.396
+2026-07-06 12:32:47,487 11204 INFO helpdesk18 odoo.addons.base.models.ir_http: Generating routing map for key None 
+2026-07-06 12:32:48,318 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) starting 
+2026-07-06 12:32:48,343 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) done in 0.024s 
+2026-07-06 12:32:48,351 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) processed 0 records, 0 records remaining 
+2026-07-06 12:32:48,360 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) completed 
+2026-07-06 12:32:48,375 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) starting 
+2026-07-06 12:32:48,398 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) done in 0.024s 
+2026-07-06 12:32:48,402 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) processed 0 records, 0 records remaining 
+2026-07-06 12:32:48,408 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) completed 
+2026-07-06 12:32:50,604 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:50] "GET /odoo HTTP/1.1" 200 - 96 0.118 3.004
+2026-07-06 12:32:51,234 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:51] "GET /web/webclient/translations/fa436b5a6e956fef226be0cceb4b81d5f486723d?lang=en_US HTTP/1.1" 200 - 1 0.002 0.018
+2026-07-06 12:32:51,315 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:32:51] "GET /web/manifest.webmanifest HTTP/1.1" 200 - 9 0.038 0.016
+2026-07-06 12:33:06,575 11204 INFO helpdesk18 odoo.addons.base.models.assetsbundle: Generating a new asset bundle attachment /web/assets/9c618ff/web.assets_web.min.css (id:222) 
+2026-07-06 12:33:06,578 11204 INFO helpdesk18 odoo.addons.base.models.assetsbundle: Deleting attachments [216] (matching /web/assets/_______/web.assets_web.min.css) because it was replaced with /web/assets/9c618ff/web.assets_web.min.css 
+2026-07-06 12:33:06,784 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:06] "GET /web/assets/9c618ff/web.assets_web.min.css HTTP/1.1" 200 - 16 0.175 15.714
+2026-07-06 12:33:23,528 11204 INFO helpdesk18 odoo.addons.base.models.assetsbundle: Generating a new asset bundle attachment /web/assets/17b624f/web.assets_web_print.min.css (id:223) 
+2026-07-06 12:33:23,537 11204 INFO helpdesk18 odoo.addons.base.models.assetsbundle: Deleting attachments [217] (matching /web/assets/_______/web.assets_web_print.min.css) because it was replaced with /web/assets/17b624f/web.assets_web_print.min.css 
+2026-07-06 12:33:23,607 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:23] "GET /web/assets/17b624f/web.assets_web_print.min.css HTTP/1.1" 200 - 10 0.134 16.538
+2026-07-06 12:33:31,488 11204 INFO helpdesk18 odoo.addons.base.models.assetsbundle: Generating a new asset bundle attachment /web/assets/6c7c405/web.assets_web.min.js (id:224) 
+2026-07-06 12:33:31,490 11204 INFO helpdesk18 odoo.addons.base.models.assetsbundle: Deleting attachments [218] (matching /web/assets/_______/web.assets_web.min.js) because it was replaced with /web/assets/6c7c405/web.assets_web.min.js 
+2026-07-06 12:33:33,200 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:33] "GET /web/assets/6c7c405/web.assets_web.min.js HTTP/1.1" 200 - 13 0.058 42.227
+2026-07-06 12:33:34,121 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 4 0.004 0.031
+2026-07-06 12:33:34,507 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "POST /web/action/load HTTP/1.1" 200 - 7 0.017 0.051
+2026-07-06 12:33:34,520 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 9 0.021 0.061
+2026-07-06 12:33:34,538 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "GET /web/image?model=res.company&field=appbar_image&id=1 HTTP/1.1" 200 - 10 0.043 0.043
+2026-07-06 12:33:34,619 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "GET /web/image/res.company/1/favicon HTTP/1.1" 200 - 5 0.009 0.059
+2026-07-06 12:33:34,660 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.001 0.050
+2026-07-06 12:33:34,665 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Total menus loaded: 139 
+2026-07-06 12:33:34,669 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Root apps found: 6 
+2026-07-06 12:33:34,669 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Home (id=71) 
+2026-07-06 12:33:34,669 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: fa fa-home,#875A7B,#FFFFFF 
+2026-07-06 12:33:34,670 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: False 
+2026-07-06 12:33:34,670 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: False 
+2026-07-06 12:33:34,671 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Home (icon_data keys: ['icon_class', 'icon_color', 'background_color']) 
+2026-07-06 12:33:34,671 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Discuss (id=72) 
+2026-07-06 12:33:34,672 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: mail,static/description/icon.png 
+2026-07-06 12:33:34,672 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 12:33:34,672 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 12:33:34,673 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Discuss (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 12:33:34,673 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Helpdesk (id=112) 
+2026-07-06 12:33:34,673 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: helpdesk_mgmt,static/description/icon.png 
+2026-07-06 12:33:34,674 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 12:33:34,674 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 12:33:34,674 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Helpdesk (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 12:33:34,674 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Contacts (id=126) 
+2026-07-06 12:33:34,674 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: contacts,static/description/icon.png 
+2026-07-06 12:33:34,674 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 12:33:34,675 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 12:33:34,675 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Contacts (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 12:33:34,675 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Apps (id=15) 
+2026-07-06 12:33:34,678 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: base,static/description/modules.png 
+2026-07-06 12:33:34,678 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Apps (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Settings (id=1) 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: base,static/description/settings.png 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Settings (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 12:33:34,680 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Returning 6 apps 
+2026-07-06 12:33:34,723 11204 INFO helpdesk18 odoo.addons.home-theme.controllers.main: Found 0 custom sequences for user Mitchell Admin (id=2) 
+2026-07-06 12:33:34,742 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "POST /web/home_screen HTTP/1.1" 200 - 16 0.074 0.096
+2026-07-06 12:33:34,756 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:34] "POST /mail/data HTTP/1.1" 200 - 40 0.141 0.081
+2026-07-06 12:33:36,258 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 12:33:36] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.001 0.014
+2026-07-06 12:33:46,243 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) starting 
+2026-07-06 12:33:46,292 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) done in 0.048s 
+2026-07-06 12:33:46,298 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) processed 0 records, 0 records remaining 
+2026-07-06 12:33:46,307 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) completed 
+2026-07-06 12:33:46,329 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) starting 
+2026-07-06 12:33:46,339 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) done in 0.010s 
+2026-07-06 12:33:46,343 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) processed 0 records, 0 records remaining 
+2026-07-06 12:33:46,349 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) completed 
+2026-07-06 12:33:46,363 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) starting 
+2026-07-06 12:33:46,372 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) done in 0.008s 
+2026-07-06 12:33:46,377 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) processed 0 records, 0 records remaining 
+2026-07-06 12:33:46,382 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) completed 
+2026-07-06 12:33:48,443 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) starting 
+2026-07-06 12:33:48,595 11204 INFO helpdesk18 odoo.addons.base.models.ir_attachment: filestore gc 8 checked, 3 removed 
+2026-07-06 12:33:48,757 11204 INFO helpdesk18 odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2026-07-06 12:33:48,793 11204 INFO helpdesk18 odoo.addons.base.models.res_users: GC 'res.users.apikeys' delete 0 entries 
+2026-07-06 12:33:48,819 11204 INFO helpdesk18 odoo.addons.base.models.res_device: GC device logs delete 2 entries 
+2026-07-06 12:33:48,824 11204 INFO helpdesk18 odoo.addons.base.models.res_device: GC device logs delete 0 entries 
+2026-07-06 12:33:48,849 11204 INFO helpdesk18 odoo.models.unlink: User #1 deleted base.module.update records with IDs: [1, 2] 
+2026-07-06 12:33:48,869 11204 INFO helpdesk18 odoo.models.unlink: User #1 deleted base.language.install records with IDs: [1] 
+2026-07-06 12:33:48,937 11204 INFO helpdesk18 odoo.addons.base.models.res_users: GC 'auth_totp.device' delete 0 entries 
+2026-07-06 12:33:49,209 11204 INFO helpdesk18 odoo.models.unlink: User #1 deleted mail.compose.message records with IDs: [1, 2] 
+2026-07-06 12:33:49,308 11204 INFO helpdesk18 odoo.addons.sms.models.sms_sms: GC'd 0 sms marked for deletion 
+2026-07-06 12:33:49,398 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) done in 0.956s 
+2026-07-06 12:33:49,408 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) processed 0 records, 0 records remaining 
+2026-07-06 12:33:49,418 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) completed 
+2026-07-06 13:32:46,893 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) starting 
+2026-07-06 13:32:47,057 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) done in 0.141s 
+2026-07-06 13:32:47,079 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) processed 0 records, 0 records remaining 
+2026-07-06 13:32:47,139 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) completed 
+2026-07-06 13:32:47,164 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) starting 
+2026-07-06 13:32:47,218 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) done in 0.054s 
+2026-07-06 13:32:47,222 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) processed 0 records, 0 records remaining 
+2026-07-06 13:32:47,244 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) completed 
+2026-07-06 13:33:48,284 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) starting 
+2026-07-06 13:33:48,492 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) done in 0.207s 
+2026-07-06 13:33:48,498 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) processed 0 records, 0 records remaining 
+2026-07-06 13:33:48,506 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) completed 
+2026-07-06 13:33:48,533 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) starting 
+2026-07-06 13:33:48,642 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) done in 0.108s 
+2026-07-06 13:33:48,646 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) processed 0 records, 0 records remaining 
+2026-07-06 13:33:48,650 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) completed 
+2026-07-06 13:33:48,672 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) starting 
+2026-07-06 13:33:48,678 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) done in 0.006s 
+2026-07-06 13:33:48,681 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) processed 0 records, 0 records remaining 
+2026-07-06 13:33:48,689 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) completed 
+2026-07-06 13:37:01,197 11204 INFO helpdesk18 odoo.addons.base.models.res_device: User 2 inserts device log (34fi1FjyOvBypkSeEhSdF9mpvg5Yn0AkgMmPlT6tfj) 
+2026-07-06 13:37:01,689 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:01] "GET /odoo/action-89 HTTP/1.1" 200 - 19 0.141 0.555
+2026-07-06 13:37:03,123 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 3 0.032 0.760
+2026-07-06 13:37:03,189 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "GET /web/image?model=res.company&field=appbar_image&id=1 HTTP/1.1" 304 - 5 0.081 0.495
+2026-07-06 13:37:03,247 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 9 0.123 0.514
+2026-07-06 13:37:03,253 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "POST /web/action/load HTTP/1.1" 200 - 6 0.137 0.524
+2026-07-06 13:37:03,274 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.006 0.081
+2026-07-06 13:37:03,299 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Total menus loaded: 139 
+2026-07-06 13:37:03,302 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Root apps found: 6 
+2026-07-06 13:37:03,308 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Home (id=71) 
+2026-07-06 13:37:03,308 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: fa fa-home,#875A7B,#FFFFFF 
+2026-07-06 13:37:03,316 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: False 
+2026-07-06 13:37:03,322 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: False 
+2026-07-06 13:37:03,323 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Home (icon_data keys: ['icon_class', 'icon_color', 'background_color']) 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Discuss (id=72) 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: mail,static/description/icon.png 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Discuss (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Helpdesk (id=112) 
+2026-07-06 13:37:03,325 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: helpdesk_mgmt,static/description/icon.png 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Helpdesk (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Contacts (id=126) 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: contacts,static/description/icon.png 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Contacts (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Apps (id=15) 
+2026-07-06 13:37:03,326 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: base,static/description/modules.png 
+2026-07-06 13:37:03,327 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 13:37:03,328 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Apps (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Processing app: Settings (id=1) 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon: base,static/description/settings.png 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data: True 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu:   web_icon_data_mimetype: image/png 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Added app: Settings (icon_data keys: ['icon_class', 'icon_color', 'background_color', 'web_icon_data', 'web_icon_data_mimetype']) 
+2026-07-06 13:37:03,329 11204 INFO helpdesk18 odoo.addons.home-theme.models.ir_ui_menu: Returning 6 apps 
+2026-07-06 13:37:03,349 11204 INFO helpdesk18 odoo.addons.home-theme.controllers.main: Found 0 custom sequences for user Mitchell Admin (id=2) 
+2026-07-06 13:37:03,357 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "POST /web/home_screen HTTP/1.1" 200 - 5 0.019 0.068
+2026-07-06 13:37:03,626 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:03] "POST /mail/data HTTP/1.1" 200 - 28 0.363 0.614
+2026-07-06 13:37:04,878 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:04] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.000 0.027
+2026-07-06 13:37:15,669 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:15] "POST /web/action/load HTTP/1.1" 200 - 9 0.053 0.059
+2026-07-06 13:37:16,142 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:16] "POST /web/dataset/call_kw/helpdesk.ticket.team/get_views HTTP/1.1" 200 - 63 0.124 0.310
+2026-07-06 13:37:16,205 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:16] "POST /web/dataset/call_kw/helpdesk.ticket.team/web_search_read HTTP/1.1" 200 - 16 0.018 0.033
+2026-07-06 13:37:16,258 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:16] "POST /web/dataset/call_kw/helpdesk.ticket.team/retrieve_dashboard HTTP/1.1" 200 - 7 0.006 0.013
+2026-07-06 13:37:24,045 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "POST /web/action/load HTTP/1.1" 200 - 9 0.000 0.011
+2026-07-06 13:37:24,189 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "POST /web/dataset/call_kw/helpdesk.ticket/get_views HTTP/1.1" 200 - 44 0.036 0.080
+2026-07-06 13:37:24,210 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "POST /web/dataset/call_kw/helpdesk.ticket/read_progress_bar HTTP/1.1" 200 - 3 0.005 0.008
+2026-07-06 13:37:24,243 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "POST /web/dataset/call_kw/helpdesk.ticket/web_read_group HTTP/1.1" 200 - 5 0.034 0.012
+2026-07-06 13:37:24,310 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 18 0.031 0.031
+2026-07-06 13:37:24,316 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 14 0.042 0.023
+2026-07-06 13:37:24,459 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:37:24] "GET /web/image/res.users/2/avatar_128 HTTP/1.1" 304 - 9 0.026 0.030
+2026-07-06 13:51:49,584 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:51:49] "GET /odoo/my-helpdesk-tickets HTTP/1.1" 200 - 18 0.082 0.524
+2026-07-06 13:51:51,132 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:51:51] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 3 0.017 0.106
+2026-07-06 13:51:51,389 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:51:51] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.000 0.013
+2026-07-06 13:51:52,493 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:51:52] "POST /mail/data HTTP/1.1" 200 - 28 0.094 0.137
+2026-07-06 13:51:53,254 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:51:53] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.000 0.016
+2026-07-06 13:56:46,369 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 9 0.020 0.179
+2026-07-06 13:56:46,372 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "GET /web/image?model=res.company&field=appbar_image&id=1 HTTP/1.1" 304 - 5 0.042 0.151
+2026-07-06 13:56:46,449 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/action/load HTTP/1.1" 200 - 10 0.114 0.154
+2026-07-06 13:56:46,541 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/get_views HTTP/1.1" 200 - 3 0.003 0.079
+2026-07-06 13:56:46,577 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/read_progress_bar HTTP/1.1" 200 - 3 0.006 0.012
+2026-07-06 13:56:46,591 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/web_read_group HTTP/1.1" 200 - 4 0.017 0.013
+2026-07-06 13:56:46,653 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 17 0.019 0.031
+2026-07-06 13:56:46,669 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 14 0.035 0.026
+2026-07-06 13:56:46,856 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "GET /web/image/res.users/2/avatar_128 HTTP/1.1" 304 - 9 0.015 0.033

@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . /mnt/extra-addons
+COPY custom_addons /mnt/extra-addons
 
 USER odoo
