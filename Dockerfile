@@ -14,9 +14,9 @@ COPY odoo.conf /etc/odoo/odoo.conf
 
 USER odoo
 
-CMD ["odoo", \
-"--config=/etc/odoo/odoo.conf", \
-"--db_host=${PGHOST}", \
-"--db_port=${PGPORT}", \
-"--db_user=${PGUSER}", \
-"--db_password=${PGPASSWORD}"]
+CMD sh -c 'odoo \
+  --config=/etc/odoo/odoo.conf \
+  --db_host="$PGHOST" \
+  --db_port="$PGPORT" \
+  --db_user="$PGUSER" \
+  --db_password="$PGPASSWORD"'

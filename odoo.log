@@ -3140,3 +3140,54 @@ But the latter module is not available in your system.
 2026-07-06 13:56:46,653 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 17 0.019 0.031
 2026-07-06 13:56:46,669 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 14 0.035 0.026
 2026-07-06 13:56:46,856 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 13:56:46] "GET /web/image/res.users/2/avatar_128 HTTP/1.1" 304 - 9 0.015 0.033
+2026-07-06 14:32:49,076 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) starting 
+2026-07-06 14:32:49,259 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) done in 0.158s 
+2026-07-06 14:32:49,287 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) processed 0 records, 0 records remaining 
+2026-07-06 14:32:49,343 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Notification: Notify scheduled messages' (8) completed 
+2026-07-06 14:32:49,382 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) starting 
+2026-07-06 14:32:49,464 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) done in 0.082s 
+2026-07-06 14:32:49,471 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) processed 0 records, 0 records remaining 
+2026-07-06 14:32:49,479 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Mail: Email Queue Manager' (3) completed 
+2026-07-06 14:33:50,516 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) starting 
+2026-07-06 14:33:50,607 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) done in 0.090s 
+2026-07-06 14:33:50,612 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) processed 0 records, 0 records remaining 
+2026-07-06 14:33:50,621 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'SMS: SMS Queue Manager' (14) completed 
+2026-07-06 14:33:50,630 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) starting 
+2026-07-06 14:33:50,666 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) done in 0.036s 
+2026-07-06 14:33:50,668 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) processed 0 records, 0 records remaining 
+2026-07-06 14:33:50,671 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Snailmail: process letters queue' (15) completed 
+2026-07-06 14:33:50,682 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) starting 
+2026-07-06 14:33:50,688 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) done in 0.005s 
+2026-07-06 14:33:50,691 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) processed 0 records, 0 records remaining 
+2026-07-06 14:33:50,694 11204 INFO helpdesk18 odoo.addons.base.models.ir_cron: Job 'Partner Autocomplete: Sync with remote DB' (13) completed 
+2026-07-06 14:45:14,800 11204 INFO helpdesk18 odoo.addons.base.models.res_device: User 2 inserts device log (34fi1FjyOvBypkSeEhSdF9mpvg5Yn0AkgMmPlT6tfj) 
+2026-07-06 14:45:14,812 11204 INFO helpdesk18 odoo.addons.base.models.res_device: User 2 inserts device log (34fi1FjyOvBypkSeEhSdF9mpvg5Yn0AkgMmPlT6tfj) 
+2026-07-06 14:45:14,812 11204 INFO helpdesk18 odoo.addons.base.models.res_device: User 2 inserts device log (34fi1FjyOvBypkSeEhSdF9mpvg5Yn0AkgMmPlT6tfj) 
+2026-07-06 14:45:14,813 11204 INFO helpdesk18 odoo.addons.base.models.res_device: User 2 inserts device log (34fi1FjyOvBypkSeEhSdF9mpvg5Yn0AkgMmPlT6tfj) 
+2026-07-06 14:45:14,814 11204 INFO helpdesk18 odoo.addons.base.models.res_device: User 2 inserts device log (34fi1FjyOvBypkSeEhSdF9mpvg5Yn0AkgMmPlT6tfj) 
+2026-07-06 14:45:15,280 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "GET /web/image?model=res.company&field=appbar_image&id=1 HTTP/1.1" 304 - 6 0.290 0.865
+2026-07-06 14:45:15,356 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 4 0.167 1.146
+2026-07-06 14:45:15,388 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 10 0.360 0.943
+2026-07-06 14:45:15,388 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "POST /web/action/load HTTP/1.1" 200 - 11 0.410 0.745
+2026-07-06 14:45:15,589 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "POST /mail/data HTTP/1.1" 200 - 29 0.431 0.863
+2026-07-06 14:45:15,682 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.006 0.290
+2026-07-06 14:45:15,841 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "POST /web/dataset/call_kw/helpdesk.ticket/get_views HTTP/1.1" 200 - 3 0.016 0.424
+2026-07-06 14:45:15,918 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "POST /web/dataset/call_kw/helpdesk.ticket/read_progress_bar HTTP/1.1" 200 - 3 0.033 0.016
+2026-07-06 14:45:15,926 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:15] "POST /web/dataset/call_kw/helpdesk.ticket/web_read_group HTTP/1.1" 200 - 4 0.025 0.031
+2026-07-06 14:45:16,080 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:16] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 17 0.095 0.049
+2026-07-06 14:45:16,085 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:16] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 14 0.097 0.047
+2026-07-06 14:45:18,248 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 14:45:18] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.002 0.046
+2026-07-06 15:02:49,456 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:02:49] "GET /web/image/res.users/2/avatar_128 HTTP/1.1" 304 - 9 0.129 0.430
+2026-07-06 15:21:36,466 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:36] "GET /web/image?model=res.company&field=appbar_image&id=1 HTTP/1.1" 304 - 5 0.097 0.752
+2026-07-06 15:21:36,574 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:36] "POST /web/action/load HTTP/1.1" 200 - 10 0.244 0.677
+2026-07-06 15:21:36,593 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:36] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 9 0.393 0.588
+2026-07-06 15:21:36,895 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:36] "POST /mail/data HTTP/1.1" 200 - 28 0.459 0.708
+2026-07-06 15:21:36,896 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:36] "POST /web/dataset/call_kw/helpdesk.ticket/get_views HTTP/1.1" 200 - 3 0.021 0.268
+2026-07-06 15:21:37,028 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:37] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 3 0.156 1.354
+2026-07-06 15:21:37,046 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:37] "POST /web/dataset/call_kw/helpdesk.ticket/read_progress_bar HTTP/1.1" 200 - 3 0.029 0.022
+2026-07-06 15:21:37,055 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:37] "POST /web/dataset/call_kw/helpdesk.ticket/web_read_group HTTP/1.1" 200 - 4 0.026 0.030
+2026-07-06 15:21:37,118 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:37] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.002 0.049
+2026-07-06 15:21:37,204 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:37] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 14 0.070 0.057
+2026-07-06 15:21:37,205 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:37] "POST /web/dataset/call_kw/helpdesk.ticket/web_search_read HTTP/1.1" 200 - 17 0.073 0.061
+2026-07-06 15:21:39,145 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:21:39] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.002 0.281
+2026-07-06 15:24:02,662 11204 INFO helpdesk18 werkzeug: 127.0.0.1 - - [06/Jul/2026 15:24:02] "GET /web/image/res.users/2/avatar_128 HTTP/1.1" 304 - 9 0.097 0.579
