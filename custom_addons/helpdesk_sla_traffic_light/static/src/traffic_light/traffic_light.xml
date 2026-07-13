@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="helpdesk_sla_traffic_light.SlaTrafficLightField">
+        <span
+            t-att-class="'o_sla_dot d-inline-block rounded-circle ' + dotClass"
+            t-att-title="tooltipText"
+            style="width: 12px; height: 12px;"
+        />
+    </t>
+</templates>
