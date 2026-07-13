@@ -10,12 +10,14 @@
     "depends": [
         "helpdesk_mgmt",
         "helpdesk_mgmt_sla",
+        "board",
     ],
     "data": [
         "security/ir.model.access.csv",
         "security/helpdesk_sla_traffic_light_security.xml",
         "views/helpdesk_ticket_views.xml",
         "views/helpdesk_ticket_report_aht_views.xml",
+        "views/helpdesk_sla_dashboard_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
