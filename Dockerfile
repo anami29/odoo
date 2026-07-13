@@ -21,4 +21,5 @@ CMD sh -c 'odoo \
   --db_user="$PGUSER" \
   --db_password="$PGPASSWORD" \
   --http-interface=0.0.0.0 \
-  --http-port=${PORT:-8069}'
+  --http-port=${PORT:-8069} \
+  -d helpdesktesting-01 -u web'
