@@ -1,20 +1,16 @@
+import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
-import { Component } from "@odoo/owl";
-import { formatDateTime } from "@web/core/l10n/dates";
-import { localization } from "@web/core/l10n/localization";
 import { _t } from "@web/core/l10n/translation";
 
-const { DateTime } = luxon;
-
-export class SlaTrafficLightField extends Component {
-    static template = "helpdesk_sla_traffic_light.SlaTrafficLightField";
+export class SlaTrafficLightWidget extends Component {
+    static template = "helpdesk_sla_traffic_light.SlaTrafficLightWidget";
     static props = {
         ...standardFieldProps,
     };
 
     get status() {
-        return this.props.record.data[this.props.name];
+        return this.props.record.data.sla_status;
     }
 
     get deadline() {
@@ -22,67 +18,42 @@ export class SlaTrafficLightField extends Component {
     }
 
     get tooltipText() {
+        let deadline = this.deadline;
         const status = this.status;
-        const deadline = this.deadline;
+        if (status === 'no_sla' || !deadline) {
+            return _t("No SLA");
+        }
+        
+        if (typeof deadline === 'string') {
+            let parsed = luxon.DateTime.fromISO(deadline);
+            if (!parsed.isValid) {
+                parsed = luxon.DateTime.fromSQL(deadline);
+            }
+            deadline = parsed;
+        }
 
-        if (status === "no_sla") {
+        if (!deadline || !deadline.isValid) {
             return _t("No SLA");
         }
 
-        if (!deadline) {
-            if (status === "expired") {
-                return _t("SLA Breached");
-            }
-            return _t("SLA Active");
-        }
+        const now = luxon.DateTime.now();
+        const formattedDeadline = deadline.toFormat("yyyy-MM-dd HH:mm:ss");
 
-        // Format deadline
-        const formattedDeadline = formatDateTime(deadline, { format: localization.dateFormat + " HH:mm:ss" });
-
-        // Calculate remaining time
-        const now = DateTime.local();
-        const diff = deadline.diff(now, ["days", "hours", "minutes"]);
-        
-        if (diff.as("milliseconds") <= 0) {
-            return _t("SLA Breached (Deadline: %s)", formattedDeadline);
-        }
-
-        // Format remaining string
-        let remainingStr = "";
-        const days = Math.floor(diff.days);
-        const hours = Math.floor(diff.hours);
-        const minutes = Math.floor(diff.minutes);
-
-        if (days > 0) {
-            remainingStr += _t("%s days ", days);
-        }
-        if (hours > 0 || days > 0) {
-            remainingStr += _t("%s hours ", hours);
-        }
-        remainingStr += _t("%s minutes", minutes);
-
-        return _t("Deadline: %s (Remaining: %s)", formattedDeadline, remainingStr);
-    }
-
-    get dotClass() {
-        const status = this.status;
-        switch (status) {
-            case "expired":
-                return "bg-danger o_sla_dot_red";
-            case "warning":
-                return "bg-warning o_sla_dot_amber";
-            case "on_time":
-                return "bg-success o_sla_dot_green";
-            case "no_sla":
-            default:
-                return "bg-secondary o_sla_dot_grey";
+        if (deadline < now) {
+            const diff = now.diff(deadline, ["hours", "minutes"]);
+            const hours = Math.floor(diff.hours);
+            const minutes = Math.floor(diff.minutes);
+            return `${_t("Deadline:")} ${formattedDeadline} (${_t("expired")} ${hours}h ${minutes}m ${_t("ago")})`;
+        } else {
+            const diff = deadline.diff(now, ["hours", "minutes"]);
+            const hours = Math.floor(diff.hours);
+            const minutes = Math.floor(diff.minutes);
+            return `${_t("Deadline:")} ${formattedDeadline} (${_t("remaining:")} ${hours}h ${minutes}m)`;
         }
     }
 }
 
-export const slaTrafficLightField = {
-    component: SlaTrafficLightField,
+registry.category("fields").add("sla_traffic_light", {
+    component: SlaTrafficLightWidget,
     supportedTypes: ["selection"],
-};
-
-registry.category("fields").add("sla_traffic_light", slaTrafficLightField);
+});

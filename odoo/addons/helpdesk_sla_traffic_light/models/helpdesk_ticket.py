@@ -1,4 +1,4 @@
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from datetime import timedelta
 from odoo import api, fields, models
@@ -8,7 +8,7 @@ class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
     sla_status = fields.Selection(
-        selection=[
+        [
             ("expired", "SLA Expired"),
             ("warning", "SLA Warning"),
             ("on_time", "SLA On Time"),
@@ -17,24 +17,28 @@ class HelpdeskTicket(models.Model):
         string="SLA Status",
         compute="_compute_sla_status",
         search="_search_sla_status",
-        readonly=True,
     )
 
     resolution_hours = fields.Float(
         string="Resolution Time (Hours)",
-        compute="_compute_handling_times",
+        compute="_compute_handling_hours",
         store=True,
-        readonly=True,
+        group_operator="avg",
     )
-
     assign_hours = fields.Float(
         string="First Assignment Time (Hours)",
-        compute="_compute_handling_times",
+        compute="_compute_handling_hours",
         store=True,
-        readonly=True,
+        group_operator="avg",
     )
 
-    @api.depends("sla_expired", "sla_deadline", "ticket_sla_ids.state", "ticket_sla_ids.deadline")
+    @api.depends(
+        "team_sla",
+        "sla_expired",
+        "sla_deadline",
+        "ticket_sla_ids.state",
+        "ticket_sla_ids.deadline",
+    )
     def _compute_sla_status(self):
         warning_hours = float(
             self.env["ir.config_parameter"]
@@ -43,12 +47,21 @@ class HelpdeskTicket(models.Model):
         )
         now = fields.Datetime.now()
         for ticket in self:
-            in_progress = ticket.ticket_sla_ids.filtered(lambda s: s.state == "in_progress")
             if not ticket.team_sla:
                 ticket.sla_status = "no_sla"
-            elif ticket.sla_expired:
+                continue
+
+            in_progress = ticket.ticket_sla_ids.filtered(
+                lambda s: s.state == "in_progress"
+            )
+
+            if ticket.sla_expired:
                 ticket.sla_status = "expired"
-            elif in_progress and ticket.sla_deadline and ticket.sla_deadline <= now + timedelta(hours=warning_hours):
+            elif (
+                in_progress
+                and ticket.sla_deadline
+                and ticket.sla_deadline <= now + timedelta(hours=warning_hours)
+            ):
                 ticket.sla_status = "warning"
             elif in_progress:
                 ticket.sla_status = "on_time"
@@ -56,102 +69,82 @@ class HelpdeskTicket(models.Model):
                 ticket.sla_status = "no_sla"
 
     def _search_sla_status(self, operator, value):
-        if operator not in ("=", "in", "!=", "not in"):
-            raise NotImplementedError("Operator not supported")
-
-        values = value if isinstance(value, list) else [value]
-        is_negative = operator in ("!=", "not in")
-
+        self.env.flush_all()
+        now = fields.Datetime.now()
         warning_hours = float(
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("helpdesk_sla_traffic_light.warning_hours", 4)
         )
-        now = fields.Datetime.now()
-        limit_time = now + timedelta(hours=warning_hours)
+        limit_datetime = now + timedelta(hours=warning_hours)
 
-        # Flush pending writes to the database before running raw SQL query
-        self.env["helpdesk.ticket"].flush_model()
-        self.env["helpdesk.ticket.sla"].flush_model()
-        self.env["helpdesk.ticket.team"].flush_model()
+        statuses = ["expired", "warning", "on_time", "no_sla"]
 
+        if isinstance(value, str):
+            val_list = [value]
+        elif isinstance(value, (list, tuple)):
+            val_list = list(value)
+        else:
+            val_list = []
+
+        if operator in ("=", "in"):
+            target_statuses = [v for v in val_list if v in statuses]
+        elif operator in ("!=", "not in"):
+            target_statuses = [v for v in statuses if v not in val_list]
+        else:
+            raise ValueError(f"Unsupported operator {operator}")
+
+        if not target_statuses:
+            return [("id", "=", False)]
+
+        # Run query to retrieve matching ticket IDs
         query = """
-            SELECT t.id,
-                   team.use_sla as team_sla,
-                   EXISTS(
-                       SELECT 1 FROM helpdesk_ticket_sla s 
-                       WHERE s.ticket_id = t.id 
-                         AND (s.state = 'expired' OR (s.state = 'in_progress' AND s.deadline < %s))
-                   ) AS expired,
-                   EXISTS(
-                       SELECT 1 FROM helpdesk_ticket_sla s 
-                       WHERE s.ticket_id = t.id 
-                         AND s.state = 'in_progress'
-                   ) AS has_in_progress,
-                   (
-                       SELECT MIN(s.deadline) FROM helpdesk_ticket_sla s 
-                       WHERE s.ticket_id = t.id 
-                         AND s.state = 'in_progress'
-                   ) AS min_deadline
+            SELECT t.id
             FROM helpdesk_ticket t
-            LEFT JOIN helpdesk_ticket_team team ON t.team_id = team.id
+            WHERE (
+                CASE
+                    WHEN NOT EXISTS (
+                        SELECT 1 FROM helpdesk_ticket_team tm
+                        WHERE tm.id = t.team_id AND tm.use_sla = TRUE
+                    ) THEN 'no_sla'
+                    WHEN EXISTS (
+                        SELECT 1 FROM helpdesk_ticket_sla s 
+                        WHERE s.ticket_id = t.id 
+                          AND (s.state = 'expired' OR (s.state = 'in_progress' AND s.deadline < %s))
+                    ) THEN 'expired'
+                    WHEN EXISTS (
+                        SELECT 1 FROM helpdesk_ticket_sla s 
+                        WHERE s.ticket_id = t.id 
+                          AND s.state = 'in_progress' 
+                          AND s.deadline <= %s
+                    ) THEN 'warning'
+                    WHEN EXISTS (
+                        SELECT 1 FROM helpdesk_ticket_sla s 
+                        WHERE s.ticket_id = t.id 
+                          AND s.state = 'in_progress'
+                    ) THEN 'on_time'
+                    ELSE 'no_sla'
+                END
+            ) IN %s
         """
-        self.env.cr.execute(query, [now])
-        rows = self.env.cr.dictfetchall()
-
-        matched_ids = []
-        for r in rows:
-            status = "no_sla"
-            if not r["team_sla"]:
-                status = "no_sla"
-            elif r["expired"]:
-                status = "expired"
-            elif r["has_in_progress"]:
-                if r["min_deadline"] and r["min_deadline"] <= limit_time:
-                    status = "warning"
-                else:
-                    status = "on_time"
-            else:
-                status = "no_sla"
-
-            if (status in values) != is_negative:
-                matched_ids.append(r["id"])
-
-        return [("id", "in", matched_ids)]
+        self.env.cr.execute(query, (now, limit_datetime, tuple(target_statuses)))
+        res = self.env.cr.fetchall()
+        ticket_ids = [r[0] for r in res]
+        return [("id", "in", ticket_ids)]
 
     @api.depends("closed_date", "assigned_date", "create_date")
-    def _compute_handling_times(self):
+    def _compute_handling_hours(self):
         for ticket in self:
-            if ticket.closed_date and ticket.create_date:
-                dt = ticket.closed_date - ticket.create_date
-                ticket.resolution_hours = dt.total_seconds() / 3600.0
+            if ticket.create_date and ticket.closed_date:
+                ticket.resolution_hours = (
+                    ticket.closed_date - ticket.create_date
+                ).total_seconds() / 3600.0
             else:
                 ticket.resolution_hours = False
 
-            if ticket.assigned_date and ticket.create_date:
-                dt = ticket.assigned_date - ticket.create_date
-                ticket.assign_hours = dt.total_seconds() / 3600.0
+            if ticket.create_date and ticket.assigned_date:
+                ticket.assign_hours = (
+                    ticket.assigned_date - ticket.create_date
+                ).total_seconds() / 3600.0
             else:
                 ticket.assign_hours = False
-
-
-class SpreadsheetDashboardHealer(models.AbstractModel):
-    _name = "spreadsheet.dashboard.healer"
-    _description = "Heals empty spreadsheet dashboards"
-
-    @api.model
-    def _register_hook(self):
-        super()._register_hook()
-        if "spreadsheet.dashboard" in self.env:
-            try:
-                dashboards = self.env["spreadsheet.dashboard"].search([])
-                for dash in dashboards:
-                    try:
-                        data = dash.spreadsheet_data
-                        if not data or not data.strip():
-                            dash.write({"spreadsheet_data": "{}"})
-                    except Exception:
-                        dash.write({"spreadsheet_data": "{}"})
-            except Exception:
-                pass
-

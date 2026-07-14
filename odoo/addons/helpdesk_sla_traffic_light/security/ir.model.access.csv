@@ -1,5 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_helpdesk_ticket_report_aht_manager,helpdesk.ticket.report.aht.manager,model_helpdesk_ticket_report_aht,helpdesk_mgmt.group_helpdesk_manager,1,1,1,1
 access_helpdesk_ticket_report_aht_user,helpdesk.ticket.report.aht.user,model_helpdesk_ticket_report_aht,helpdesk_mgmt.group_helpdesk_user,1,0,0,0
-access_helpdesk_ticket_report_aht_user_team,helpdesk.ticket.report.aht.user.team,model_helpdesk_ticket_report_aht,helpdesk_mgmt.group_helpdesk_user_team,1,0,0,0
-access_helpdesk_ticket_report_aht_user_personal,helpdesk.ticket.report.aht.user.personal,model_helpdesk_ticket_report_aht,helpdesk_mgmt.group_helpdesk_user_own,1,0,0,0
+access_helpdesk_ticket_report_aht_user_own,helpdesk.ticket.report.aht.user.own,model_helpdesk_ticket_report_aht,helpdesk_mgmt.group_helpdesk_user_own,1,0,0,0

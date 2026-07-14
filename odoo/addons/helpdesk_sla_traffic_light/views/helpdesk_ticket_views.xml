@@ -1,72 +1,93 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Inherit ticket list view to insert traffic light as first data column -->
-    <record id="inherit_helpdesk_ticket_view_tree" model="ir.ui.view">
-        <field name="name">inherit.helpdesk.ticket.view.list.traffic.light</field>
+    <!-- Ticket Tree View Inheritance -->
+    <record id="ticket_view_tree_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.list.inherit</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree" />
         <field name="arch" type="xml">
-            <!-- Add invisible fields needed by the OWL widget -->
-            <xpath expr="//list" position="inside">
-                <field name="sla_deadline" column_invisible="True" readonly="1" />
-                <field name="sla_expired" column_invisible="True" readonly="1" />
+            <!-- Insert traffic light as the first column before priority -->
+            <xpath expr="//field[@name='priority']" position="before">
+                <field name="sla_expired" column_invisible="True" />
+                <field name="sla_deadline" column_invisible="True" />
+                <field name="sla_status" widget="sla_traffic_light" />
             </xpath>
-            <!-- Insert traffic light as the first column -->
-            <xpath expr="//list/field[1]" position="before">
-                <field name="sla_status" widget="sla_traffic_light" string="SLA" readonly="1" />
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-danger">sla_expired</attribute>
             </xpath>
         </field>
     </record>
 
-    <!-- Inherit ticket kanban view to show same dot next to ticket number -->
-    <record id="inherit_helpdesk_ticket_view_kanban" model="ir.ui.view">
-        <field name="name">inherit.helpdesk.ticket.view.kanban.traffic.light</field>
+    <!-- Ticket Kanban View Inheritance -->
+    <record id="view_helpdesk_ticket_kanban_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.kanban.inherit</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_kanban" />
         <field name="arch" type="xml">
-            <!-- Add fields needed by the OWL widget -->
             <xpath expr="//kanban" position="inside">
-                <field name="sla_deadline" />
-                <field name="sla_expired" />
+                <field name="sla_status" invisible="1" />
+                <field name="sla_deadline" invisible="1" />
             </xpath>
-            <!-- Show dot next to ticket number -->
             <xpath expr="//field[@name='number']" position="before">
-                <field name="sla_status" widget="sla_traffic_light" class="me-1" readonly="1" />
+                <field name="sla_status" widget="sla_traffic_light" class="me-1" />
             </xpath>
         </field>
     </record>
 
-    <!-- Inherit ticket form view to show status badge in header/title area -->
-    <record id="inherit_helpdesk_ticket_view_form" model="ir.ui.view">
-        <field name="name">inherit.helpdesk.ticket.view.form.traffic.light</field>
+    <!-- Ticket Form View Inheritance -->
+    <record id="ticket_view_form_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.inherit</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('oe_title')]" position="inside">
-                <field name="sla_status" widget="badge" 
-                       decoration-danger="sla_status == 'expired'" 
-                       decoration-warning="sla_status == 'warning'" 
-                       decoration-success="sla_status == 'on_time'" 
-                       decoration-muted="sla_status == 'no_sla'"
-                       readonly="1" />
+            <xpath expr="//div[@class='oe_title']/h1" position="after">
+                <div class="mb-2">
+                    <field
+                        name="sla_status"
+                        widget="badge"
+                        decoration-danger="sla_status == 'expired'"
+                        decoration-warning="sla_status == 'warning'"
+                        decoration-success="sla_status == 'on_time'"
+                        decoration-muted="sla_status == 'no_sla'"
+                    />
+                </div>
             </xpath>
         </field>
     </record>
 
-    <!-- Inherit ticket search view to add SLA status filters -->
-    <record id="inherit_helpdesk_ticket_view_search" model="ir.ui.view">
-        <field name="name">inherit.helpdesk.ticket.view.search.traffic.light</field>
+    <!-- Ticket Search View Inheritance -->
+    <record id="helpdesk_ticket_view_search_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.search.inherit</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.helpdesk_ticket_view_search" />
         <field name="arch" type="xml">
-            <xpath expr="//filter[@name='unassigned']" position="before">
-                <filter name="sla_expired" string="SLA Expired" domain="[('sla_status', '=', 'expired')]" />
-                <filter name="sla_on_time" string="SLA On Time" domain="[('sla_status', '=', 'on_time')]" />
-                <filter name="sla_warning" string="SLA Warning" domain="[('sla_status', '=', 'warning')]" />
+            <!-- Add filters in the filters section -->
+            <xpath expr="//filter[@name='archived']" position="before">
+                <filter
+                    string="SLA Expired"
+                    name="sla_expired"
+                    domain="[('sla_status', '=', 'expired')]"
+                />
+                <filter
+                    string="SLA On Time"
+                    name="sla_on_time"
+                    domain="[('sla_status', '=', 'on_time')]"
+                />
+                <filter
+                    string="SLA Warning"
+                    name="sla_warning"
+                    domain="[('sla_status', '=', 'warning')]"
+                />
                 <separator />
             </xpath>
-            <xpath expr="//group/filter[@name='group_stage']" position="after">
-                <filter name="group_sla_status" string="SLA Status" domain="[]" context="{'group_by': 'sla_status'}" />
+            <!-- Add group by filter -->
+            <xpath expr="//search/group" position="inside">
+                <filter
+                    string="SLA Status"
+                    name="group_sla_status"
+                    domain="[]"
+                    context="{'group_by': 'sla_status'}"
+                />
             </xpath>
         </field>
     </record>

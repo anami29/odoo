@@ -1,93 +1,117 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Pivot View -->
+    <!-- AHT Report Pivot View -->
     <record id="helpdesk_ticket_report_aht_view_pivot" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.report.aht.view.pivot</field>
+        <field name="name">helpdesk.ticket.report.aht.pivot</field>
         <field name="model">helpdesk.ticket.report.aht</field>
         <field name="arch" type="xml">
-            <pivot string="Average Handling Time Analysis" disable_linking="True">
+            <pivot string="Handling Time" sample="1">
                 <field name="team_id" type="row" />
-                <field name="resolution_hours" type="measure" />
+                <field name="resolution_hours" type="measure" widget="float_time" />
             </pivot>
         </field>
     </record>
 
-    <!-- Graph View -->
+    <!-- AHT Report Graph View -->
     <record id="helpdesk_ticket_report_aht_view_graph" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.report.aht.view.graph</field>
+        <field name="name">helpdesk.ticket.report.aht.graph</field>
         <field name="model">helpdesk.ticket.report.aht</field>
         <field name="arch" type="xml">
-            <graph string="Average Handling Time Analysis" type="bar">
+            <graph string="Handling Time" type="bar" sample="1">
                 <field name="team_id" />
                 <field name="resolution_hours" type="measure" />
             </graph>
         </field>
     </record>
 
-    <!-- List View -->
-    <record id="helpdesk_ticket_report_aht_view_list" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.report.aht.view.list</field>
+    <!-- AHT Report Tree View -->
+    <record id="helpdesk_ticket_report_aht_view_tree" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.report.aht.list</field>
         <field name="model">helpdesk.ticket.report.aht</field>
         <field name="arch" type="xml">
-            <list create="false" edit="false" delete="false">
+            <list string="Handling Time" create="0" delete="0" edit="0">
                 <field name="ticket_id" />
                 <field name="team_id" />
                 <field name="category_id" />
                 <field name="user_id" />
-                <field name="stage_id" />
                 <field name="create_date" />
                 <field name="closed_date" />
                 <field name="resolution_hours" widget="float_time" />
                 <field name="assign_hours" widget="float_time" />
-                <field name="sla_breached" />
+                <field name="sla_breached" optional="show" />
             </list>
         </field>
     </record>
 
-    <!-- Search View -->
+    <!-- AHT Report Search View -->
     <record id="helpdesk_ticket_report_aht_view_search" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.report.aht.view.search</field>
+        <field name="name">helpdesk.ticket.report.aht.search</field>
         <field name="model">helpdesk.ticket.report.aht</field>
         <field name="arch" type="xml">
-            <search>
-                <field name="ticket_id" />
+            <search string="Handling Time Search">
                 <field name="team_id" />
                 <field name="category_id" />
                 <field name="user_id" />
-                <filter string="Closed Tickets" name="closed_tickets" domain="[('is_closed', '=', True)]" />
-                <filter string="This Month" name="this_month" domain="[('create_date', '&gt;=', (context_today()).strftime('%%Y-%%m-01'))]" />
-                <filter string="Last 30 Days" name="last_30_days" domain="[('create_date', '&gt;=', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]" />
+                <filter
+                    string="Closed tickets"
+                    name="closed_tickets"
+                    domain="[('is_closed', '=', True)]"
+                />
                 <separator />
+                <filter
+                    string="This Month"
+                    name="this_month"
+                    domain="[('create_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"
+                />
+                <filter
+                    string="Last 30 Days"
+                    name="last_30_days"
+                    domain="[('create_date', '&gt;=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"
+                />
                 <group expand="0" string="Group By">
-                    <filter string="Team" name="group_team" context="{'group_by': 'team_id'}" />
-                    <filter string="Category" name="group_category" context="{'group_by': 'category_id'}" />
-                    <filter string="Assigned User" name="group_user" context="{'group_by': 'user_id'}" />
-                    <filter string="Month" name="group_month" context="{'group_by': 'create_date:month'}" />
+                    <filter
+                        string="Team"
+                        name="group_team"
+                        context="{'group_by': 'team_id'}"
+                    />
+                    <filter
+                        string="Category"
+                        name="group_category"
+                        context="{'group_by': 'category_id'}"
+                    />
+                    <filter
+                        string="Assigned User"
+                        name="group_user"
+                        context="{'group_by': 'user_id'}"
+                    />
+                    <filter
+                        string="Month"
+                        name="group_month"
+                        context="{'group_by': 'create_date:month'}"
+                    />
                 </group>
             </search>
         </field>
     </record>
 
-    <!-- Action -->
-    <record id="action_helpdesk_ticket_report_aht" model="ir.actions.act_window">
-        <field name="name">Handling Time</field>
+    <!-- Act Window Action -->
+    <record id="helpdesk_ticket_report_aht_action" model="ir.actions.act_window">
+        <field name="name">Average Handling Time</field>
         <field name="res_model">helpdesk.ticket.report.aht</field>
         <field name="view_mode">pivot,graph,list</field>
         <field name="context">{
             'search_default_closed_tickets': 1,
+            'search_default_this_month': 1,
         }</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                No data available for Average Handling Time.
-            </p>
-        </field>
     </record>
 
-    <!-- Menu -->
-    <menuitem id="helpdesk_ticket_report_aht_menu"
-              name="Handling Time"
-              parent="helpdesk_mgmt.helpdesk_ticket_reporting_menu"
-              action="action_helpdesk_ticket_report_aht"
-              sequence="10"
-              groups="helpdesk_mgmt.group_helpdesk_manager" />
+    <!-- Reporting Menu Item -->
+    <menuitem
+        id="helpdesk_ticket_report_aht_menu"
+        name="Handling Time"
+        parent="helpdesk_mgmt.helpdesk_ticket_reporting_menu"
+        action="helpdesk_ticket_report_aht_action"
+        sequence="10"
+        groups="helpdesk_mgmt.group_helpdesk_manager"
+    />
 </odoo>
