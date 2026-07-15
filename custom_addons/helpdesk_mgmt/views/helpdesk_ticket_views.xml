@@ -215,7 +215,8 @@
                                 widget="many2many_tags"
                                 options="{'no_create_edit': True, 'color_field': 'color',}"
                             />
-                            <field name="sequence" groups="base.group_no_one" />
+                            <field name="user_access_sequence" invisible="1" />
+                            <field name="sequence" invisible="not user_access_sequence" />
                         </group>
                     </group>
                     <notebook>

@@ -181,3 +181,42 @@ class TestHelpdeskTicket(TestHelpdeskTicketBase):
             }
         )
         self.assertEqual(self.new_stage, new_ticket.stage_id)
+
+    def test_ticket_sequence_access(self):
+        # Create users
+        user_with_access = self.user
+        user_with_access.write({"access_sequence": True})
+        
+        user_without_access = self.user_own
+        user_without_access.write({"access_sequence": False})
+
+        # Test ticket with user who has access
+        ticket_with_access = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Ticket with access",
+                "description": "Description",
+                "user_id": user_with_access.id,
+            }
+        )
+        self.assertTrue(ticket_with_access.user_access_sequence)
+
+        # Test ticket with user who does not have access
+        ticket_without_access = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Ticket without access",
+                "description": "Description",
+                "user_id": user_without_access.id,
+            }
+        )
+        self.assertFalse(ticket_without_access.user_access_sequence)
+
+        # Test unassigned ticket
+        ticket_unassigned = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Unassigned ticket",
+                "description": "Description",
+                "user_id": False,
+            }
+        )
+        self.assertFalse(ticket_unassigned.user_access_sequence)
+

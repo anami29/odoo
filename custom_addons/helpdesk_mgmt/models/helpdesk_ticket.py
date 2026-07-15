@@ -1,5 +1,5 @@
-from odoo import api, fields, models, tools
-from odoo.exceptions import AccessError
+from odoo import api, fields, models, tools  # pyrefly: ignore [missing-import]
+from odoo.exceptions import AccessError  # pyrefly: ignore [missing-import]
 
 
 class HelpdeskTicket(models.Model):
@@ -132,6 +132,11 @@ class HelpdeskTicket(models.Model):
         index=True,
         default=10,
         help="Gives the sequence order when displaying a list of tickets.",
+    )
+    user_access_sequence = fields.Boolean(
+        string="User Access Sequence",
+        related="user_id.access_sequence",
+        readonly=True,
     )
     active = fields.Boolean(default=True)
 
