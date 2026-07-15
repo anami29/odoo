@@ -183,12 +183,15 @@ class TestHelpdeskTicket(TestHelpdeskTicketBase):
         self.assertEqual(self.new_stage, new_ticket.stage_id)
 
     def test_ticket_sequence_access(self):
+        # Find group
+        group = self.env.ref("helpdesk_mgmt.group_helpdesk_sequence")
+
         # Create users
         user_with_access = self.user
-        user_with_access.write({"access_sequence": True})
+        user_with_access.write({"groups_id": [(4, group.id)]})
         
         user_without_access = self.user_own
-        user_without_access.write({"access_sequence": False})
+        user_without_access.write({"groups_id": [(3, group.id)]})
 
         # Test ticket with user who has access
         ticket_with_access = self.env["helpdesk.ticket"].create(

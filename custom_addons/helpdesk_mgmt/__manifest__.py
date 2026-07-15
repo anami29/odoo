@@ -22,7 +22,6 @@
         "security/helpdesk_security.xml",
         "security/ir.model.access.csv",
         "views/res_partner_views.xml",
-        "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/helpdesk_ticket_templates.xml",
         "views/helpdesk_ticket_menu.xml",

@@ -11,9 +11,4 @@ class ResUsers(models.Model):
         column1="res_users_id",
         column2="helpdesk_ticket_team_id",
     )
-    access_sequence = fields.Boolean(
-        string="Access Sequence",
-        default=False,
-        help="Check this if the user is allowed to view the sequence field on helpdesk tickets.",
-    )
 

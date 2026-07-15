@@ -25,6 +25,10 @@
                 eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
             />
         </record>
+        <record id="group_helpdesk_sequence" model="res.groups">
+            <field name="name">Access Sequence</field>
+            <field name="category_id" ref="module_helpdesk_category" />
+        </record>
     </data>
     <data noupdate="1">
         <record id="helpdesk_ticket_personal_rule" model="ir.rule">

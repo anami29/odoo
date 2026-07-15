@@ -135,10 +135,17 @@ class HelpdeskTicket(models.Model):
     )
     user_access_sequence = fields.Boolean(
         string="User Access Sequence",
-        related="user_id.access_sequence",
-        readonly=True,
+        compute="_compute_user_access_sequence",
     )
     active = fields.Boolean(default=True)
+
+    @api.depends("user_id.groups_id")
+    def _compute_user_access_sequence(self):
+        group = self.env.ref("helpdesk_mgmt.group_helpdesk_sequence")
+        for ticket in self:
+            ticket.user_access_sequence = (
+                ticket.user_id and group in ticket.user_id.groups_id
+            )
 
     @api.depends("name")
     def _compute_display_name(self):
