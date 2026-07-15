@@ -11,4 +11,9 @@ class ResUsers(models.Model):
         column1="res_users_id",
         column2="helpdesk_ticket_team_id",
     )
+    # Temporary dummy field to prevent Odoo from crashing on boot due to leftover DB views
+    access_sequence = fields.Boolean(
+        string="Access Sequence (Temporary)",
+        default=False,
+    )
 
