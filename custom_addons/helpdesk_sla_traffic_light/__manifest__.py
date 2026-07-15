@@ -18,6 +18,7 @@
         "views/helpdesk_ticket_views.xml",
         "views/helpdesk_ticket_report_aht_views.xml",
         "views/helpdesk_sla_dashboard_views.xml",
+        "views/helpdesk_sla_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
