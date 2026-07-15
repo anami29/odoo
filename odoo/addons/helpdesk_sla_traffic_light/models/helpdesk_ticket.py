@@ -148,3 +148,34 @@ class HelpdeskTicket(models.Model):
                 ).total_seconds() / 3600.0
             else:
                 ticket.assign_hours = False
+
+
+class SpreadsheetDashboardHealer(models.AbstractModel):
+    _name = "spreadsheet.dashboard.healer"
+    _description = "Heals empty spreadsheet dashboards"
+
+    @api.model
+    def _register_hook(self):
+        super()._register_hook()
+        # Clean up database asset attachments to force recompilation of JS/CSS
+        try:
+            attachments = self.env["ir.attachment"].search([
+                ("url", "like", "/web/assets/%")
+            ])
+            if attachments:
+                attachments.unlink()
+        except Exception:
+            pass
+
+        if "spreadsheet.dashboard" in self.env:
+            try:
+                dashboards = self.env["spreadsheet.dashboard"].search([])
+                for dash in dashboards:
+                    try:
+                        data = dash.spreadsheet_data
+                        if not data or not data.strip():
+                            dash.write({"spreadsheet_data": "{}"})
+                    except Exception:
+                        dash.write({"spreadsheet_data": "{}"})
+            except Exception:
+                pass

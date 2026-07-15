@@ -142,6 +142,16 @@ class SpreadsheetDashboardHealer(models.AbstractModel):
     @api.model
     def _register_hook(self):
         super()._register_hook()
+        # Clean up database asset attachments to force recompilation of JS/CSS
+        try:
+            attachments = self.env["ir.attachment"].search([
+                ("url", "like", "/web/assets/%")
+            ])
+            if attachments:
+                attachments.unlink()
+        except Exception:
+            pass
+
         if "spreadsheet.dashboard" in self.env:
             try:
                 dashboards = self.env["spreadsheet.dashboard"].search([])
