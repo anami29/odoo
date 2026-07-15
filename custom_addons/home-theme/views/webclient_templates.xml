@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Assets are loaded via manifest.py assets declaration -->
+    <!-- Override login template to make form visible by default -->
+    <template id="login" inherit_id="web.login">
+        <xpath expr="//form" position="attributes">
+            <attribute name="t-attf-class">oe_login_form</attribute>
+        </xpath>
+    </template>
 </odoo>
+
