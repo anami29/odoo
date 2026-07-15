@@ -141,11 +141,11 @@ class HelpdeskTicket(models.Model):
 
     @api.depends("user_id.groups_id")
     def _compute_user_access_sequence(self):
-        group = self.env.ref("helpdesk_mgmt.group_helpdesk_sequence")
+        group = self.env.ref("helpdesk_mgmt.group_helpdesk_sequence", raise_if_not_found=False)
         for ticket in self:
             ticket.user_access_sequence = (
-                ticket.user_id and group in ticket.user_id.groups_id
-            )
+                ticket.user_id and group and group in ticket.user_id.groups_id
+            ) or False
 
     @api.depends("name")
     def _compute_display_name(self):
