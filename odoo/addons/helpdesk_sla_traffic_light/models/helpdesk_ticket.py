@@ -149,6 +149,19 @@ class HelpdeskTicket(models.Model):
             else:
                 ticket.assign_hours = False
 
+    sla_id = fields.Many2one(
+        comodel_name="helpdesk.sla",
+        string="SLA Type",
+        compute="_compute_sla_id",
+        store=True,
+    )
+
+    @api.depends("ticket_sla_ids.sla_id")
+    def _compute_sla_id(self):
+        for ticket in self:
+            ticket.sla_id = ticket.ticket_sla_ids[:1].sla_id
+
+
 
 class SpreadsheetDashboardHealer(models.AbstractModel):
     _name = "spreadsheet.dashboard.healer"

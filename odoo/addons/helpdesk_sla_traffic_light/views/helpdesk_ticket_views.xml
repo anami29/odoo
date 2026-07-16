@@ -88,6 +88,12 @@
                     domain="[]"
                     context="{'group_by': 'sla_status'}"
                 />
+                <filter
+                    string="SLA Type"
+                    name="group_sla_id"
+                    domain="[]"
+                    context="{'group_by': 'sla_id'}"
+                />
             </xpath>
         </field>
     </record>

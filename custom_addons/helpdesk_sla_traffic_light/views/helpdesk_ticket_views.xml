@@ -67,6 +67,7 @@
             </xpath>
             <xpath expr="//group/filter[@name='group_stage']" position="after">
                 <filter name="group_sla_status" string="SLA Status" domain="[]" context="{'group_by': 'sla_status'}" />
+                <filter name="group_sla_id" string="SLA Type" domain="[]" context="{'group_by': 'sla_id'}" />
             </xpath>
         </field>
     </record>
