@@ -52,6 +52,12 @@
                     />
                 </div>
             </xpath>
+            <xpath expr="//field[@name='category_id']" position="before">
+                <field name="allowed_category_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="domain">[('id', 'in', allowed_category_ids)]</attribute>
+            </xpath>
         </field>
     </record>
 

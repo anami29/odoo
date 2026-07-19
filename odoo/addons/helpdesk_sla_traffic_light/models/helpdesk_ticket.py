@@ -161,6 +161,26 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             ticket.sla_id = ticket.ticket_sla_ids[:1].sla_id
 
+    allowed_category_ids = fields.Many2many(
+        comodel_name="helpdesk.ticket.category",
+        compute="_compute_allowed_category_ids",
+        string="Allowed Categories",
+    )
+
+    @api.depends("team_id")
+    def _compute_allowed_category_ids(self):
+        for record in self:
+            if record.team_id:
+                record.allowed_category_ids = record.team_id.category_ids
+            else:
+                record.allowed_category_ids = self.env["helpdesk.ticket.category"].search([])
+
+    @api.onchange("team_id")
+    def _onchange_team_id_clear_category(self):
+        if self.team_id and self.category_id and self.category_id not in self.team_id.category_ids:
+            self.category_id = False
+
+
 
 
 class SpreadsheetDashboardHealer(models.AbstractModel):

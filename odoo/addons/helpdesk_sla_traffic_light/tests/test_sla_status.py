@@ -142,3 +142,53 @@ class TestSlaStatus(CommonHelpdeskMgmtSla):
             another_sla.write({
                 "category_ids": [Command.link(self.category1.id)]
             })
+
+    def test_sla_allowed_categories_by_team(self):
+        """
+        Verify that allowed_category_ids on helpdesk.sla filters categories
+        based on the selected team(s).
+        """
+        # When no team is selected, all categories should be allowed
+        new_sla = self.env["helpdesk.sla"].new({"name": "New SLA"})
+        all_categories = self.env["helpdesk.ticket.category"].search([])
+        self.assertEqual(len(new_sla.allowed_category_ids), len(all_categories))
+
+        # Assign category1 to a new team
+        team_a = self.env["helpdesk.ticket.team"].create({
+            "name": "Team A",
+            "category_ids": [Command.set([self.category1.id])],
+        })
+
+        # When Team A is selected, only category1 should be allowed
+        new_sla.team_ids = [Command.set([team_a.id])]
+        self.assertEqual(new_sla.allowed_category_ids, team_a.category_ids)
+
+    def test_ticket_allowed_categories_by_team(self):
+        """
+        Verify that allowed_category_ids on helpdesk.ticket filters categories
+        based on the selected team.
+        """
+        category1 = self.env["helpdesk.ticket.category"].create({"name": "Category 1"})
+        category2 = self.env["helpdesk.ticket.category"].create({"name": "Category 2"})
+        
+        team_a = self.env["helpdesk.ticket.team"].create({
+            "name": "Team A",
+            "category_ids": [Command.set([category1.id])],
+        })
+
+        ticket = self.env["helpdesk.ticket"].new({"name": "Test Ticket"})
+        
+        # When no team is selected, all categories are allowed
+        all_categories = self.env["helpdesk.ticket.category"].search([])
+        self.assertEqual(len(ticket.allowed_category_ids), len(all_categories))
+
+        # When Team A is selected, only category1 is allowed
+        ticket.team_id = team_a
+        self.assertEqual(ticket.allowed_category_ids, category1)
+
+        # Changing the team should clear the category if it is not in the new team's categories
+        ticket.category_id = category2
+        ticket._onchange_team_id_clear_category()
+        self.assertFalse(ticket.category_id)
+
+

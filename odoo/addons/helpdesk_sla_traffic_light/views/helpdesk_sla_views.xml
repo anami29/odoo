@@ -6,9 +6,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_ids']" position="before">
                 <field name="excluded_category_ids" invisible="1"/>
+                <field name="allowed_category_ids" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='category_ids']" position="attributes">
-                <attribute name="domain">[('id', 'not in', excluded_category_ids)]</attribute>
+                <attribute name="domain">[('id', 'in', allowed_category_ids), ('id', 'not in', excluded_category_ids)]</attribute>
             </xpath>
         </field>
     </record>

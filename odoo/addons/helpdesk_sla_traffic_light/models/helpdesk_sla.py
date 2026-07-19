@@ -12,6 +12,20 @@ class HelpdeskSla(models.Model):
         compute="_compute_excluded_category_ids",
         string="Excluded Categories",
     )
+    allowed_category_ids = fields.Many2many(
+        comodel_name="helpdesk.ticket.category",
+        compute="_compute_allowed_category_ids",
+        string="Allowed Categories",
+    )
+
+    @api.depends("team_ids", "team_ids.category_ids")
+    def _compute_allowed_category_ids(self):
+        for record in self:
+            if record.team_ids:
+                record.allowed_category_ids = record.team_ids.mapped("category_ids")
+            else:
+                record.allowed_category_ids = self.env["helpdesk.ticket.category"].search([])
+
 
     @api.depends("category_ids")
     def _compute_excluded_category_ids(self):

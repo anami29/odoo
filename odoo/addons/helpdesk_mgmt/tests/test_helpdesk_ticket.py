@@ -223,3 +223,50 @@ class TestHelpdeskTicket(TestHelpdeskTicketBase):
         )
         self.assertFalse(ticket_unassigned.user_access_sequence)
 
+        # Test computed/inverse of res.users access_sequence field
+        self.assertTrue(user_with_access.access_sequence)
+        self.assertFalse(user_without_access.access_sequence)
+
+        user_with_access.access_sequence = False
+        self.assertNotIn(group, user_with_access.groups_id)
+        self.assertFalse(user_with_access.access_sequence)
+
+        user_with_access.access_sequence = True
+        self.assertIn(group, user_with_access.groups_id)
+        self.assertTrue(user_with_access.access_sequence)
+
+    def test_contact_access_rights(self):
+        # Create external contact (non-employee)
+        external_contact = self.env["res.partner"].create({
+            "name": "External Customer Contact",
+            "employee": False,
+        })
+
+        # Create internal/employee contact (employee = True)
+        employee_contact = self.env["res.partner"].create({
+            "name": "Company Employee Contact",
+            "employee": True,
+        })
+
+        # Get access groups
+        group_access_all = self.env.ref("helpdesk_mgmt.group_access_all_contacts")
+
+        # Create two users: one with access all, one without
+        user_all_contacts = self.user
+        user_all_contacts.write({"groups_id": [(4, group_access_all.id)]})
+
+        user_internal_only = self.user_own
+        user_internal_only.write({"groups_id": [(3, group_access_all.id)]})
+
+        # Read contacts as user_internal_only
+        partners_internal = self.env["res.partner"].with_user(user_internal_only).search([("id", "in", (employee_contact.id, external_contact.id))])
+        self.assertIn(employee_contact, partners_internal)
+        self.assertNotIn(external_contact, partners_internal)
+
+        # Read contacts as user_all_contacts
+        partners_all = self.env["res.partner"].with_user(user_all_contacts).search([("id", "in", (employee_contact.id, external_contact.id))])
+        self.assertIn(employee_contact, partners_all)
+        self.assertIn(external_contact, partners_all)
+
+
+
