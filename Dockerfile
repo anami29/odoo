@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install --break-system-packages html2text
+
 COPY custom_addons /mnt/extra-addons
 COPY odoo.conf /etc/odoo/odoo.conf
 
