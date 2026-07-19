@@ -85,8 +85,8 @@
     <!--    add action to action button in purchase-->
     <record id="action_whatsapp_message_purchase" model="ir.actions.server">
         <field name="name">Whatsapp Message</field>
-        <field name="model_id" ref="model_purchase_order"/>
-        <field name="binding_model_id" ref="model_purchase_order"/>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.multi_sms()</field>
@@ -95,8 +95,8 @@
     <!--    add action to action button in inventory-->
     <record id="action_whatsapp_message_inventory" model="ir.actions.server">
         <field name="name">Whatsapp Message</field>
-        <field name="model_id" ref="model_stock_picking"/>
-        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.multi_sms()</field>
@@ -105,8 +105,8 @@
     <!--    add action to action button in invoice-->
     <record id="action_whatsapp_message_invoice" model="ir.actions.server">
         <field name="name">Whatsapp Message</field>
-        <field name="model_id" ref="model_account_move"/>
-        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.multi_sms()</field>

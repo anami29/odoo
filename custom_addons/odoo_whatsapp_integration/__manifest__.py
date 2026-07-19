@@ -13,7 +13,7 @@
     'version': '18.0.1.0.0',
     'license': 'LGPL-3',
 
-    'depends': ['base', 'base_setup', 'sale_management', 'web', 'stock', 'purchase', 'account', 'contacts'],
+    'depends': ['base', 'base_setup', 'sale_management', 'web', 'stock', 'purchase', 'account', 'contacts', 'portal'],
 
     'data': [
         'security/ir.model.access.csv',
