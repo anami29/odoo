@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     libldap2-dev \
     libsasl2-dev \
     libssl-dev \
+    libmagic1 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --break-system-packages html2text python-magic
