@@ -97,11 +97,16 @@
                             <field
                                 name="contributor_group_ids"
                                 widget="many2many_tags"
+                                groups="base.group_system"
                             />
                         </group>
                         <group string="Read Access">
                             <field name="reader_ids" widget="many2many_tags" />
-                            <field name="reader_group_ids" widget="many2many_tags" />
+                            <field
+                                name="reader_group_ids"
+                                widget="many2many_tags"
+                                groups="base.group_system"
+                            />
                         </group>
                         <group colspan="4">
                             <field
