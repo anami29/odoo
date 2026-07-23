@@ -3,7 +3,7 @@
 
 import base64
 import json
-from typing import Any
+from typing import Any, cast
 
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError
@@ -84,22 +84,30 @@ class SpreadsheetAbstract(models.AbstractModel):
             self.check_access("write")
         except AccessError:
             mode = "readonly"
+
+        revisions = []
+        for revision in self.spreadsheet_revision_ids:
+            if revision.commands:
+                try:
+                    cmd_data = json.loads(revision.commands)
+                    if isinstance(cmd_data, dict):
+                        cmd_data.update({
+                            "nextRevisionId": revision.next_revision_id,
+                            "serverRevisionId": revision.server_revision_id,
+                        })
+                        revisions.append(cmd_data)
+                except Exception:
+                    pass
+
+        currency_model = cast(Any, self.env["res.currency"])
+        lang_model = cast(Any, self.env["res.lang"])
         return {
-            "name": self.name,
-            "spreadsheet_raw": self.spreadsheet_raw,
-            "revisions": [
-                dict(
-                    json.loads(revision.commands),
-                    nextRevisionId=revision.next_revision_id,
-                    serverRevisionId=revision.server_revision_id,
-                )
-                for revision in self.spreadsheet_revision_ids
-            ],
+            "name": self.name or "",
+            "spreadsheet_raw": self.spreadsheet_raw or {},
+            "revisions": revisions,
             "mode": mode,
-            "default_currency": self.env[
-                "res.currency"
-            ].get_company_currency_for_spreadsheet(),
-            "user_locale": self.env["res.lang"]._get_user_spreadsheet_locale(),
+            "default_currency": currency_model.get_company_currency_for_spreadsheet(),
+            "user_locale": lang_model._get_user_spreadsheet_locale(),
         }
 
     def open_spreadsheet(self):
@@ -116,7 +124,8 @@ class SpreadsheetAbstract(models.AbstractModel):
         self.ensure_one()
         if message["type"] in ["REVISION_UNDONE", "REMOTE_REVISION", "REVISION_REDONE"]:
             self._check_access_spreadsheet("write")
-            self.env["spreadsheet.oca.revision"].create(
+            revision_model: Any = self.env["spreadsheet.oca.revision"]
+            revision_model.create(
                 {
                     "model": self._name,
                     "res_id": self.id,
@@ -135,7 +144,8 @@ class SpreadsheetAbstract(models.AbstractModel):
             return True
         elif message["type"] == "SNAPSHOT":
             self._check_access_spreadsheet("write")
-            self.env["spreadsheet.oca.revision"].create(
+            revision_model: Any = self.env["spreadsheet.oca.revision"]
+            revision_model.create(
                 {
                     "model": self._name,
                     "res_id": self.id,

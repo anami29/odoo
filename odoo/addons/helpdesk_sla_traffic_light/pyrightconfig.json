@@ -1,0 +1,28 @@
+{
+    "extraPaths": [
+        "c:/Users/KAVITA/Coding/odoo",
+        "c:/Users/KAVITA/Coding/odoo/custom_addons",
+        "c:/Users/KAVITA/Coding/odoo/addons"
+    ],
+    "typeCheckingMode": "off",
+    "reportMissingImports": "none",
+    "reportMissingModuleSource": "none",
+    "reportAttributeAccessIssue": "none",
+    "reportGeneralTypeIssues": "none",
+    "reportOptionalMemberAccess": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportCallIssue": "none",
+    "reportArgumentType": "none",
+    "reportIndexIssue": "none",
+    "reportInvalidTypeForm": "none",
+    "reportRedeclaration": "none",
+    "reportReturnType": "none",
+    "reportOptionalSubscript": "none",
+    "reportOptionalIterable": "none",
+    "reportOptionalCall": "none",
+    "reportOptionalContextManager": "none",
+    "reportOptionalOperand": "none",
+    "reportOperatorIssue": "none"
+}

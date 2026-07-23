@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 from odoo import api, fields, models
 
 
@@ -123,13 +123,17 @@ class HelpdeskTicket(models.Model):
     def _compute_handling_times(self):
         for ticket in self:
             if ticket.closed_date and ticket.create_date:
-                dt = ticket.closed_date - ticket.create_date
+                closed_date: datetime = ticket.closed_date
+                create_date: datetime = ticket.create_date
+                dt = closed_date - create_date
                 ticket.resolution_hours = dt.total_seconds() / 3600.0
             else:
                 ticket.resolution_hours = False
 
             if ticket.assigned_date and ticket.create_date:
-                dt = ticket.assigned_date - ticket.create_date
+                assigned_date: datetime = ticket.assigned_date
+                create_date: datetime = ticket.create_date
+                dt = assigned_date - create_date
                 ticket.assign_hours = dt.total_seconds() / 3600.0
             else:
                 ticket.assign_hours = False

@@ -1,0 +1,33 @@
+{
+    "extraPaths": [
+        ".",
+        "custom_addons",
+        "addons"
+    ],
+    "ignore": [
+        "**/custom_addons/**",
+        "**/addons/**",
+        "**/odoo/**"
+    ],
+    "typeCheckingMode": "off",
+    "reportMissingImports": "none",
+    "reportMissingModuleSource": "none",
+    "reportAttributeAccessIssue": "none",
+    "reportGeneralTypeIssues": "none",
+    "reportOptionalMemberAccess": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportCallIssue": "none",
+    "reportArgumentType": "none",
+    "reportIndexIssue": "none",
+    "reportInvalidTypeForm": "none",
+    "reportRedeclaration": "none",
+    "reportReturnType": "none",
+    "reportOptionalSubscript": "none",
+    "reportOptionalIterable": "none",
+    "reportOptionalCall": "none",
+    "reportOptionalContextManager": "none",
+    "reportOptionalOperand": "none",
+    "reportOperatorIssue": "none"
+}
