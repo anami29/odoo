@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Branch offices. -->
+    <data noupdate="1">
+        <record id="branch_mumbai" model="watson.branch">
+            <field name="name">Mumbai</field>
+            <field name="sequence">10</field>
+            <field name="contact_person">Mr. Yogendra Dubey</field>
+            <field name="email">yogen@watson-logistics.com</field>
+            <field name="street">704-705-706, Mahavir Icon, Sector-15, CBD Belapur, Navi Mumbai - 400614, India.</field>
+            <field name="phone">+91 22 27575742/44 &amp; 41228282/83/84/85</field>
+            <field name="phone_tel">+912227575742</field>
+            <field name="mobile">+91 9833352325</field>
+            <field name="mobile_tel">+919833352325</field>
+        </record>
+        <record id="branch_delhi" model="watson.branch">
+            <field name="name">Delhi</field>
+            <field name="sequence">20</field>
+            <field name="contact_person">Sashipal Sharma</field>
+            <field name="email">info@watson-logistics.com</field>
+            <field name="street">A-103, (Goodluck Hotel basement), Gali no. - 04, Mahipalpur, New Delhi-110037, India.</field>
+            <field name="phone">+91 9953595802</field>
+            <field name="phone_tel">+919953595802</field>
+            <field name="mobile"></field>
+            <field name="mobile_tel"></field>
+        </record>
+        <record id="branch_bhadohi" model="watson.branch">
+            <field name="name">Bhadohi</field>
+            <field name="sequence">30</field>
+            <field name="contact_person">Mr. Rajeev Maurya</field>
+            <field name="email">rajeev@watson-logistics.com</field>
+            <field name="street">21, 1st Floor, Niryat Bhawan, Station Road, Bhadohi - 221401, UP, India.</field>
+            <field name="phone">+91 5414 224775</field>
+            <field name="phone_tel">+915414224775</field>
+            <field name="mobile">+91 9005077646 &amp; 9415265430</field>
+            <field name="mobile_tel">+919005077646</field>
+        </record>
+        <record id="branch_jaipur" model="watson.branch">
+            <field name="name">Jaipur</field>
+            <field name="sequence">40</field>
+            <field name="contact_person">Mr. Manish Mathur</field>
+            <field name="email">manish@watson-logistics.com</field>
+            <field name="street">404B - 4th Floor, Ganpati Plaza, M. I. Road, Jaipur-302001, India.</field>
+            <field name="phone">+91 0141 4011678</field>
+            <field name="phone_tel">+911414011678</field>
+            <field name="mobile">+91 9982172976</field>
+            <field name="mobile_tel">+919982172976</field>
+        </record>
+        <record id="branch_kolkata" model="watson.branch">
+            <field name="name">Kolkata</field>
+            <field name="sequence">50</field>
+            <field name="contact_person">Mr. Pranab Dutta</field>
+            <field name="email">pranab@watson-logistics.com</field>
+            <field name="street">&quot;Hastings Chamber&quot;, Ground Flr-Ground/W, 7C Kiran Shankar Roy Road, Kolkata - 700001, India.</field>
+            <field name="phone">+91 33 22131656 / 32902240</field>
+            <field name="phone_tel">+913322131656</field>
+            <field name="mobile">+91 9830063013 &amp; 9830513013</field>
+            <field name="mobile_tel">+919830063013</field>
+        </record>
+        <record id="branch_chennai" model="watson.branch">
+            <field name="name">Chennai</field>
+            <field name="sequence">60</field>
+            <field name="contact_person">Mr. Aleem</field>
+            <field name="email">aleem@watson-logistics.com</field>
+            <field name="street">Old No. 94, New No. 38, Moore Street, Manady, Chennai - 600001, India.</field>
+            <field name="phone">+91 44 25243425</field>
+            <field name="phone_tel">+914425243425</field>
+            <field name="mobile">+91 9841977033</field>
+            <field name="mobile_tel">+919841977033</field>
+        </record>
+        <record id="branch_gandhidham" model="watson.branch">
+            <field name="name">Gandhidham</field>
+            <field name="sequence">70</field>
+            <field name="contact_person">Naresh Kirtani</field>
+            <field name="email">naresh@watson-logistics.com</field>
+            <field name="street">Office No 104, 1st Floor, Mani Complex, Plot No. 84, Sector 8, Gandhidham, Kutch, India.</field>
+            <field name="phone">+91 02 836236940</field>
+            <field name="phone_tel">+912836236940</field>
+            <field name="mobile">+91 9913516940</field>
+            <field name="mobile_tel">+919913516940</field>
+        </record>
+    </data>
+</odoo>

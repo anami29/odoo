@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Fonts, preconnected so the first paint isn't waiting on DNS + TLS. -->
+    <template id="watson_head" inherit_id="website.layout" name="Watson: head">
+        <xpath expr="//head" position="inside">
+            <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+            <link rel="stylesheet"
+                  href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:wght@400;500;600;700&amp;family=Barlow:wght@400;500;600;700&amp;display=swap"/>
+        </xpath>
+    </template>
+
+    <!-- Utility bar above the main navigation. -->
+    <template id="watson_topbar" inherit_id="website.layout" name="Watson: top bar">
+        <xpath expr="//header" position="before">
+            <div class="watson-topbar d-none d-lg-block">
+                <div class="container d-flex align-items-center justify-content-between">
+                    <div class="wt-left">
+                        <span t-if="website.watson_hours" class="me-3">
+                            <t t-esc="website.watson_hours"/>
+                        </span>
+                        <a t-if="website.watson_email"
+                           t-attf-href="mailto:{{ website.watson_email }}">
+                            <t t-esc="website.watson_email"/>
+                        </a>
+                    </div>
+                    <div class="wt-right">
+                        <a t-if="website.watson_phone_tel"
+                           t-attf-href="tel:{{ website.watson_phone_tel }}">
+                            <t t-esc="website.watson_phone"/>
+                        </a>
+                        <span t-if="website.watson_mobile" class="mx-2">·</span>
+                        <a t-if="website.watson_mobile_tel"
+                           t-attf-href="tel:{{ website.watson_mobile_tel }}">
+                            <t t-esc="website.watson_mobile"/>
+                        </a>
+                        <a t-if="website.watson_linkedin" t-att-href="website.watson_linkedin"
+                           target="_blank" rel="noopener" class="ms-3" title="LinkedIn">in</a>
+                        <a t-if="website.watson_instagram" t-att-href="website.watson_instagram"
+                           target="_blank" rel="noopener" class="ms-2" title="Instagram">ig</a>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Sticky Call / WhatsApp / Quote bar on phones. -->
+    <template id="watson_mobile_bar" inherit_id="website.layout" name="Watson: mobile action bar">
+        <xpath expr="//footer" position="after">
+            <div class="watson-mobile-bar d-lg-none">
+                <a t-if="website.watson_phone_tel" t-attf-href="tel:{{ website.watson_phone_tel }}">
+                    <span>Call</span>
+                </a>
+                <a t-if="website.watson_whatsapp" class="wa"
+                   t-attf-href="https://wa.me/{{ website.watson_whatsapp }}"
+                   target="_blank" rel="noopener">
+                    <span>WhatsApp</span>
+                </a>
+                <a class="cta" href="/#quote"><span>Get A Quote</span></a>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Contact block appended to the footer. -->
+    <template id="watson_footer_contact" inherit_id="website.layout" name="Watson: footer contact">
+        <xpath expr="//footer" position="inside">
+            <div class="watson-footer-contact">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <h5>Head Office</h5>
+                            <p t-esc="website.watson_head_office"/>
+                        </div>
+                        <div class="col-lg-4">
+                            <h5>Contact</h5>
+                            <p>
+                                <a t-attf-href="tel:{{ website.watson_phone_tel }}"
+                                   t-esc="website.watson_phone"/><br/>
+                                <a t-attf-href="tel:{{ website.watson_mobile_tel }}"
+                                   t-esc="website.watson_mobile"/><br/>
+                                <a t-attf-href="mailto:{{ website.watson_email }}"
+                                   t-esc="website.watson_email"/>
+                            </p>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5>Follow</h5>
+                            <p>
+                                <a t-if="website.watson_linkedin" t-att-href="website.watson_linkedin"
+                                   target="_blank" rel="noopener">LinkedIn</a><br/>
+                                <a t-if="website.watson_instagram" t-att-href="website.watson_instagram"
+                                   target="_blank" rel="noopener">Instagram</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

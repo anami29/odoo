@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Team members. -->
+    <data noupdate="1">
+        <record id="team_yogen_dubey" model="watson.team.member">
+            <field name="name">Yogen Dubey</field>
+            <field name="role">Managing Director</field>
+            <field name="sequence">10</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-yogen-dubey.jpg"/>
+        </record>
+        <record id="team_yash_dubey" model="watson.team.member">
+            <field name="name">Yash Dubey</field>
+            <field name="role">Director</field>
+            <field name="sequence">20</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-yash-dubey.jpg"/>
+        </record>
+        <record id="team_mk" model="watson.team.member">
+            <field name="name">M.K</field>
+            <field name="role">Operations</field>
+            <field name="sequence">30</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-mk.jpg"/>
+        </record>
+        <record id="team_hrithik_dubey" model="watson.team.member">
+            <field name="name">Hrithik Dubey</field>
+            <field name="role">Sales</field>
+            <field name="sequence">40</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-hrithik-dubey.jpg"/>
+        </record>
+        <record id="team_himanshu_avashti" model="watson.team.member">
+            <field name="name">Himanshu Avashti</field>
+            <field name="role">Documentation</field>
+            <field name="sequence">50</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-himanshu-avashti.jpg"/>
+        </record>
+        <record id="team_smriti_dubey" model="watson.team.member">
+            <field name="name">Smriti Dubey</field>
+            <field name="role">Finance Head</field>
+            <field name="sequence">60</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-smriti-dubey.jpg"/>
+        </record>
+        <record id="team_ankush_bodake" model="watson.team.member">
+            <field name="name">Ankush Bodake</field>
+            <field name="role">Customs Clearance</field>
+            <field name="sequence">70</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/team/team-ankush-bodake.jpg"/>
+        </record>
+    </data>
+</odoo>

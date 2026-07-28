@@ -1,0 +1,22 @@
+// Exposes the brand palette to the Website Builder's colour pickers, so the
+// theme colours in the editor match the design system.
+$o-color-palettes: map-merge($o-color-palettes, (
+    'watson': (
+        'o-color-1': #0C7E90,   // accent
+        'o-color-2': #0B1A2A,   // ink
+        'o-color-3': #F2F5F8,   // mist
+        'o-color-4': #FFFFFF,   // paper
+        'o-color-5': #5BC6D6,   // accent-2
+    ),
+));
+
+$o-theme-color-palettes-number: 1;
+$o-website-values-palettes: (
+    (
+        'font': 'Barlow',
+        'headings-font': 'Anton',
+        'navbar-font': 'Barlow Condensed',
+        'buttons-font': 'Barlow Condensed',
+        'color-palettes-name': 'watson',
+    ),
+);

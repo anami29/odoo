@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--
+            Publish the homepage and point the site root at it. The default
+            Odoo homepage is left in place but unpublished, so nothing is lost
+            if this module is uninstalled.
+        -->
+        <record id="watson_homepage_page" model="website.page">
+            <field name="name">Home</field>
+            <field name="url">/watson-home</field>
+            <field name="website_published" eval="True"/>
+            <field name="is_published" eval="True"/>
+            <field name="view_id" ref="website_watson.watson_homepage"/>
+        </record>
+
+        <function model="website" name="write">
+            <value model="website" eval="obj().env.ref('website.default_website').ids"/>
+            <value eval="{'homepage_url': '/watson-home'}"/>
+        </function>
+    </data>
+</odoo>

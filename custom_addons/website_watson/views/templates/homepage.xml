@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Homepage.
+
+        Repeating content is read from the Watson models, so nothing here needs
+        editing when the client adds a branch or reorders services. Free text
+        (headings, intro copy) uses the Website Builder's inline editing via
+        the `oe_structure` regions, which are saved back into this view.
+    -->
+    <template id="watson_homepage" name="Watson Homepage">
+        <t t-call="website.layout">
+            <t t-set="pageName" t-value="'watson_home'"/>
+
+            <t t-set="services"
+               t-value="request.env['watson.service'].sudo().search([])"/>
+            <t t-set="counters"
+               t-value="request.env['watson.counter'].sudo().search([])"/>
+            <t t-set="branches"
+               t-value="request.env['watson.branch'].sudo().search([])"/>
+            <t t-set="team"
+               t-value="request.env['watson.team.member'].sudo().search([])"/>
+            <t t-set="certifications"
+               t-value="request.env['watson.certification'].sudo().search([])"/>
+            <t t-set="industries"
+               t-value="request.env['watson.industry'].sudo().search([])"/>
+
+            <div id="wrap" class="oe_structure oe_empty watson-site">
+
+                <!-- ============ HERO ============ -->
+                <section class="watson-hero" id="home">
+                    <div class="hero-bg">
+                        <div class="hero-slide active"/>
+                    </div>
+                    <div class="container">
+                        <div class="hero-text">
+                            <span class="h-tag">Since <t t-esc="website.watson_established"/></span>
+                            <h1 class="h1">
+                                Freight Forwarding and <span class="o">Logistics</span>
+                            </h1>
+                            <p class="h-sub">
+                                We move cargo between India and the US, Australia, Europe and the Gulf.
+                                Sea, air, road, customs and project cargo, handled through our partner
+                                and agent network.
+                            </p>
+                            <div class="h-actions">
+                                <a href="#services" class="btn-watson">Explore Services</a>
+                                <a t-if="website.watson_phone_tel" class="h-call"
+                                   t-attf-href="tel:{{ website.watson_phone_tel }}">
+                                    <span><small>Call Us Anytime</small><b t-esc="website.watson_phone"/></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ SERVICES ============ -->
+                <section class="pad-b" id="services">
+                    <div class="container">
+                        <div class="svc-head">
+                            <div class="reveal">
+                                <span class="eyebrow">Our Services</span>
+                                <h2 class="shead">Ten Services, Taken <span class="o">Seriously</span></h2>
+                            </div>
+                            <p class="lead reveal d2">
+                                Ocean and air freight, customs brokerage, warehousing, distribution,
+                                project cargo, and dedicated support for POE/DDP and US-bound shipments.
+                            </p>
+                        </div>
+
+                        <div class="svc-grid">
+                            <t t-foreach="services" t-as="svc">
+                                <article t-attf-class="svc-card reveal zoom d#{(svc_index % 4) + 1}"
+                                         t-att-data-tab="svc.code">
+                                    <div class="svc-img"
+                                         t-attf-style="--img:url('/web/image/watson.service/#{svc.id}/image_1024')"/>
+                                    <span class="svc-num" t-esc="'%02d' % (svc_index + 1)"/>
+                                    <div class="svc-ic">
+                                        <t t-call="website_watson.watson_service_icon">
+                                            <t t-set="code" t-value="svc.code"/>
+                                        </t>
+                                    </div>
+                                    <h3 t-field="svc.name"/>
+                                    <p t-field="svc.excerpt"/>
+                                    <button class="svc-more" type="button">Read More</button>
+                                </article>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ COUNTERS ============ -->
+                <section class="counters" t-if="counters">
+                    <div class="counter-grid">
+                        <t t-foreach="counters" t-as="c">
+                            <div t-attf-class="reveal d#{c_index + 1}">
+                                <div class="num" t-att-data-count="c.value"
+                                     t-att-data-suffix="c.suffix or ''">0</div>
+                                <div class="lbl" t-field="c.name"/>
+                            </div>
+                        </t>
+                    </div>
+                    <p class="counters-line reveal">
+                        US · UK · Europe · Australia · Africa — all major world ports
+                    </p>
+                </section>
+
+                <!-- ============ SERVICE DETAIL TABS ============ -->
+                <section class="det pad" id="det">
+                    <div class="container">
+                        <div class="det-head">
+                            <span class="eyebrow center">Service Details</span>
+                            <h2 class="shead">Explore Each <span class="o">Service In Full</span></h2>
+                        </div>
+
+                        <div class="det-shell reveal zoom">
+                            <div class="det-tabs" id="detTabs">
+                                <t t-foreach="services" t-as="svc">
+                                    <button type="button" t-att-data-pane="svc.code"
+                                            t-attf-class="#{'on' if svc_index == 0 else ''}">
+                                        <t t-esc="svc.name"/>
+                                    </button>
+                                </t>
+                            </div>
+                            <div class="det-panel">
+                                <t t-foreach="services" t-as="svc">
+                                    <div t-attf-class="det-pane #{'on' if svc_index == 0 else ''}"
+                                         t-att-data-pane="svc.code">
+                                        <span class="tag" t-field="svc.tag"/>
+                                        <h3 t-esc="svc.detail_title or svc.name"/>
+                                        <div t-field="svc.body"/>
+                                        <div class="det-illus photo"
+                                             t-attf-style="--img:url('/web/image/watson.service/#{svc.id}/image_1024')">
+                                            <span class="badge">
+                                                <small t-field="svc.badge_small"/>
+                                                <t t-esc="svc.badge_big"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ INDUSTRIES ============ -->
+                <section class="pad-b" id="industries" t-if="industries">
+                    <div class="container">
+                        <div class="det-head">
+                            <span class="eyebrow center">Industries We Serve</span>
+                            <h2 class="shead">Industries We <span class="o">Serve</span></h2>
+                        </div>
+                        <div class="cert-grid">
+                            <t t-foreach="industries" t-as="ind">
+                                <div t-attf-class="cert reveal zoom d#{(ind_index % 6) + 1}">
+                                    <b t-field="ind.name"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ CERTIFICATIONS ============ -->
+                <section class="pad-b" id="certs" t-if="certifications">
+                    <div class="container">
+                        <div class="det-head">
+                            <span class="eyebrow center">Certifications &amp; Memberships</span>
+                            <h2 class="shead">Trusted &amp; <span class="o">Accredited</span></h2>
+                        </div>
+                        <div class="cert-grid certs-5">
+                            <t t-foreach="certifications" t-as="cert">
+                                <div t-attf-class="cert reveal zoom d#{(cert_index % 5) + 1}">
+                                    <img t-attf-src="/web/image/watson.certification/#{cert.id}/image_512"
+                                         t-att-alt="cert.name" t-att-title="cert.name" loading="lazy"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ TEAM ============ -->
+                <section class="pad-b" id="team" t-if="team">
+                    <div class="container">
+                        <div class="det-head">
+                            <span class="eyebrow center">Our People</span>
+                            <h2 class="shead">The Team Behind <span class="o">Every Shipment</span></h2>
+                            <p class="lead">
+                                A 50+ strong team across freight, customs, documentation and accounts —
+                                the same people who handle your cargo from booking to delivery.
+                            </p>
+                        </div>
+                        <div class="team-grid">
+                            <t t-foreach="team" t-as="member">
+                                <div t-attf-class="member reveal zoom d#{(member_index % 4) + 1}">
+                                    <div t-if="member.image_1920" class="member-photo"
+                                         t-attf-style="--img:url('/web/image/watson.team.member/#{member.id}/image_512')"/>
+                                    <div t-else="" class="member-photo member-photo--none">
+                                        <span t-esc="member.initials"/>
+                                    </div>
+                                    <h4 t-field="member.name"/>
+                                    <span t-field="member.role"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ BRANCHES ============ -->
+                <section class="det pad" id="branches" t-if="branches">
+                    <div class="container">
+                        <div class="det-head">
+                            <span class="eyebrow center">Our Network</span>
+                            <h2 class="shead">Our <span class="o">Branches</span></h2>
+                        </div>
+                        <div class="branch-grid">
+                            <t t-foreach="branches" t-as="br">
+                                <div t-attf-class="branch reveal zoom d#{(br_index % 4) + 1}">
+                                    <div class="city">
+                                        <h4 t-field="br.name"/>
+                                        <img t-if="br.image_1920" class="branch-qr"
+                                             t-attf-src="/web/image/watson.branch/#{br.id}/image_256"
+                                             t-attf-alt="#{br.name} branch QR code" loading="lazy"/>
+                                    </div>
+                                    <div class="person" t-field="br.contact_person"/>
+                                    <a class="email" t-attf-href="mailto:{{ br.email }}" t-esc="br.email"/>
+                                    <address t-field="br.street"/>
+                                    <div class="branch-bottom">
+                                        <div class="ph">
+                                            <a t-if="br.phone" t-attf-href="tel:{{ br.phone_tel or br.phone }}"
+                                               t-esc="br.phone"/>
+                                            <a t-if="br.mobile" t-attf-href="tel:{{ br.mobile_tel or br.mobile }}"
+                                               t-esc="br.mobile"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ QUOTE (CRM lead) ============ -->
+                <section class="qc pad" id="quote">
+                    <div class="container">
+                        <div class="qc-grid">
+                            <div class="qc-info reveal left" id="contact">
+                                <span class="eyebrow">Get In Touch</span>
+                                <h2 class="shead">Let Us Help You Find A <span class="o">Solution</span></h2>
+                                <p>
+                                    Reach our team directly, or request a free quote. The more you can
+                                    tell us about your shipment, the faster and more accurate our quote.
+                                </p>
+                                <div class="qc-contact-card">
+                                    <div class="row"><div>
+                                        <small>Head Office</small>
+                                        <p t-esc="website.watson_head_office"/>
+                                    </div></div>
+                                    <div class="row"><div>
+                                        <small>Phone</small>
+                                        <p>
+                                            <t t-esc="website.watson_phone"/> ·
+                                            <t t-esc="website.watson_mobile"/>
+                                        </p>
+                                    </div></div>
+                                    <div class="row"><div>
+                                        <small>Email</small>
+                                        <p t-esc="website.watson_email"/>
+                                    </div></div>
+                                </div>
+                                <p class="qc-note">
+                                    Cargo insurance can be arranged on request — ask your coordinator
+                                    about coverage for your shipment.
+                                </p>
+                            </div>
+
+                            <!--
+                                website_crm form: every submission becomes a CRM lead.
+                                Extra fields are mapped through the hidden description
+                                field by the Website Builder's form options.
+                            -->
+                            <div class="form-card reveal right d2">
+                                <h3>Request a Free Quote</h3>
+                                <p class="sub">
+                                    Tell us about your shipment and we'll get back to you within
+                                    1 working day.
+                                </p>
+                                <form action="/website/form/" method="post" enctype="multipart/form-data"
+                                      class="s_website_form form-send" data-mark="*"
+                                      data-success-mode="message" data-model_name="crm.lead">
+                                    <div class="s_website_form_rows">
+                                        <div class="frow">
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_name">Name</label>
+                                                <input type="text" id="watson_name" name="contact_name"
+                                                       required="required" placeholder="Your name"
+                                                       class="s_website_form_input"/>
+                                            </div>
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_company">Company</label>
+                                                <input type="text" id="watson_company" name="partner_name"
+                                                       placeholder="Company name" class="s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                        <div class="frow">
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_email">Email</label>
+                                                <input type="email" id="watson_email" name="email_from"
+                                                       required="required" placeholder="you@email.com"
+                                                       class="s_website_form_input"/>
+                                            </div>
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_phone">Phone</label>
+                                                <input type="tel" id="watson_phone" name="phone"
+                                                       placeholder="+91 ..." class="s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                        <div class="frow">
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_service">Service Required</label>
+                                                <select id="watson_service" name="Service Required"
+                                                        class="s_website_form_input">
+                                                    <t t-foreach="services" t-as="svc">
+                                                        <option t-att-value="svc.name" t-esc="svc.name"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_country">Country</label>
+                                                <input type="text" id="watson_country" name="Country"
+                                                       class="s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                        <div class="frow">
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_origin">Origin</label>
+                                                <input type="text" id="watson_origin" name="Origin"
+                                                       placeholder="Origin city / port"
+                                                       class="s_website_form_input"/>
+                                            </div>
+                                            <div class="field s_website_form_field">
+                                                <label for="watson_destination">Destination</label>
+                                                <input type="text" id="watson_destination" name="Destination"
+                                                       placeholder="Destination city / port"
+                                                       class="s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                        <div class="field s_website_form_field">
+                                            <label for="watson_cargo">Cargo Details</label>
+                                            <input type="text" id="watson_cargo" name="Cargo Details"
+                                                   placeholder="Cargo type, weight, dimensions"
+                                                   class="s_website_form_input"/>
+                                        </div>
+                                        <div class="field s_website_form_field field-grow">
+                                            <label for="watson_message">Message</label>
+                                            <textarea id="watson_message" name="description"
+                                                      placeholder="Anything else about your shipment, route and timeline..."
+                                                      class="s_website_form_input"/>
+                                        </div>
+
+                                        <input type="hidden" name="name" value="Website quote request"
+                                               class="s_website_form_input"/>
+                                        <input type="hidden" name="email_to"
+                                               t-att-value="website.watson_email"/>
+
+                                        <div class="s_website_form_submit">
+                                            <div style="width: 200px;" class="s_website_form_label"/>
+                                            <button type="submit" class="btn-watson dark w-100">
+                                                Get Your Quote
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p class="form-note">
+                                    By submitting you agree to be contacted by Watson Logistics
+                                    regarding your enquiry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </t>
+    </template>
+
+    <!--
+        Inline SVG icon per service code. Kept in one template so the markup
+        lives in a single place and the service record only stores a code.
+    -->
+    <template id="watson_service_icon" name="Watson: service icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <t t-if="code == 'sea'">
+                <path d="M3 18s2-1 4-1 3 1 5 1 3-1 5-1 4 1 4 1"/>
+                <path d="M5 14V8l7-4 7 4v6"/>
+            </t>
+            <t t-elif="code == 'air'">
+                <path d="M21 12l-9 4-2-3-5 2 1-4-1-4 5 2 2-3z"/>
+            </t>
+            <t t-elif="code == 'road'">
+                <path d="M4 15l2-6h12l2 6"/><path d="M3 15h18v4H3z"/>
+                <circle cx="7" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/>
+            </t>
+            <t t-elif="code == 'cust'">
+                <path d="M12 3l7 3v6c0 4.2-2.9 7.7-7 9-4.1-1.3-7-4.8-7-9V6z"/>
+                <path d="M9.5 12l1.8 1.8L15 10"/>
+            </t>
+            <t t-elif="code == 'ware'">
+                <path d="M3 10l9-5 9 5v10H3z"/><path d="M7 20v-6h10v6"/>
+            </t>
+            <t t-elif="code == 'dist'">
+                <path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/>
+                <circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>
+            </t>
+            <t t-elif="code == 'proj'">
+                <path d="M4 20V6l10 4v10z"/><path d="M14 10l6-3v13h-6"/>
+            </t>
+            <t t-elif="code == 'us'">
+                <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>
+                <path d="M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/>
+            </t>
+            <t t-else="">
+                <path d="M3 9l9-5 9 5v9l-9 5-9-5z"/><path d="M3 9l9 5 9-5M12 14v8"/>
+            </t>
+        </svg>
+    </template>
+
+</odoo>

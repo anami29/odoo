@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Certifications, headline figures and industries. -->
+    <data noupdate="1">
+        <record id="cert_msme" model="watson.certification">
+            <field name="name">MSME</field>
+            <field name="sequence">10</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/msme.png"/>
+        </record>
+        <record id="cert_mto___multimodal_transport_ope" model="watson.certification">
+            <field name="name">MTO — Multimodal Transport Operator</field>
+            <field name="sequence">20</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/mto.png"/>
+        </record>
+        <record id="cert_fmc" model="watson.certification">
+            <field name="name">FMC</field>
+            <field name="sequence">30</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/fmc.png"/>
+        </record>
+        <record id="cert_bcba" model="watson.certification">
+            <field name="name">BCBA</field>
+            <field name="sequence">40</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/bcba.png"/>
+        </record>
+        <record id="cert_federation_of_freight_forwardi" model="watson.certification">
+            <field name="name">Federation of Freight Forwarding</field>
+            <field name="sequence">50</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/ffi.png"/>
+        </record>
+        <record id="cert_unica" model="watson.certification">
+            <field name="name">UNICA</field>
+            <field name="sequence">60</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/unica.png"/>
+        </record>
+        <record id="cert_indian_chambers_of_commerce" model="watson.certification">
+            <field name="name">Indian Chambers of Commerce</field>
+            <field name="sequence">70</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/icc.png"/>
+        </record>
+        <record id="cert_aeo___authorized_economic_oper" model="watson.certification">
+            <field name="name">AEO — Authorized Economic Operator</field>
+            <field name="sequence">80</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/aeo.png"/>
+        </record>
+        <record id="cert_wca" model="watson.certification">
+            <field name="name">WCA</field>
+            <field name="sequence">90</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/certs/wca.png"/>
+        </record>
+        <record id="counter_1" model="watson.counter">
+            <field name="name">Years In Business</field>
+            <field name="value">18</field>
+            <field name="suffix">+</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="counter_2" model="watson.counter">
+            <field name="name">Branches Across India</field>
+            <field name="value">8</field>
+            <field name="suffix"></field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="counter_3" model="watson.counter">
+            <field name="name">Shipments A Year</field>
+            <field name="value">6000</field>
+            <field name="suffix">+</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="counter_4" model="watson.counter">
+            <field name="name">Team Members</field>
+            <field name="value">50</field>
+            <field name="suffix">+</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="industry_1" model="watson.industry">
+            <field name="name">Pharma</field>
+            <field name="icon">pharma</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="industry_2" model="watson.industry">
+            <field name="name">Textiles</field>
+            <field name="icon">textiles</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="industry_3" model="watson.industry">
+            <field name="name">Automobile</field>
+            <field name="icon">automobile</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="industry_4" model="watson.industry">
+            <field name="name">Manufacturing</field>
+            <field name="icon">manufacturing</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="industry_5" model="watson.industry">
+            <field name="name">Retail</field>
+            <field name="icon">retail</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="industry_6" model="watson.industry">
+            <field name="name">General cargo</field>
+            <field name="icon">cargo</field>
+            <field name="sequence">60</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============ SERVICES ============ -->
+    <record id="view_watson_service_list" model="ir.ui.view">
+        <field name="name">watson.service.list</field>
+        <field name="model">watson.service</field>
+        <field name="arch" type="xml">
+            <list string="Services">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="tag"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_watson_service_form" model="ir.ui.view">
+        <field name="name">watson.service.form</field>
+        <field name="model">watson.service</field>
+        <field name="arch" type="xml">
+            <form string="Service">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Sea Freight"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="tag" placeholder="Ocean Freight"/>
+                            <field name="detail_title" placeholder="Defaults to the title above"/>
+                            <field name="badge_small"/>
+                            <field name="badge_big"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Card Excerpt">
+                            <field name="excerpt" placeholder="Short text shown on the service card."/>
+                        </page>
+                        <page string="Detail Copy">
+                            <field name="body" placeholder="Full description shown in the detail tab."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_watson_service" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">watson.service</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ============ BRANCHES ============ -->
+    <record id="view_watson_branch_list" model="ir.ui.view">
+        <field name="name">watson.branch.list</field>
+        <field name="model">watson.branch</field>
+        <field name="arch" type="xml">
+            <list string="Branches">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="contact_person"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_watson_branch_form" model="ir.ui.view">
+        <field name="name">watson.branch.form</field>
+        <field name="model">watson.branch</field>
+        <field name="arch" type="xml">
+            <form string="Branch">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name" string="City"/>
+                        <h1><field name="name" placeholder="Mumbai"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="contact_person"/>
+                            <field name="email" widget="email"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="phone_tel"/>
+                            <field name="mobile"/>
+                            <field name="mobile_tel"/>
+                        </group>
+                    </group>
+                    <group string="Address">
+                        <field name="street" nolabel="1"/>
+                    </group>
+                    <div class="text-muted">
+                        The image above is the branch QR code shown on the card.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_watson_branch" model="ir.actions.act_window">
+        <field name="name">Branches</field>
+        <field name="res_model">watson.branch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ============ TEAM ============ -->
+    <record id="view_watson_team_list" model="ir.ui.view">
+        <field name="name">watson.team.member.list</field>
+        <field name="model">watson.team.member</field>
+        <field name="arch" type="xml">
+            <list string="Team">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="role"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_watson_team_form" model="ir.ui.view">
+        <field name="name">watson.team.member.form</field>
+        <field name="model">watson.team.member</field>
+        <field name="arch" type="xml">
+            <form string="Team Member">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Full name"/></h1>
+                        <h3><field name="role" placeholder="Role"/></h3>
+                    </div>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_watson_team" model="ir.actions.act_window">
+        <field name="name">Team</field>
+        <field name="res_model">watson.team.member</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ============ CERTIFICATIONS ============ -->
+    <record id="view_watson_certification_list" model="ir.ui.view">
+        <field name="name">watson.certification.list</field>
+        <field name="model">watson.certification</field>
+        <field name="arch" type="xml">
+            <list string="Certifications" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="image_1920" widget="image" options="{'size': [0, 40]}"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_watson_certification" model="ir.actions.act_window">
+        <field name="name">Certifications</field>
+        <field name="res_model">watson.certification</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ============ COUNTERS + INDUSTRIES ============ -->
+    <record id="view_watson_counter_list" model="ir.ui.view">
+        <field name="name">watson.counter.list</field>
+        <field name="model">watson.counter</field>
+        <field name="arch" type="xml">
+            <list string="Counters" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="value"/>
+                <field name="suffix"/>
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_watson_counter" model="ir.actions.act_window">
+        <field name="name">Counters</field>
+        <field name="res_model">watson.counter</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_watson_industry_list" model="ir.ui.view">
+        <field name="name">watson.industry.list</field>
+        <field name="model">watson.industry</field>
+        <field name="arch" type="xml">
+            <list string="Industries" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="icon"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_watson_industry" model="ir.actions.act_window">
+        <field name="name">Industries</field>
+        <field name="res_model">watson.industry</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ============ MENUS (under Website) ============ -->
+    <menuitem id="menu_watson_root" name="Watson Content"
+              parent="website.menu_website_configuration" sequence="90"/>
+    <menuitem id="menu_watson_service" name="Services"
+              parent="menu_watson_root" action="action_watson_service" sequence="10"/>
+    <menuitem id="menu_watson_branch" name="Branches"
+              parent="menu_watson_root" action="action_watson_branch" sequence="20"/>
+    <menuitem id="menu_watson_team" name="Team"
+              parent="menu_watson_root" action="action_watson_team" sequence="30"/>
+    <menuitem id="menu_watson_certification" name="Certifications"
+              parent="menu_watson_root" action="action_watson_certification" sequence="40"/>
+    <menuitem id="menu_watson_counter" name="Counters"
+              parent="menu_watson_root" action="action_watson_counter" sequence="50"/>
+    <menuitem id="menu_watson_industry" name="Industries"
+              parent="menu_watson_root" action="action_watson_industry" sequence="60"/>
+
+    <!-- ============ SITE-WIDE CONTACT FIELDS ============ -->
+    <record id="view_website_form_watson" model="ir.ui.view">
+        <field name="name">website.form.watson.contact</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Watson Contact Details">
+                    <group>
+                        <field name="watson_phone"/>
+                        <field name="watson_phone_tel"/>
+                        <field name="watson_mobile"/>
+                        <field name="watson_mobile_tel"/>
+                        <field name="watson_whatsapp"/>
+                    </group>
+                    <group>
+                        <field name="watson_email"/>
+                        <field name="watson_hours"/>
+                        <field name="watson_established"/>
+                        <field name="watson_linkedin"/>
+                        <field name="watson_instagram"/>
+                    </group>
+                    <field name="watson_head_office"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

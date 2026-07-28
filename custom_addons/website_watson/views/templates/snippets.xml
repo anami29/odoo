@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Draggable building blocks.
+
+        Each section below can be dropped onto any page from the Website
+        Builder's Blocks panel. The homepage uses the templates directly; these
+        registrations make the same blocks reusable on About, landing pages and
+        so on.
+
+        Odoo 18 registers snippets by inheriting website.snippets and inserting
+        a <t t-snippet=""/> entry into the relevant group.
+    -->
+
+    <template id="s_watson_services" name="Watson Services">
+        <section class="s_watson_services pad-b">
+            <div class="container">
+                <t t-set="services" t-value="request.env['watson.service'].sudo().search([])"/>
+                <div class="svc-grid">
+                    <t t-foreach="services" t-as="svc">
+                        <article t-attf-class="svc-card reveal zoom d#{(svc_index % 4) + 1}">
+                            <div class="svc-img"
+                                 t-attf-style="--img:url('/web/image/watson.service/#{svc.id}/image_1024')"/>
+                            <h3 t-field="svc.name"/>
+                            <p t-field="svc.excerpt"/>
+                        </article>
+                    </t>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_watson_branches" name="Watson Branches">
+        <section class="s_watson_branches det pad">
+            <div class="container">
+                <t t-set="branches" t-value="request.env['watson.branch'].sudo().search([])"/>
+                <div class="branch-grid">
+                    <t t-foreach="branches" t-as="br">
+                        <div t-attf-class="branch reveal zoom d#{(br_index % 4) + 1}">
+                            <div class="city"><h4 t-field="br.name"/></div>
+                            <div class="person" t-field="br.contact_person"/>
+                            <a class="email" t-attf-href="mailto:{{ br.email }}" t-esc="br.email"/>
+                            <address t-field="br.street"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_watson_team" name="Watson Team">
+        <section class="s_watson_team pad-b">
+            <div class="container">
+                <t t-set="team" t-value="request.env['watson.team.member'].sudo().search([])"/>
+                <div class="team-grid">
+                    <t t-foreach="team" t-as="member">
+                        <div t-attf-class="member reveal zoom d#{(member_index % 4) + 1}">
+                            <div t-if="member.image_1920" class="member-photo"
+                                 t-attf-style="--img:url('/web/image/watson.team.member/#{member.id}/image_512')"/>
+                            <div t-else="" class="member-photo member-photo--none">
+                                <span t-esc="member.initials"/>
+                            </div>
+                            <h4 t-field="member.name"/>
+                            <span t-field="member.role"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_watson_counters" name="Watson Counters">
+        <section class="s_watson_counters counters">
+            <t t-set="counters" t-value="request.env['watson.counter'].sudo().search([])"/>
+            <div class="counter-grid">
+                <t t-foreach="counters" t-as="c">
+                    <div t-attf-class="reveal d#{c_index + 1}">
+                        <div class="num" t-att-data-count="c.value"
+                             t-att-data-suffix="c.suffix or ''">0</div>
+                        <div class="lbl" t-field="c.name"/>
+                    </div>
+                </t>
+            </div>
+        </section>
+    </template>
+
+    <!-- Make the blocks available in the Builder's "Structure" group. -->
+    <template id="watson_snippets" inherit_id="website.snippets" name="Watson: building blocks">
+        <xpath expr="//snippets[@id='snippet_structure']/t[last()]" position="after">
+            <t t-snippet="website_watson.s_watson_services"
+               t-thumbnail="/website_watson/static/src/img/wbuilder/s_services.svg"/>
+            <t t-snippet="website_watson.s_watson_branches"
+               t-thumbnail="/website_watson/static/src/img/wbuilder/s_branches.svg"/>
+            <t t-snippet="website_watson.s_watson_team"
+               t-thumbnail="/website_watson/static/src/img/wbuilder/s_team.svg"/>
+            <t t-snippet="website_watson.s_watson_counters"
+               t-thumbnail="/website_watson/static/src/img/wbuilder/s_counters.svg"/>
+        </xpath>
+    </template>
+
+</odoo>
