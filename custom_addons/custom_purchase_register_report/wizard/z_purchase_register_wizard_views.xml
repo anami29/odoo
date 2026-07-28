@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_z_purchase_register_wizard_form" model="ir.ui.view">
+        <field name="name">z.purchase.register.wizard.form</field>
+        <field name="model">z.purchase.register.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Z Purchase Register Report">
+                <group>
+                    <group>
+                        <field name="company_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="basis" widget="radio"/>
+                        <field name="period_mode"/>
+                    </group>
+                    <group>
+                        <field name="fiscal_year" 
+                               invisible="period_mode == 'custom'"
+                               required="period_mode != 'custom'"/>
+                        <field name="month" 
+                               invisible="period_mode != 'month'"
+                               required="period_mode == 'month'"/>
+                        <field name="quarter" 
+                               invisible="period_mode != 'quarter'"
+                               required="period_mode == 'quarter'"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_report" string="Generate Excel" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_z_purchase_register_wizard" model="ir.actions.act_window">
+        <field name="name">Z Purchase Register</field>
+        <field name="res_model">z.purchase.register.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_z_purchase_register_wizard"
+              name="Z Purchase Register"
+              action="action_z_purchase_register_wizard"
+              parent="account.menu_finance_reports"
+              sequence="101"/>
+</odoo>
