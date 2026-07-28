@@ -11,6 +11,7 @@
             <field name="detail_title">Sea Freight</field>
             <field name="badge_small">FCL · LCL · Break-Bulk · RORO</field>
             <field name="badge_big">Major Ports Worldwide</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/sea-freight.jpg"/>
             <field name="body" type="html"><p>FCL, LCL, break-bulk and RORO shipments to and from any major port worldwide, through our partner and agent network. We handle consolidation, documentation and carrier selection and keep you updated from origin to destination.</p><ul class="ck"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> FCL, LCL, break-bulk and RORO</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Specialist LCL consolidation (consol boxes) to the UK, USA, Mediterranean and Australia</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Multimodal transport, vendor consolidation and purchase-order management</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Available as either a freight forwarder or NVOCC</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Non-containerisable cargo: conventional vessels, barges, lighters</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Cargo insurance can be arranged on request — ask your coordinator about coverage for your shipment.</li></ul></field>
         </record>
         <record id="service_air" model="watson.service">
@@ -22,6 +23,7 @@
             <field name="detail_title">Air Freight</field>
             <field name="badge_small">For Cargo That Can’t Wait</field>
             <field name="badge_big">Time-Critical Support</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/air-freight.jpg"/>
             <field name="body" type="html"><p>When speed matters, we start with your transit time, budget and handling needs, then recommend the carrier and service level — not the other way round.</p><ul class="ck"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Consultative carrier and routing selection</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Consolidation, customs clearance and shipment-status tracking</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Support for time-critical shipments to any city or country</li></ul></field>
         </record>
         <record id="service_road" model="watson.service">
@@ -33,6 +35,7 @@
             <field name="detail_title">Road Transport</field>
             <field name="badge_small">Door-To-Door</field>
             <field name="badge_big">Across India</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/transportation.jpg"/>
             <field name="body" type="html"><p>Our road transport service links factories, warehouses, ports and ICDs across India, for both full-load and part-load requirements.</p><p>Whether your cargo has to reach a port for export or move from a port to its final destination, we plan the road leg as part of the same shipment, not as a separate job.</p><ul class="ck"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Full truckload and part-load options</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Port-to-door and door-to-port movement</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Scheduling matched to your shipment timeline</li></ul></field>
         </record>
         <record id="service_cust" model="watson.service">
@@ -44,6 +47,7 @@
             <field name="detail_title">Customs Brokerage</field>
             <field name="badge_small">Licensed CHA</field>
             <field name="badge_big">In-House Clearance Team</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/customs-brokerage.jpg"/>
             <field name="body" type="html"><p>Customs paperwork is usually the slowest part of a shipment — so we handle it in-house. As a licensed Customs House Agent (CHA) with our own clearance team, we manage classification, valuation, documentation and clearance at major Indian ports and ICDs, keeping control of your cargo at every step with predictable release timelines.</p><ul class="ck"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Licensed CHA — in-house customs clearance department</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Expedited releases at virtually any port or ICD in India</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Classification &amp; valuation expertise</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Automated customs clearance and documentation</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Customized management reports</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Customs-bond underwriting</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Sector experience: textiles, medical &amp; pharmaceutical, heavy machinery, automobile and project cargo — including new-plant set-up and commissioning</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Senior brokers who have cleared India’s highest customs examinations</li></ul></field>
         </record>
         <record id="service_log" model="watson.service">
@@ -55,6 +59,7 @@
             <field name="detail_title">Logistics</field>
             <field name="badge_small">One Point Of Contact</field>
             <field name="badge_big">500+ Agent Network</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/logistics.jpg"/>
             <field name="body" type="html"><p>Freight coordination, documentation, carrier management and customs, all under one point of contact — so you’re not chasing multiple vendors.</p><ul class="ck"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> One coordinator from sourcing through to delivery</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Multimodal freight, documentation and customs under one team</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> End-to-end shipment visibility</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Backed by a 500+ agent network worldwide</li></ul></field>
         </record>
         <record id="service_dist" model="watson.service">
@@ -66,6 +71,7 @@
             <field name="detail_title">Distribution</field>
             <field name="badge_small">The Last Leg</field>
             <field name="badge_big">To Final Destination</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/distribution.jpg"/>
             <field name="body" type="html"><p>Once your cargo has cleared customs or reached a warehouse, our distribution team takes over the last leg.</p><p>We arrange the road transport, scheduling and documentation needed to get it to its final destination.</p></field>
         </record>
         <record id="service_ware" model="watson.service">
@@ -77,6 +83,7 @@
             <field name="detail_title">Warehousing</field>
             <field name="badge_small">Ambient To Frozen</field>
             <field name="badge_big">Racked &amp; Bulk Storage</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/warehousing.jpg"/>
             <field name="body" type="html"><p>We provide warehousing and distribution for cargo that needs storage before onward transport. Our facilities combine modern systems with best-practice handling to lower storage and distribution costs while raising service levels.</p><ul class="ck"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Storage: ambient, temperature-controlled (air-conditioned, chilled, frozen), racked and bulk</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Computerized inventory-control systems</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> 24-hour monitored security and fire protection</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Trained, certified staff and modern material-handling equipment</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Cross-dock and just-in-time (JIT) programmes</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Owned truck fleet, 3–13 tonne capacity</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 6"/></svg> Warehousing at major cities and near key airports/seaports</li></ul></field>
         </record>
         <record id="service_proj" model="watson.service">
@@ -88,6 +95,7 @@
             <field name="detail_title">Project Cargo</field>
             <field name="badge_small">Planned As One Project</field>
             <field name="badge_big">Origin To Destination</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/project-cargo.jpg"/>
             <field name="body" type="html"><p>Oversized, heavy or multi-part cargo can’t be treated like a standard shipment. It needs planning. Our project cargo team coordinates the movement of this kind of cargo from origin to destination.</p><p>We work with you from the planning stage through transport and delivery, and run the whole thing as one project rather than a string of separate moves.</p></field>
         </record>
         <record id="service_poe" model="watson.service">
@@ -99,6 +107,7 @@
             <field name="detail_title">POE / DDP Shipment Support</field>
             <field name="badge_small">Delivered Duty Paid</field>
             <field name="badge_big">Mainly US-Bound Cargo</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/logistics.jpg"/>
             <field name="body" type="html"><p>We offer DDP (Delivered Duty Paid) shipment support, mainly for US-bound shipments, and take on duty and delivery responsibility as part of the arrangement.</p><p>[POE shipments — full form/details to be confirmed by client before publishing.]</p></field>
         </record>
         <record id="service_us" model="watson.service">
@@ -110,6 +119,7 @@
             <field name="detail_title">US Shipment Expertise</field>
             <field name="badge_small">Documentation To Delivery</field>
             <field name="badge_big">Compliant &amp; On Schedule</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/services/transportation.jpg"/>
             <field name="body" type="html"><p>Watson Logistics has real experience with shipments on the India–US trade lane, including DDP shipments (see POE / DDP Shipment Support).</p><p>From documentation to delivery, we keep US-bound cargo compliant and on schedule, with our partner and agent network handling the destination end.</p></field>
         </record>
     </data>

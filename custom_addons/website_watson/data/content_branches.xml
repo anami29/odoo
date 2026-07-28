@@ -12,6 +12,7 @@
             <field name="phone_tel">+912227575742</field>
             <field name="mobile">+91 9833352325</field>
             <field name="mobile_tel">+919833352325</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-mumbai.png"/>
         </record>
         <record id="branch_delhi" model="watson.branch">
             <field name="name">Delhi</field>
@@ -23,6 +24,7 @@
             <field name="phone_tel">+919953595802</field>
             <field name="mobile"></field>
             <field name="mobile_tel"></field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-delhi.png"/>
         </record>
         <record id="branch_bhadohi" model="watson.branch">
             <field name="name">Bhadohi</field>
@@ -34,6 +36,7 @@
             <field name="phone_tel">+915414224775</field>
             <field name="mobile">+91 9005077646 &amp; 9415265430</field>
             <field name="mobile_tel">+919005077646</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-bhadohi.png"/>
         </record>
         <record id="branch_jaipur" model="watson.branch">
             <field name="name">Jaipur</field>
@@ -45,6 +48,7 @@
             <field name="phone_tel">+911414011678</field>
             <field name="mobile">+91 9982172976</field>
             <field name="mobile_tel">+919982172976</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-jaipur.png"/>
         </record>
         <record id="branch_kolkata" model="watson.branch">
             <field name="name">Kolkata</field>
@@ -56,6 +60,7 @@
             <field name="phone_tel">+913322131656</field>
             <field name="mobile">+91 9830063013 &amp; 9830513013</field>
             <field name="mobile_tel">+919830063013</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-kolkata.png"/>
         </record>
         <record id="branch_chennai" model="watson.branch">
             <field name="name">Chennai</field>
@@ -67,6 +72,7 @@
             <field name="phone_tel">+914425243425</field>
             <field name="mobile">+91 9841977033</field>
             <field name="mobile_tel">+919841977033</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-chennai.png"/>
         </record>
         <record id="branch_gandhidham" model="watson.branch">
             <field name="name">Gandhidham</field>
@@ -78,6 +84,7 @@
             <field name="phone_tel">+912836236940</field>
             <field name="mobile">+91 9913516940</field>
             <field name="mobile_tel">+919913516940</field>
+            <field name="image_1920" type="base64" file="website_watson/static/src/img/branches/qr-gandhidham.png"/>
         </record>
     </data>
 </odoo>

@@ -29,9 +29,11 @@
             <div id="wrap" class="oe_structure oe_empty watson-site">
 
                 <!-- ============ HERO ============ -->
-                <section class="watson-hero" id="home">
+                <section class="hero" id="home">
                     <div class="hero-bg">
-                        <div class="hero-slide active"/>
+                        <div class="hero-slide s1 active"/>
+                        <div class="hero-slide s2"/>
+                        <div class="hero-slide s3"/>
                     </div>
                     <div class="container">
                         <div class="hero-text">
@@ -56,7 +58,7 @@
                 </section>
 
                 <!-- ============ SERVICES ============ -->
-                <section class="pad-b" id="services">
+                <section class="pad" id="services">
                     <div class="container">
                         <div class="svc-head">
                             <div class="reveal">
@@ -145,7 +147,7 @@
                 </section>
 
                 <!-- ============ INDUSTRIES ============ -->
-                <section class="pad-b" id="industries" t-if="industries">
+                <section class="pad" id="industries" t-if="industries">
                     <div class="container">
                         <div class="det-head">
                             <span class="eyebrow center">Industries We Serve</span>
@@ -162,7 +164,7 @@
                 </section>
 
                 <!-- ============ CERTIFICATIONS ============ -->
-                <section class="pad-b" id="certs" t-if="certifications">
+                <section class="pad" id="certs" t-if="certifications">
                     <div class="container">
                         <div class="det-head">
                             <span class="eyebrow center">Certifications &amp; Memberships</span>
@@ -180,7 +182,7 @@
                 </section>
 
                 <!-- ============ TEAM ============ -->
-                <section class="pad-b" id="team" t-if="team">
+                <section class="pad" id="team" t-if="team">
                     <div class="container">
                         <div class="det-head">
                             <span class="eyebrow center">Our People</span>

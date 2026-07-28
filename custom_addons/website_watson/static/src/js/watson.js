@@ -67,7 +67,16 @@ publicWidget.registry.WatsonSite = publicWidget.Widget.extend({
         $$('.reveal').forEach(el => reduce ? el.classList.add('in') : io.observe(el));
         $$('[data-count]').forEach(el => io.observe(el));
 
-
+        /* ---------- HERO SLIDESHOW ---------- */
+        const slides = $$('.hero-slide');
+        if (slides.length > 1) {
+          let currentSlide = 0;
+          setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+          }, 6000);
+        }
     },
 });
 
