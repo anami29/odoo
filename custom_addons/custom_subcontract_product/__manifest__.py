@@ -1,0 +1,32 @@
+{
+    'name': 'Sub-contract (Job Work) Product',
+    'summary': 'Goods logistics with MRP, invoiced as a service with SAC; '
+               'principal-owned stock, challans, RM call-off (FSD/TSD-SCP-001 v1.1)',
+    'version': '18.0.1.1.0',
+    'author': 'RLFB',
+    'category': 'Accounting/Localizations',
+    'license': 'LGPL-3',
+    'depends': [
+        'sale_stock', 'mrp', 'stock_account',
+        'l10n_in_edi', 'l10n_in_edi_ewaybill',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/stock_data.xml',
+        'data/route_data.xml',
+        'data/sequence_data.xml',
+        'data/ir_cron_data.xml',
+        'data/mail_template_data.xml',
+        'views/product_template_views.xml',
+        'views/mrp_production_views.xml',
+        'views/stock_picking_views.xml',
+        'views/sale_order_views.xml',
+        'wizard/jobwork_register_views.xml',
+        'report/challan_report.xml',
+        'report/challan_templates.xml',
+        'report/rm_calloff_report.xml',
+        'report/rm_calloff_templates.xml',
+    ],
+    'installable': True,
+    'application': False,
+}

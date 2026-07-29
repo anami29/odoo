@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- FR-20: RM call-off. Principal-material components carry this
+         route; MO raw demand at Principal Stock pulls a planned inward
+         challan on the principal. -->
+    <record id="route_supplied_by_principal" model="stock.route">
+        <field name="name">Supplied by Principal</field>
+        <field name="product_selectable" eval="True"/>
+        <field name="sequence">4</field>
+    </record>
+    <record id="rule_principal_pull" model="stock.rule">
+        <field name="name">Customers &#8594; Principal Stock (Inward Challan)</field>
+        <field name="route_id" ref="route_supplied_by_principal"/>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="stock.stock_location_customers"/>
+        <field name="location_dest_id" ref="location_principal_stock"/>
+        <field name="picking_type_id" ref="picking_type_jw_in"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
+    <!-- Own consumables issued into the job area. -->
+    <record id="route_jw_issue" model="stock.route">
+        <field name="name">Issue to Job Work</field>
+        <field name="product_selectable" eval="True"/>
+        <field name="sequence">5</field>
+    </record>
+    <record id="rule_jw_issue" model="stock.rule">
+        <field name="name">WH/Stock &#8594; Principal Stock (Issue)</field>
+        <field name="route_id" ref="route_jw_issue"/>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="location_principal_stock"/>
+        <field name="picking_type_id" ref="picking_type_jw_issue"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
+    <!-- FR-30: the SO delivery IS the outward challan. -->
+    <record id="route_jw_deliver" model="stock.route">
+        <field name="name">Deliver on Outward Challan</field>
+        <field name="product_selectable" eval="True"/>
+        <field name="sequence">3</field>
+    </record>
+    <record id="rule_jw_deliver" model="stock.rule">
+        <field name="name">Principal Stock &#8594; Customers (Outward Challan)</field>
+        <field name="route_id" ref="route_jw_deliver"/>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="location_principal_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="picking_type_id" ref="picking_type_jw_out"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
+    <!-- FR-24: stage manufacture inside the principal area; raw demand
+         at Principal Stock flips MTO via _adjust_procure_method and
+         cascades child MOs. -->
+    <record id="route_jw_manufacture" model="stock.route">
+        <field name="name">Job Work Manufacture</field>
+        <field name="product_selectable" eval="True"/>
+        <field name="sequence">6</field>
+    </record>
+    <record id="rule_jw_manufacture" model="stock.rule">
+        <field name="name">Manufacture at Principal Stock</field>
+        <field name="route_id" ref="route_jw_manufacture"/>
+        <field name="action">manufacture</field>
+        <field name="location_dest_id" ref="location_principal_stock"/>
+        <field name="location_src_id" ref="location_principal_stock"/>
+        <field name="picking_type_id" ref="picking_type_jw_mfg"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
+</odoo>

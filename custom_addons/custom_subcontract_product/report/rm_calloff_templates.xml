@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rm_calloff">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3>RM Call-off — <span t-field="o.name"/></h3>
+                        <p>Principal: <span t-field="o.partner_id.display_name"/>
+                           (GSTIN: <span t-field="o.partner_id.vat"/>)</p>
+                        <p>Material required under delivery challan
+                           (Section 143 / Rule 45) for the above job-work
+                           order:</p>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Material</th><th>HSN</th>
+                                    <th class="text-end">Quantity</th>
+                                    <th>UoM</th><th>Required by</th>
+                                    <th>Planned Challan Ref.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.jw_calloff_picking_ids" t-as="p">
+                                    <tr t-foreach="p.move_ids" t-as="m">
+                                        <td t-field="m.product_id.display_name"/>
+                                        <td t-field="m.product_id.l10n_in_hsn_code"/>
+                                        <td class="text-end" t-field="m.product_uom_qty"/>
+                                        <td t-field="m.product_uom.name"/>
+                                        <td t-out="p.scheduled_date and p.scheduled_date.date() or ''"/>
+                                        <td t-field="p.name"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

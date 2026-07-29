@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Locations: Principal Stock sits OUTSIDE the WH/Stock subtree so
+         general removal and company MOs never gather principal quants
+         (FR-14); scrap keeps the owner dimension (FR-33). -->
+    <record id="location_principal_stock" model="stock.location">
+        <field name="name">Principal Stock</field>
+        <field name="usage">internal</field>
+        <field name="location_id" ref="stock.stock_location_locations"/>
+    </record>
+    <record id="location_jw_scrap" model="stock.location">
+        <field name="name">JW Scrap (Owner)</field>
+        <field name="usage">inventory</field>
+        <field name="scrap_location" eval="True"/>
+        <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+    </record>
+
+    <!-- Operation types (FR-30/31). -->
+    <record id="picking_type_jw_in" model="stock.picking.type">
+        <field name="name">Job Work Inward Challan</field>
+        <field name="code">incoming</field>
+        <field name="sequence_code">JWIN</field>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="default_location_src_id" ref="stock.stock_location_customers"/>
+        <field name="default_location_dest_id" ref="location_principal_stock"/>
+        <field name="is_jw_challan" eval="True"/>
+    </record>
+    <record id="picking_type_jw_out" model="stock.picking.type">
+        <field name="name">Job Work Outward Challan</field>
+        <field name="code">outgoing</field>
+        <field name="sequence_code">JWOUT</field>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="default_location_src_id" ref="location_principal_stock"/>
+        <field name="default_location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="is_jw_challan" eval="True"/>
+    </record>
+    <record id="picking_type_jw_mfg" model="stock.picking.type">
+        <field name="name">Job Work Manufacturing</field>
+        <field name="code">mrp_operation</field>
+        <field name="sequence_code">JWMFG</field>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="default_location_src_id" ref="location_principal_stock"/>
+        <field name="default_location_dest_id" ref="location_principal_stock"/>
+    </record>
+    <record id="picking_type_jw_issue" model="stock.picking.type">
+        <field name="name">Issue to Job Work</field>
+        <field name="code">internal</field>
+        <field name="sequence_code">JWISS</field>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="default_location_src_id" ref="stock.stock_location_stock"/>
+        <field name="default_location_dest_id" ref="location_principal_stock"/>
+    </record>
+
+    <!-- Categories: owner-tracked chain; configure NO automated valuation
+         and standard cost 0 at deployment (TSD s.11 backstop). -->
+    <record id="categ_principal_materials" model="product.category">
+        <field name="name">Principal Materials (Nil Value)</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="is_jobwork_chain" eval="True"/>
+    </record>
+    <record id="categ_jw_chain" model="product.category">
+        <field name="name">Job Work Chain (SF / FG)</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="is_jobwork_chain" eval="True"/>
+    </record>
+
+</odoo>

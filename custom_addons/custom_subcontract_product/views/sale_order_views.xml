@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_jw" model="ir.ui.view">
+        <field name="name">sale.order.form.jobwork</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_quotation_send" position="after">
+                <field name="jw_calloff_picking_ids" invisible="1"/>
+                <button name="action_send_rm_calloff" type="object"
+                        string="Send RM Call-off"
+                        invisible="not jw_calloff_picking_ids"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="action_jobwork_register" model="ir.actions.act_window">
+        <field name="name">Job Work Register</field>
+        <field name="res_model">jobwork.register.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_jobwork_register"
+              name="Job Work Register"
+              parent="stock.menu_warehouse_report"
+              action="action_jobwork_register"
+              sequence="90"/>
+</odoo>

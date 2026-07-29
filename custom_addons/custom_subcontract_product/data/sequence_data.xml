@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_jobwork_challan_in" model="ir.sequence">
+        <field name="name">Job Work Inward Challan</field>
+        <field name="code">jobwork.challan.in</field>
+        <field name="prefix">JWIN/%(range_year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range" eval="True"/>
+    </record>
+    <record id="seq_jobwork_challan_out" model="ir.sequence">
+        <field name="name">Job Work Outward Challan</field>
+        <field name="code">jobwork.challan.out</field>
+        <field name="prefix">JWOUT/%(range_year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range" eval="True"/>
+    </record>
+</odoo>

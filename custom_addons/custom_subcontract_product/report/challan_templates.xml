@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_jw_challan">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3 class="text-center">DELIVERY CHALLAN</h3>
+                        <p class="text-center fst-italic">
+                            Goods sent for job work / returned after job work
+                            — not a supply invoice
+                            (Section 143, Rules 45 &amp; 55, CGST Rules)
+                        </p>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td style="width:50%">
+                                    <strong>Challan No.:</strong>
+                                    <span t-field="o.jobwork_challan_no"/><br/>
+                                    <strong>Date:</strong>
+                                    <span t-field="o.date_done"
+                                          t-options='{"widget": "date"}'/><br/>
+                                    <t t-if="o.picking_type_id.code == 'incoming'">
+                                        <strong>Principal's Challan:</strong>
+                                        <span t-field="o.principal_challan_no"/>
+                                        dt. <span t-field="o.principal_challan_date"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <strong>e-Way Bill No.:</strong>
+                                    <span t-field="o.ewaybill_no"/><br/>
+                                    <strong>Place of Supply:</strong>
+                                    <span t-field="o.partner_id.state_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Consignor</strong><br/>
+                                    <t t-if="o.picking_type_id.code == 'outgoing'">
+                                        <span t-field="o.company_id.partner_id"
+                                              t-options='{"widget": "contact", "fields": ["address", "name"]}'/>
+                                        GSTIN: <span t-field="o.company_id.vat"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-field="o.partner_id"
+                                              t-options='{"widget": "contact", "fields": ["address", "name"]}'/>
+                                        GSTIN: <span t-field="o.partner_id.vat"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <strong>Consignee</strong><br/>
+                                    <t t-if="o.picking_type_id.code == 'outgoing'">
+                                        <span t-field="o.partner_id"
+                                              t-options='{"widget": "contact", "fields": ["address", "name"]}'/>
+                                        GSTIN: <span t-field="o.partner_id.vat"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-field="o.company_id.partner_id"
+                                              t-options='{"widget": "contact", "fields": ["address", "name"]}'/>
+                                        GSTIN: <span t-field="o.company_id.vat"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Sl.</th>
+                                    <th>Description of Goods</th>
+                                    <th>HSN</th>
+                                    <th class="text-end">Quantity</th>
+                                    <th>UoM</th>
+                                    <th class="text-end">Approx. Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="i" t-value="1"/>
+                                <tr t-foreach="o.move_ids" t-as="m">
+                                    <td><t t-out="i"/><t t-set="i" t-value="i + 1"/></td>
+                                    <td t-field="m.product_id.display_name"/>
+                                    <td t-field="m.product_id.l10n_in_hsn_code"/>
+                                    <td class="text-end" t-field="m.quantity"/>
+                                    <td t-field="m.product_uom.name"/>
+                                    <td class="text-end"
+                                        t-out="'%.2f' % (m.quantity * m.product_id.lst_price)"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row mt-5">
+                            <div class="col-6">Received the above in good
+                                condition<br/><br/>____________________<br/>
+                                Receiver's signature</div>
+                            <div class="col-6 text-end"><br/><br/>
+                                ____________________<br/>
+                                Authorised signatory</div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_rm_calloff" model="ir.actions.report">
+        <field name="name">RM Call-off (Job Work)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_subcontract_product.report_rm_calloff</field>
+        <field name="report_file">custom_subcontract_product.report_rm_calloff</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'RM Call-off - %s' % (object.name)</field>
+    </record>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_type_form_jw" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.jobwork</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="is_jw_challan"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_form_jw" model="ir.ui.view">
+        <field name="name">stock.picking.form.jobwork</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_jw_challan" invisible="1"/>
+                <field name="jobwork_challan_no" invisible="not is_jw_challan"/>
+                <field name="ewaybill_no" invisible="not is_jw_challan"/>
+                <field name="principal_challan_no"
+                       invisible="not is_jw_challan or picking_type_code != 'incoming'"
+                       required="is_jw_challan and picking_type_code == 'incoming' and state == 'done'"/>
+                <field name="principal_challan_date"
+                       invisible="not is_jw_challan or picking_type_code != 'incoming'"/>
+            </field>
+        </field>
+    </record>
+</odoo>

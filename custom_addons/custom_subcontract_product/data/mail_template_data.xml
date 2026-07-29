@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_template_rm_calloff" model="mail.template">
+        <field name="name">Job Work: RM Call-off</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="subject">RM Call-off — {{ object.name }}</field>
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="body_html" type="html">
+<div style="font-family:Calibri,Arial,sans-serif;font-size:13px;">
+    <p>Dear <t t-out="object.partner_id.name"/>,</p>
+    <p>Kindly arrange the following material against your job-work
+       order <b t-out="object.name"/> under delivery challan
+       (Section 143 / Rule 45):</p>
+    <table style="border-collapse:collapse;" border="1" cellpadding="4">
+        <tr style="background:#eee;">
+            <th>Material</th><th>HSN</th><th>Qty</th>
+            <th>UoM</th><th>Required by</th>
+        </tr>
+        <t t-foreach="object.jw_calloff_picking_ids" t-as="pick">
+            <t t-foreach="pick.move_ids" t-as="mv">
+                <tr>
+                    <td t-out="mv.product_id.display_name"/>
+                    <td t-out="mv.product_id.l10n_in_hsn_code or ''"/>
+                    <td t-out="mv.product_uom_qty"/>
+                    <td t-out="mv.product_uom.name"/>
+                    <td t-out="pick.scheduled_date and pick.scheduled_date.date() or ''"/>
+                </tr>
+            </t>
+        </t>
+    </table>
+    <p>Please quote your challan number; our stores will acknowledge
+       receipt on our inward challan.</p>
+    <p>Regards,<br/><t t-out="object.company_id.name"/></p>
+</div>
+        </field>
+    </record>
+</odoo>
