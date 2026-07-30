@@ -14,6 +14,7 @@
         'security/ir.model.access.csv',
         'data/stock_data.xml',
         'data/route_data.xml',
+        'data/unarchive_mto.xml',
         'data/sequence_data.xml',
         'data/ir_cron_data.xml',
         'data/mail_template_data.xml',
