@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_csp_dashboard_inv,csp.dashboard.invoice,model_custom_sales_purchase_dashboard,account.group_account_invoice,1,1,1,0
+access_csp_dashboard_ro,csp.dashboard.readonly,model_custom_sales_purchase_dashboard,account.group_account_readonly,1,1,1,0

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="custom_sales_purchase_dashboard.ZSalesPurchaseDashboard">
+        <div class="o_csp_dashboard">
+            <!-- Header Panel -->
+            <div class="csp-header-panel">
+                <div class="csp-brand">
+                    <h1>
+                        <t t-if="state.type === 'sales'">Sales Register Dashboard</t>
+                        <t t-else="">Purchase Register Dashboard</t>
+                    </h1>
+                    <p>GST Reconciliation and Performance Analytics</p>
+                </div>
+                
+                <!-- Tab Controls -->
+                <div class="csp-tabs">
+                    <button class="csp-tab" t-att-class="{active: state.type === 'sales'}" t-on-click="() => this.setType('sales')">
+                        <i class="fa fa-arrow-up text-success me-1"/> Sales Register
+                    </button>
+                    <button class="csp-tab" t-att-class="{active: state.type === 'purchase'}" t-on-click="() => this.setType('purchase')">
+                        <i class="fa fa-arrow-down text-danger me-1"/> Purchase Register
+                    </button>
+                </div>
+
+                <!-- Export & Control buttons -->
+                <div class="csp-controls">
+                    <button class="csp-btn csp-btn-primary" t-on-click="onExportExcel">
+                        <i class="fa fa-file-excel-o"/> Export to Excel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Configuration & Filters Panel -->
+            <div class="csp-header-panel">
+                <div class="csp-controls">
+                    <!-- Period Selection -->
+                    <div class="d-flex flex-column gap-1">
+                        <label class="csp-kpi-title text-muted">Period Mode</label>
+                        <select class="csp-select" t-model="state.periodMode" t-on-change="onFilterChange">
+                            <option value="month">Month</option>
+                            <option value="quarter">Quarter</option>
+                            <option value="year">Fiscal Year</option>
+                            <option value="custom">Custom Dates</option>
+                        </select>
+                    </div>
+
+                    <!-- Fiscal Year selection (hide on custom) -->
+                    <div class="d-flex flex-column gap-1" t-if="state.periodMode !== 'custom'">
+                        <label class="csp-kpi-title text-muted">Fiscal Year</label>
+                        <select class="csp-select" t-model="state.fiscalYear" t-on-change="onFilterChange">
+                            <option t-foreach="fiscalYears" t-as="fy" t-key="fy.value" t-att-value="fy.value">
+                                <t t-esc="fy.label"/>
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Month selection (visible on month mode) -->
+                    <div class="d-flex flex-column gap-1" t-if="state.periodMode === 'month'">
+                        <label class="csp-kpi-title text-muted">Month</label>
+                        <select class="csp-select" t-model="state.month" t-on-change="onFilterChange">
+                            <option t-foreach="months" t-as="m" t-key="m.value" t-att-value="m.value">
+                                <t t-esc="m.label"/>
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Quarter selection (visible on quarter mode) -->
+                    <div class="d-flex flex-column gap-1" t-if="state.periodMode === 'quarter'">
+                        <label class="csp-kpi-title text-muted">Quarter</label>
+                        <select class="csp-select" t-model="state.quarter" t-on-change="onFilterChange">
+                            <option t-foreach="quarters" t-as="q" t-key="q.value" t-att-value="q.value">
+                                <t t-esc="q.label"/>
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Basis Toggle -->
+                    <div class="d-flex flex-column gap-1">
+                        <label class="csp-kpi-title text-muted">Basis</label>
+                        <select class="csp-select" t-model="state.basis" t-on-change="onFilterChange">
+                            <option value="accounting">Accounting Date</option>
+                            <option t-if="state.type === 'sales'" value="invoice">Invoice Date</option>
+                            <option t-else="" value="bill">Bill Date</option>
+                        </select>
+                    </div>
+
+                    <!-- Custom Dates (Start/End) -->
+                    <div class="d-flex flex-column gap-1">
+                        <label class="csp-kpi-title text-muted">From Date</label>
+                        <input type="date" class="csp-input" t-model="state.dateFrom" t-att-disabled="state.periodMode !== 'custom'" t-on-change="onFilterChange"/>
+                    </div>
+                    <div class="d-flex flex-column gap-1">
+                        <label class="csp-kpi-title text-muted">To Date</label>
+                        <input type="date" class="csp-input" t-model="state.dateTo" t-att-disabled="state.periodMode !== 'custom'" t-on-change="onFilterChange"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Cards Grid -->
+            <div class="csp-kpi-grid">
+                <div class="csp-kpi-card">
+                    <div>
+                        <div class="csp-kpi-title">
+                            <t t-if="state.type === 'sales'">Total Sales Turnover</t>
+                            <t t-else="">Total Purchase Volume</t>
+                        </div>
+                        <div class="csp-kpi-value text-success">
+                            <t t-esc="formatCurrency(state.kpis.total_subtotal)"/>
+                        </div>
+                    </div>
+                    <div class="csp-kpi-sub">Tax-exclusive Amount</div>
+                </div>
+
+                <div class="csp-kpi-card">
+                    <div>
+                        <div class="csp-kpi-title">CGST Collected / Paid</div>
+                        <div class="csp-kpi-value text-info">
+                            <t t-esc="formatCurrency(state.kpis.total_cgst)"/>
+                        </div>
+                    </div>
+                    <div class="csp-kpi-sub">Central GST Component</div>
+                </div>
+
+                <div class="csp-kpi-card">
+                    <div>
+                        <div class="csp-kpi-title">SGST Collected / Paid</div>
+                        <div class="csp-kpi-value text-info">
+                            <t t-esc="formatCurrency(state.kpis.total_sgst)"/>
+                        </div>
+                    </div>
+                    <div class="csp-kpi-sub">State GST Component</div>
+                </div>
+
+                <div class="csp-kpi-card">
+                    <div>
+                        <div class="csp-kpi-title">IGST Collected / Paid</div>
+                        <div class="csp-kpi-value text-info">
+                            <t t-esc="formatCurrency(state.kpis.total_igst)"/>
+                        </div>
+                    </div>
+                    <div class="csp-kpi-sub">Integrated GST Component</div>
+                </div>
+
+                <div class="csp-kpi-card">
+                    <div>
+                        <div class="csp-kpi-title">Total Transaction Count</div>
+                        <div class="csp-kpi-value text-warning">
+                            <t t-esc="state.kpis.doc_count || 0"/>
+                        </div>
+                    </div>
+                    <div class="csp-kpi-sub">Posted Journal Entries</div>
+                </div>
+
+                <div class="csp-kpi-card">
+                    <div>
+                        <div class="csp-kpi-title">Total Gross (Taxes Incl.)</div>
+                        <div class="csp-kpi-value text-primary">
+                            <t t-esc="formatCurrency(state.kpis.total_amount)"/>
+                        </div>
+                    </div>
+                    <div class="csp-kpi-sub">Net Receivables / Payables</div>
+                </div>
+            </div>
+
+            <!-- Graphical Section -->
+            <div class="csp-charts-grid">
+                <!-- Trend line chart -->
+                <div class="csp-chart-card">
+                    <div class="csp-chart-title">
+                        <t t-if="state.type === 'sales'">Sales Revenue Trend</t>
+                        <t t-else="">Purchase Expenditure Trend</t>
+                    </div>
+                    <div class="csp-chart-container">
+                        <canvas t-ref="trendCanvas"/>
+                    </div>
+                </div>
+
+                <!-- Pie Charts Grid -->
+                <div class="csp-chart-card">
+                    <div class="csp-chart-title">GST Tax Rate distribution</div>
+                    <div class="csp-chart-container">
+                        <canvas t-ref="rateCanvas"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="csp-charts-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="csp-chart-card">
+                    <div class="csp-chart-title">
+                        <t t-if="state.type === 'sales'">Top Customers (Sales Subtotal)</t>
+                        <t t-else="">Top Suppliers (Purchase Subtotal)</t>
+                    </div>
+                    <div class="csp-chart-container">
+                        <canvas t-ref="partnerCanvas"/>
+                    </div>
+                </div>
+
+                <div class="csp-chart-card">
+                    <div class="csp-chart-title">RCM &amp; Withholding Tax Summary</div>
+                    <div class="p-3 d-flex flex-column gap-3 justify-content-center h-100">
+                        <div class="d-flex justify-content-between border-bottom pb-2">
+                            <span class="fw-semibold">TCS Collected</span>
+                            <span class="text-info"><t t-esc="formatCurrency(state.kpis.total_tcs)"/></span>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom pb-2">
+                            <span class="fw-semibold">TDS Deducted</span>
+                            <span class="text-danger"><t t-esc="formatCurrency(state.kpis.total_tds)"/></span>
+                        </div>
+                        <div class="d-flex justify-content-between pb-2">
+                            <span class="fw-semibold">Cash Rounding Adjustment</span>
+                            <span><t t-esc="formatCurrency(state.kpis.total_rounding)"/></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabular representation -->
+            <div class="csp-table-card mt-4">
+                <div class="csp-table-header">
+                    <h3 class="m-0 fs-5 fw-bold">Detailed Register Transactions</h3>
+                    <!-- Search Bar -->
+                    <div class="csp-search-box">
+                        <i class="fa fa-search"/>
+                        <input type="text" class="csp-input" placeholder="Search by Document # or Partner..." t-att-value="state.search" t-on-input="onSearchInput"/>
+                    </div>
+                </div>
+
+                <div class="csp-table-responsive">
+                    <table class="csp-data-table">
+                        <thead>
+                            <tr>
+                                <th>Document Number</th>
+                                <th>Partner</th>
+                                <th>GSTIN</th>
+                                <th>Accounting Date</th>
+                                <th>HSN Code</th>
+                                <th>Applied Taxes</th>
+                                <th>Tax Rate</th>
+                                <th class="text-end">Subtotal</th>
+                                <t t-if="state.type === 'sales'">
+                                    <th class="text-end">Credit</th>
+                                </t>
+                                <t t-else="">
+                                    <th class="text-end">Debit</th>
+                                </t>
+                                <th class="text-end">CGST</th>
+                                <th class="text-end">SGST</th>
+                                <th class="text-end">IGST</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="state.records.length === 0">
+                                <tr>
+                                    <td colspan="12" class="text-center text-muted p-4">No records found for the selected period.</td>
+                                </tr>
+                            </t>
+                            <t t-else="">
+                                <tr t-foreach="state.records" t-as="rec" t-key="rec.id">
+                                    <td class="fw-bold"><t t-esc="rec.name"/></td>
+                                    <td><t t-esc="rec.partner_name"/></td>
+                                    <td><t t-esc="rec.partner_vat"/></td>
+                                    <td><t t-esc="rec.accounting_date"/></td>
+                                    <td><t t-esc="rec.hsn_code"/></td>
+                                    <td><t t-esc="rec.applied_taxes"/></td>
+                                    <td><t t-esc="rec.tax_rate_gst"/></td>
+                                    <td class="text-end fw-semibold"><t t-esc="formatCurrency(rec.subtotal)"/></td>
+                                    <t t-if="state.type === 'sales'">
+                                        <td class="text-end text-success fw-semibold"><t t-esc="formatCurrency(rec.subtotal &gt;= 0 ? rec.subtotal : 0)"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td class="text-end text-danger fw-semibold"><t t-esc="formatCurrency(rec.subtotal &gt;= 0 ? rec.subtotal : 0)"/></td>
+                                    </t>
+                                    <td class="text-end"><t t-esc="formatCurrency(rec.cgst)"/></td>
+                                    <td class="text-end"><t t-esc="formatCurrency(rec.sgst)"/></td>
+                                    <td class="text-end"><t t-esc="formatCurrency(rec.igst)"/></td>
+                                    <td class="text-end fw-bold text-primary"><t t-esc="formatCurrency(rec.total)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination footer -->
+                <div class="csp-pagination">
+                    <div class="csp-page-info">
+                        Showing <t t-esc="state.offset + 1"/> to <t t-esc="Math.min(state.offset + state.limit, state.totalCount)"/> of <t t-esc="state.totalCount"/> entries
+                    </div>
+                    <div class="csp-page-controls">
+                        <button class="csp-btn" t-att-disabled="state.currentPage === 1" t-on-click="() => this.setPage(state.currentPage - 1)">
+                            <i class="fa fa-chevron-left"/> Previous
+                        </button>
+                        <button class="csp-btn" t-att-disabled="state.currentPage * state.limit &gt;= state.totalCount" t-on-click="() => this.setPage(state.currentPage + 1)">
+                            Next <i class="fa fa-chevron-right"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
