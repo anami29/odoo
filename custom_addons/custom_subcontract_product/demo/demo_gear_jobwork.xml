@@ -51,9 +51,7 @@
         <field name="purchase_ok" eval="False"/>
         <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_manufacture')])]"/>
     </record>
-    <record id="prod_sf_machining" model="product.product">
-        <field name="product_tmpl_id" ref="prod_sf_machining_tmpl"/>
-    </record>
+
 
     <!-- Flagged FG named after the final operation -->
     <record id="prod_fg_grinding" model="product.template">
@@ -97,7 +95,7 @@
     </record>
     <record id="boml_g_sf" model="mrp.bom.line">
         <field name="bom_id" ref="bom_gear_grinding"/>
-        <field name="product_id" ref="prod_sf_machining"/>
+        <field name="product_id" model="product.product" search="[('product_tmpl_id', '=', ref('prod_sf_machining_tmpl'))]"/>
         <field name="product_qty">1</field>
     </record>
     <record id="boml_g_wheel" model="mrp.bom.line">
