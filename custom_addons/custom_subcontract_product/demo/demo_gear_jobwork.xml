@@ -18,7 +18,7 @@
         <field name="standard_price">0</field>
         <field name="sale_ok" eval="False"/>
         <field name="purchase_ok" eval="False"/>
-        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_supplied_by_principal')])]"/>
+        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_supplied_by_principal'), ref('stock.route_warehouse0_mto')])]"/>
     </record>
     <record id="prod_insert" model="product.product">
         <field name="name">Carbide Insert</field>
@@ -49,7 +49,7 @@
         <field name="standard_price">0</field>
         <field name="sale_ok" eval="False"/>
         <field name="purchase_ok" eval="False"/>
-        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_manufacture')])]"/>
+        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_manufacture'), ref('stock.route_warehouse0_mto')])]"/>
     </record>
 
 
