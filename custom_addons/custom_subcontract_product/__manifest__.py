@@ -26,6 +26,7 @@
         'report/challan_templates.xml',
         'report/rm_calloff_report.xml',
         'report/rm_calloff_templates.xml',
+        'demo/demo_gear_jobwork.xml',
     ],
     'installable': True,
     'application': False,

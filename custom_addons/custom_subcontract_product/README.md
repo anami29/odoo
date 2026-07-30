@@ -26,3 +26,9 @@ Set the Sub-contract pseudo-type on the FG (writes `type='consu'`,
 - Fix the six FSD open points before UAT: billing basis, scrap path per
   principal, batching per stage, WIP treatment, challan numbering, EWB
   mechanism.
+
+## Demo dataset
+`demo/demo_gear_jobwork.xml` — gear-casting job work: stage products named after the operations (Machining SF -> Grinding FG), two-MO cascade, no work centers.
+Staging: add it to the manifest `data` list and upgrade; set FG Sales Taxes after load.
+Required settings before the first run: Storage Locations, Multi-Step Routes,
+Consignment (Work Orders only if routed operations are added later).
