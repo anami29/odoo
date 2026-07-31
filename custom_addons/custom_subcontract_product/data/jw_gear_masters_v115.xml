@@ -51,9 +51,13 @@
         <field name="purchase_ok" eval="False"/>
         <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_manufacture')])]"/>
     </record>
-    <record id="prod_sf_machining" model="product.product">
-        <field name="product_tmpl_id" ref="prod_sf_machining_tmpl"/>
-    </record>
+    <function model="ir.model.data" name="_update_xmlids">
+        <value model="base" eval="[{
+            'xml_id': 'custom_subcontract_product.prod_sf_machining',
+            'record': obj().env.ref('custom_subcontract_product.prod_sf_machining_tmpl').product_variant_id,
+            'noupdate': True,
+        }]"/>
+    </function>
 
     <!-- Flagged FG named after the final operation -->
     <record id="prod_byprod_chips" model="product.product">
