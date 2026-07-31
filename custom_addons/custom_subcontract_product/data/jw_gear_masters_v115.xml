@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<odoo>
+<data noupdate="1">
     <!-- Demo v2: gear casting from customer; stage products named after
          the operations (no work centers, no routed operations).
          Chain: RM Casting -> [MO1] Gear - Machining (SF)
@@ -51,6 +52,9 @@
         <field name="purchase_ok" eval="False"/>
         <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_manufacture')])]"/>
     </record>
+</data>
+
+<data noupdate="0">
     <function model="ir.model.data" name="_update_xmlids">
         <value model="base" eval="[{
             'xml_id': 'custom_subcontract_product.prod_sf_machining',
@@ -58,7 +62,9 @@
             'noupdate': True,
         }]"/>
     </function>
+</data>
 
+<data noupdate="1">
     <!-- Flagged FG named after the final operation -->
     <record id="prod_byprod_chips" model="product.product">
         <field name="name">MS Chips — Principal</field>
@@ -130,5 +136,5 @@
         <field name="product_id" ref="prod_grinding_wheel"/>
         <field name="product_qty">0.01</field>
     </record>
-
+</data>
 </odoo>
