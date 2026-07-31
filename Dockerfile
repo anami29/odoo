@@ -17,6 +17,7 @@ COPY odoo.conf /etc/odoo/odoo.conf
 
 USER odoo
 
+
 CMD sh -c 'odoo \
   --config=/etc/odoo/odoo.conf \
   --db_host="$PGHOST" \
