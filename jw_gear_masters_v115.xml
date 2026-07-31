@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Demo v2: gear casting from customer; stage products named after
+         the operations (no work centers, no routed operations).
+         Chain: RM Casting -> [MO1] Gear - Machining (SF)
+                           -> [MO2] Gear - Grinding (Job Work FG) -> dispatch.
+         Staging load: add 'demo/demo_gear_jobwork.xml' to the 'data'
+         list in __manifest__.py and upgrade the module.
+         Post-load: set Sales Taxes (SAC-rate GST) on the FG. -->
+
+    <!-- Principal RM and own consumables (variants: BOM-line refs) -->
+    <record id="prod_rm_gear_casting" model="product.product">
+        <field name="name">RM Gear Casting — Principal</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="categ_id" ref="custom_subcontract_product.categ_principal_materials"/>
+        <field name="l10n_in_hsn_code">7325</field>
+        <field name="standard_price">0</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_supplied_by_principal')])]"/>
+    </record>
+    <record id="prod_insert" model="product.product">
+        <field name="name">Carbide Insert</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="standard_price">250</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_issue')])]"/>
+    </record>
+    <record id="prod_grinding_wheel" model="product.product">
+        <field name="name">Grinding Wheel</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="standard_price">900</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_issue')])]"/>
+    </record>
+
+    <!-- Stage SF named after the operation: template (BOM parent)
+         plus its variant record (BOM-line component ref) — the core
+         demo-data pattern for products used in both roles. -->
+    <record id="prod_sf_machining_tmpl" model="product.template">
+        <field name="name">Gear — Machining</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="categ_id" ref="custom_subcontract_product.categ_jw_chain"/>
+        <field name="l10n_in_hsn_code">8483</field>
+        <field name="standard_price">0</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="route_ids" eval="[(6, 0, [ref('custom_subcontract_product.route_jw_manufacture')])]"/>
+    </record>
+    <record id="prod_sf_machining" model="product.product">
+        <field name="product_tmpl_id" ref="prod_sf_machining_tmpl"/>
+    </record>
+
+    <!-- Flagged FG named after the final operation -->
+    <record id="prod_byprod_chips" model="product.product">
+        <field name="name">MS Chips — Principal</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="categ_id" ref="custom_subcontract_product.categ_jw_chain"/>
+        <field name="l10n_in_hsn_code">7204</field>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">0</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+    </record>
+
+    <record id="prod_fg_grinding" model="product.template">
+        <field name="name">Gear — Grinding (Job Work)</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="l10n_in_is_jobwork" eval="True"/>
+        <field name="categ_id" ref="custom_subcontract_product.categ_jw_chain"/>
+        <field name="l10n_in_hsn_code">998873</field>
+        <field name="l10n_in_goods_hsn_code">8483</field>
+        <field name="list_price">850</field>
+        <field name="standard_price">0</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="invoice_policy">delivery</field>
+        <field name="route_ids" eval="[(6, 0, [
+            ref('custom_subcontract_product.route_jw_deliver'),
+            ref('custom_subcontract_product.route_jw_manufacture')])]"/>
+    </record>
+
+    <!-- BOM 1: Machining stage consumes the principal casting -->
+    <record id="bom_gear_machining" model="mrp.bom">
+        <field name="product_tmpl_id" ref="prod_sf_machining_tmpl"/>
+        <field name="product_qty">1</field>
+        <field name="type">normal</field>
+    </record>
+    <record id="boml_m_casting" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_gear_machining"/>
+        <field name="product_id" ref="prod_rm_gear_casting"/>
+        <field name="product_qty">1</field>
+    </record>
+    <record id="boml_m_insert" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_gear_machining"/>
+        <field name="product_id" ref="prod_insert"/>
+        <field name="product_qty">0.02</field>
+    </record>
+
+    <record id="bomb_chips" model="mrp.bom.byproduct">
+        <field name="bom_id" ref="bom_gear_machining"/>
+        <field name="product_id" ref="prod_byprod_chips"/>
+        <field name="product_qty">0.4</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
+    </record>
+
+    <!-- BOM 2: Grinding (FG) consumes the machining stage output -->
+    <record id="bom_gear_grinding" model="mrp.bom">
+        <field name="product_tmpl_id" ref="prod_fg_grinding"/>
+        <field name="product_qty">1</field>
+        <field name="type">normal</field>
+    </record>
+    <record id="boml_g_sf" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_gear_grinding"/>
+        <field name="product_id" ref="prod_sf_machining"/>
+        <field name="product_qty">1</field>
+    </record>
+    <record id="boml_g_wheel" model="mrp.bom.line">
+        <field name="bom_id" ref="bom_gear_grinding"/>
+        <field name="product_id" ref="prod_grinding_wheel"/>
+        <field name="product_qty">0.01</field>
+    </record>
+
+</odoo>
