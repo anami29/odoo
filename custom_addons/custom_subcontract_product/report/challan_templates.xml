@@ -77,7 +77,7 @@
                                 <tr t-foreach="o.move_ids" t-as="m">
                                     <td><t t-out="i"/><t t-set="i" t-value="i + 1"/></td>
                                     <td t-field="m.product_id.display_name"/>
-                                    <td t-field="m.product_id.l10n_in_hsn_code"/>
+                                    <td t-out="m.product_id.l10n_in_goods_hsn_code or m.product_id.l10n_in_hsn_code"/>
                                     <td class="text-end" t-field="m.quantity"/>
                                     <td t-field="m.product_uom.name"/>
                                     <td class="text-end"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- R3/R5 exception holder: migration-window imports and corrections only.
+         Category/privilege left unset so the same file loads on 18 and 19. -->
+    <record id="group_item_code_manage" model="res.groups">
+        <field name="name">Item Code: Migration Manager</field>
+        <field name="comment">May import or correct item codes during the migration window only. Nobody needs this group in daily operation.</field>
+    </record>
+</odoo>

@@ -21,6 +21,12 @@ class ProductTemplate(models.Model):
         help='Goods-like logistics (stock, BOM, MRP) but invoiced as a '
              'service with a SAC on the Indian e-invoice (FR-01).',
     )
+    l10n_in_goods_hsn_code = fields.Char(
+        string='Goods HSN (Challan / e-Way Bill)',
+        help='HSN of the processed article as goods. Printed on the '
+             'delivery challan and used for the movement e-way bill; '
+             'the SAC in the HSN/SAC field is used only on the invoice.',
+    )
     product_kind = fields.Selection(
         selection=[
             ('consu', 'Goods'),
@@ -55,7 +61,7 @@ class ProductTemplate(models.Model):
                 tmpl.l10n_in_is_jobwork = False
 
     @api.constrains('l10n_in_is_jobwork', 'l10n_in_hsn_code',
-                    'type', 'is_storable')
+                    'l10n_in_goods_hsn_code', 'type', 'is_storable')
     def _check_jobwork_setup(self):
         for tmpl in self.filtered('l10n_in_is_jobwork'):
             if tmpl.type != 'consu' or not tmpl.is_storable:
@@ -66,3 +72,8 @@ class ProductTemplate(models.Model):
                 raise ValidationError(_(
                     'Sub-contract products require a SAC '
                     '(HSN code starting with 99).'))
+            goods_hsn = tmpl.l10n_in_goods_hsn_code or ''
+            if not goods_hsn or goods_hsn.startswith('99'):
+                raise ValidationError(_(
+                    'Sub-contract products require a Goods HSN '
+                    '(non-99 code) for the challan and e-way bill.'))
