@@ -12,6 +12,8 @@ class StockMove(models.Model):
         mo = self.raw_material_production_id or self.production_id
         if mo and mo.subcontract_owner_id:
             return mo.subcontract_owner_id
+        if self.picking_id.owner_id:
+            return self.picking_id.owner_id
         if self.picking_type_id.is_jw_challan and self.group_id.sale_id:
             return self.group_id.sale_id.partner_id
         return self.env['res.partner']

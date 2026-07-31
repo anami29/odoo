@@ -93,9 +93,28 @@ class JobworkRegisterWizard(models.TransientModel):
                 key = (mo.subcontract_owner_id.id, raw.product_id.id)
                 rec = totals.setdefault(
                     key, {'consumed': 0.0, 'in_delivered': 0.0,
-                          'scrap': 0.0})
+                          'scrap': 0.0, 'byproduct': 0.0,
+                          'returned': 0.0})
                 rec['consumed'] += raw.quantity
                 rec['in_delivered'] += raw.quantity * ratio
+            # by-products (chips/turnings) attributed to the MO's chain RM
+            chain_raws = mo.move_raw_ids.filtered(
+                lambda m: m.state == 'done'
+                and m.product_id.categ_id.is_jobwork_chain)
+            byprod_qty = sum(mo.move_finished_ids.filtered(
+                lambda m: m.state == 'done'
+                and m.product_id != mo.product_id
+                and m.product_id.categ_id.is_jobwork_chain
+            ).mapped('quantity'))
+            if byprod_qty and chain_raws:
+                key = (mo.subcontract_owner_id.id,
+                       chain_raws[0].product_id.id)
+                totals.setdefault(
+                    key, {'consumed': 0.0, 'in_delivered': 0.0,
+                          'scrap': 0.0, 'byproduct': 0.0,
+                          'returned': 0.0})
+                totals[key].setdefault('byproduct', 0.0)
+                totals[key]['byproduct'] += byprod_qty
         scraps = self.env['stock.move'].search([
             ('scrapped', '=', True), ('state', '=', 'done'),
             ('product_id.categ_id.is_jobwork_chain', '=', True),
@@ -104,8 +123,24 @@ class JobworkRegisterWizard(models.TransientModel):
             owner = sc.move_line_ids[:1].owner_id
             key = (owner.id, sc.product_id.id)
             totals.setdefault(
-                key, {'consumed': 0.0, 'in_delivered': 0.0, 'scrap': 0.0}
+                key, {'consumed': 0.0, 'in_delivered': 0.0,
+                      'scrap': 0.0, 'byproduct': 0.0, 'returned': 0.0}
             )['scrap'] += sc.quantity
+        # returns to principal on outward challans (leftover RM,
+        # by-products, recovered scrap) - non-FG chain products only
+        returns = self.env['stock.move.line'].search([
+            ('picking_id.picking_type_id.is_jw_challan', '=', True),
+            ('picking_id.picking_type_id.code', '=', 'outgoing'),
+            ('state', '=', 'done'),
+            ('product_id.categ_id.is_jobwork_chain', '=', True),
+            ('product_id.l10n_in_is_jobwork', '=', False),
+        ])
+        for ml in returns:
+            key = (ml.owner_id.id, ml.product_id.id)
+            totals.setdefault(
+                key, {'consumed': 0.0, 'in_delivered': 0.0,
+                      'scrap': 0.0, 'byproduct': 0.0, 'returned': 0.0}
+            )['returned'] += ml.quantity
         return totals
 
     def _owner_exceptions(self):
@@ -135,8 +170,9 @@ class JobworkRegisterWizard(models.TransientModel):
         ws = wb.add_worksheet('Reconciliation')
         cols = ['Principal', 'Challan No.', 'Challan Date',
                 "Principal's Challan", 'Product', 'HSN', 'UoM',
-                'Received', 'Consumed', 'In Delivered FG', 'Scrap',
-                'Balance', 'Age (days)', 'SO Ref']
+                'Received', 'Consumed', 'In Delivered FG',
+                'By-Product', 'Scrap', 'Returned', 'Balance',
+                'Age (days)', 'SO Ref']
         for c, label in enumerate(cols):
             ws.write(0, c, label, head)
         totals = self._consumption_totals()
@@ -153,7 +189,12 @@ class JobworkRegisterWizard(models.TransientModel):
             rem['in_delivered'] -= in_dlv
             scrap = min(received - consumed, rem['scrap'])
             rem['scrap'] -= scrap
-            balance = received - consumed - scrap
+            byprod = min(consumed, rem.get('byproduct', 0.0))
+            rem['byproduct'] = rem.get('byproduct', 0.0) - byprod
+            returned = min(received - consumed - scrap,
+                           rem.get('returned', 0.0))
+            rem['returned'] = rem.get('returned', 0.0) - returned
+            balance = received - consumed - scrap - returned
             pick = ml.picking_id
             ws.write(row, 0, ml.owner_id.display_name)
             ws.write(row, 1, pick.jobwork_challan_no or '')
@@ -165,12 +206,14 @@ class JobworkRegisterWizard(models.TransientModel):
             ws.write(row, 7, received, num)
             ws.write(row, 8, consumed, num)
             ws.write(row, 9, in_dlv, num)
-            ws.write(row, 10, scrap, num)
-            ws.write(row, 11, balance, num)
-            ws.write(row, 12,
+            ws.write(row, 10, byprod, num)
+            ws.write(row, 11, scrap, num)
+            ws.write(row, 12, returned, num)
+            ws.write(row, 13, balance, num)
+            ws.write(row, 14,
                      (fields.Date.today() - ml.date.date()).days
                      if balance > 0 else 0)
-            ws.write(row, 13, pick.origin or '')
+            ws.write(row, 15, pick.origin or '')
             row += 1
 
         ws2 = wb.add_worksheet('Documents Issued (T13)')

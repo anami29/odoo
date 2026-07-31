@@ -56,6 +56,19 @@
     </record>
 
     <!-- Flagged FG named after the final operation -->
+    <record id="prod_byprod_chips" model="product.product">
+        <field name="name">MS Chips — Principal</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
+        <field name="categ_id" ref="custom_subcontract_product.categ_jw_chain"/>
+        <field name="l10n_in_hsn_code">7204</field>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">0</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+    </record>
+
     <record id="prod_fg_grinding" model="product.template">
         <field name="name">Gear — Grinding (Job Work)</field>
         <field name="type">consu</field>
@@ -88,6 +101,13 @@
         <field name="bom_id" ref="bom_gear_machining"/>
         <field name="product_id" ref="prod_insert"/>
         <field name="product_qty">0.02</field>
+    </record>
+
+    <record id="bomb_chips" model="mrp.bom.byproduct">
+        <field name="bom_id" ref="bom_gear_machining"/>
+        <field name="product_id" ref="prod_byprod_chips"/>
+        <field name="product_qty">0.4</field>
+        <field name="product_uom_id" ref="uom.product_uom_kgm"/>
     </record>
 
     <!-- BOM 2: Grinding (FG) consumes the machining stage output -->

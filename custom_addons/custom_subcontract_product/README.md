@@ -32,3 +32,7 @@ Set the Sub-contract pseudo-type on the FG (writes `type='consu'`,
 Staging: add it to the manifest `data` list and upgrade; set FG Sales Taxes after load.
 Required settings before the first run: Storage Locations, Multi-Step Routes,
 Consignment (Work Orders only if routed operations are added later).
+
+By-products: enable Settings > Manufacturing > By-Products; chips demo by-product
+(MS Chips — Principal, kg, HSN 7204) posts owner-tagged from the Machining BOM;
+leftover/chips/scrap return on outward challans against the original inward challan.
