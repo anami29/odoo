@@ -18,6 +18,35 @@ class StockMove(models.Model):
             return self.group_id.sale_id.partner_id
         return self.env['res.partner']
 
+    def _adjust_procure_method(self, picking_type_code=False):
+        """Odoo 18: this hook lives on stock.move and matches rules on the
+        raw move's own lane (source -> Production). Data-side, each chain
+        route now carries a Principal Stock -> Production MTO rule so core
+        flips naturally; this override is the belt-and-braces guarantee
+        for chain products on Job Work Manufacturing MOs (defect #4)."""
+        super()._adjust_procure_method(picking_type_code=picking_type_code)
+        jw_type = self.env.ref(
+            'custom_subcontract_product.picking_type_jw_mfg',
+            raise_if_not_found=False)
+        if not jw_type:
+            return
+        Route = self.env['stock.route']
+        jw_routes = Route
+        for xmlid in (
+                'custom_subcontract_product.route_supplied_by_principal',
+                'custom_subcontract_product.route_jw_issue',
+                'custom_subcontract_product.route_jw_manufacture'):
+            jw_routes |= self.env.ref(
+                xmlid, raise_if_not_found=False) or Route
+        for move in self:
+            mo = move.raw_material_production_id
+            if not mo or mo.picking_type_id != jw_type:
+                continue
+            routes = (move.product_id.route_ids
+                      | move.product_id.categ_id.total_route_ids)
+            if routes & jw_routes:
+                move.procure_method = 'make_to_order'
+
     def _action_assign(self, force_qty=False):
         """Owner-strict reservation (FR-12): assign owned moves under a
         context that narrows quant gathering to the job owner for

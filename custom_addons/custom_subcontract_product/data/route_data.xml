@@ -73,4 +73,37 @@
         <field name="group_propagation_option">propagate</field>
     </record>
 
+    <record id="rule_flip_principal" model="stock.rule">
+        <field name="name">Principal Stock &#8594; Production (MTO flip, principal RM)</field>
+        <field name="route_id" ref="route_supplied_by_principal"/>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="location_principal_stock"/>
+        <field name="location_dest_id" ref="stock.location_production"/>
+        <field name="picking_type_id" ref="picking_type_jw_mfg"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
+    <record id="rule_flip_issue" model="stock.rule">
+        <field name="name">Principal Stock &#8594; Production (MTO flip, consumables)</field>
+        <field name="route_id" ref="route_jw_issue"/>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="location_principal_stock"/>
+        <field name="location_dest_id" ref="stock.location_production"/>
+        <field name="picking_type_id" ref="picking_type_jw_mfg"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
+    <record id="rule_flip_manufacture" model="stock.rule">
+        <field name="name">Principal Stock &#8594; Production (MTO flip, stage SF)</field>
+        <field name="route_id" ref="route_jw_manufacture"/>
+        <field name="action">pull</field>
+        <field name="location_src_id" ref="location_principal_stock"/>
+        <field name="location_dest_id" ref="stock.location_production"/>
+        <field name="picking_type_id" ref="picking_type_jw_mfg"/>
+        <field name="procure_method">make_to_order</field>
+        <field name="group_propagation_option">propagate</field>
+    </record>
+
 </odoo>

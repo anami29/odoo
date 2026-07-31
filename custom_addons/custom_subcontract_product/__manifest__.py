@@ -2,7 +2,7 @@
     'name': 'Sub-contract (Job Work) Product',
     'summary': 'Goods logistics with MRP, invoiced as a service with SAC; '
                'principal-owned stock, challans, RM call-off (FSD/TSD-SCP-001 v1.1)',
-    'version': '18.0.1.1.6',
+    'version': '18.0.1.1.7',
     'author': 'RLFB',
     'category': 'Accounting/Localizations',
     'license': 'LGPL-3',
