@@ -14,7 +14,7 @@
                 <field name="product_kind" widget="radio"
                        options="{'horizontal': true}"/>
                 <field name="l10n_in_is_jobwork" invisible="1"/>
-                <field name="l10n_in_goods_hsn_code" invisible="not l10n_in_is_jobwork" required="l10n_in_is_jobwork"/>
+                <field name="l10n_in_goods_hsn_code" invisible="product_kind != 'subcontract'" required="product_kind == 'subcontract'"/>
             </field>
         </field>
     </record>

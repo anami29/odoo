@@ -2,7 +2,7 @@
     'name': 'Sub-contract (Job Work) Product',
     'summary': 'Goods logistics with MRP, invoiced as a service with SAC; '
                'principal-owned stock, challans, RM call-off (FSD/TSD-SCP-001 v1.1)',
-    'version': '18.0.1.1.5',
+    'version': '18.0.1.1.6',
     'author': 'RLFB',
     'category': 'Accounting/Localizations',
     'license': 'LGPL-3',
@@ -26,7 +26,7 @@
         'report/challan_templates.xml',
         'report/rm_calloff_report.xml',
         'report/rm_calloff_templates.xml',
-        'demo/demo_gear_jobwork.xml',
+        'data/jw_gear_masters_v115.xml',
     ],
     'installable': True,
     'application': False,

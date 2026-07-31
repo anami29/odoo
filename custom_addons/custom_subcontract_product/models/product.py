@@ -50,6 +50,18 @@ class ProductTemplate(models.Model):
             else:
                 tmpl.product_kind = tmpl.type
 
+    @api.onchange('product_kind')
+    def _onchange_product_kind(self):
+        for tmpl in self:
+            if tmpl.product_kind == 'subcontract':
+                tmpl.type = 'consu'
+                tmpl.is_storable = True
+                tmpl.l10n_in_is_jobwork = True
+                tmpl.invoice_policy = 'delivery'
+            elif tmpl.product_kind:
+                tmpl.type = tmpl.product_kind
+                tmpl.l10n_in_is_jobwork = False
+
     def _inverse_product_kind(self):
         for tmpl in self:
             if tmpl.product_kind == 'subcontract':
