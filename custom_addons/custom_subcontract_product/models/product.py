@@ -27,6 +27,12 @@ class ProductTemplate(models.Model):
              'delivery challan and used for the movement e-way bill; '
              'the SAC in the HSN/SAC field is used only on the invoice.',
     )
+    l10n_in_jw_auto_return = fields.Boolean(
+        string='Auto-return with dispatch',
+        help='By-product/scrap material: quantities produced by job-work '
+             'MOs are appended automatically to the order\'s outward '
+             'challan for return to the principal (FR-33).',
+    )
     product_kind = fields.Selection(
         selection=[
             ('consu', 'Goods'),
