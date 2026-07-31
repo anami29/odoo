@@ -54,7 +54,7 @@
     <function model="ir.model.data" name="_update_xmlids">
         <value model="base" eval="[{
             'xml_id': 'custom_subcontract_product.prod_sf_machining',
-            'record': obj().env.ref('custom_subcontract_product.prod_sf_machining_tmpl').product_variant_id,
+            'record': obj().env['product.product'].search([('product_tmpl_id', '=', obj().env.ref('custom_subcontract_product.prod_sf_machining_tmpl').id)], limit=1),
             'noupdate': True,
         }]"/>
     </function>
