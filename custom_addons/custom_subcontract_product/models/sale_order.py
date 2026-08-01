@@ -18,6 +18,32 @@ class SaleOrder(models.Model):
                 ('state', 'not in', ('done', 'cancel')),
             ])
 
+    jw_inward_count = fields.Integer(compute='_compute_jw_inward_count')
+
+    def _compute_jw_inward_count(self):
+        Picking = self.env['stock.picking']
+        for order in self:
+            order.jw_inward_count = Picking.search_count([
+                ('group_id.sale_id', '=', order.id),
+                ('picking_type_id.is_jw_challan', '=', True),
+                ('picking_type_id.code', '=', 'incoming'),
+                ('state', '!=', 'cancel'),
+            ])
+
+    def action_view_jw_inward(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Inward Challans',
+            'res_model': 'stock.picking',
+            'view_mode': 'list,form',
+            'domain': [
+                ('group_id.sale_id', '=', self.id),
+                ('picking_type_id.is_jw_challan', '=', True),
+                ('picking_type_id.code', '=', 'incoming'),
+            ],
+        }
+
     def action_send_rm_calloff(self):
         """FR-22: consolidated RM call-off to the principal."""
         self.ensure_one()

@@ -11,6 +11,14 @@
                         string="Send RM Call-off"
                         invisible="not jw_calloff_picking_ids"/>
             </button>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_jw_inward" type="object"
+                        class="oe_stat_button" icon="fa-download"
+                        invisible="jw_inward_count == 0">
+                    <field name="jw_inward_count" widget="statinfo"
+                           string="Inward Challans"/>
+                </button>
+            </xpath>
         </field>
     </record>
 

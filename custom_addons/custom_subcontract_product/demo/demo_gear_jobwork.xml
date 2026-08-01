@@ -65,6 +65,7 @@
 </data>
 
 <data noupdate="1">
+
     <!-- Flagged FG named after the final operation -->
     <record id="prod_byprod_chips" model="product.product">
         <field name="name">MS Chips — Principal</field>
@@ -137,5 +138,6 @@
         <field name="product_id" ref="prod_grinding_wheel"/>
         <field name="product_qty">0.01</field>
     </record>
+
 </data>
 </odoo>

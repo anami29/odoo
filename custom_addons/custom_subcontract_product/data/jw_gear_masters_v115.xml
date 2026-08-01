@@ -72,6 +72,7 @@
         <field name="is_storable" eval="True"/>
         <field name="categ_id" ref="custom_subcontract_product.categ_jw_chain"/>
         <field name="l10n_in_hsn_code">7204</field>
+        <field name="l10n_in_jw_auto_return" eval="True"/>
         <field name="uom_id" ref="uom.product_uom_kgm"/>
         <field name="uom_po_id" ref="uom.product_uom_kgm"/>
         <field name="standard_price">0</field>
