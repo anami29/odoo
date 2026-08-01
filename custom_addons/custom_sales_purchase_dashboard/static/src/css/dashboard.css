@@ -22,7 +22,8 @@
     color: var(--csp-text-main);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     padding: 1.5rem;
-    min-height: 100vh;
+    height: 100%;
+    overflow-y: auto;
 }
 
 /* Control Panel & Navbar */
