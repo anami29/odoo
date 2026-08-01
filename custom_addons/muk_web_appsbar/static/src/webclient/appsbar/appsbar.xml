@@ -18,14 +18,8 @@
 		            			role="menuitem"
 		            		>
 			                	<img 
-			                		t-if="app.webIconData" 
 			                		class="mk_apps_sidebar_icon" 
-			                		t-att-src="app.webIconData"
-			                	/>
-			                	<img  
-			                		t-else="" 
-			                		class="mk_apps_sidebar_icon" 
-			                		src="/base/static/description/icon.png"
+			                		t-att-src="getAppIcon(app)"
 			                	/>
 						        <span class="mk_apps_sidebar_name">
 						            <t t-out="app.label"/>

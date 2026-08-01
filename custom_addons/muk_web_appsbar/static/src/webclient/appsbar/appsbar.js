@@ -31,4 +31,16 @@ export class AppsBar extends Component {
     _onAppClick(app) {
         return this.appMenuService.selectApp(app);
     }
+    getAppIcon(app) {
+        if (app.webIconData) {
+            return app.webIconData;
+        }
+        if (app.webIcon) {
+            const parts = app.webIcon.split(',');
+            if (parts.length === 2) {
+                return `/${parts[0].trim()}/${parts[1].trim()}`;
+            }
+        }
+        return '/base/static/description/icon.png';
+    }
 }
