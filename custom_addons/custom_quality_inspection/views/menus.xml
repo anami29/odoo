@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="menu_quality_root" name="Quality" sequence="42"
+              web_icon="custom_quality_inspection,static/description/icon.png"
               groups="custom_quality_inspection.group_quality_user"/>
 
     <menuitem id="menu_quality_operations" name="Operations"
