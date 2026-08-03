@@ -42,9 +42,9 @@
                     <span>Inspections</span>
                 </button>
             </div>
-            <field name="origin" position="after">
+            <xpath expr="//page[@name='miscellaneous']//field[@name='origin']" position="after">
                 <field name="rework_ncr_id" invisible="not rework_ncr_id"/>
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>
