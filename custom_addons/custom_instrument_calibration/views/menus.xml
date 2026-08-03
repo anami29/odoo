@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_calibration_root" name="Calibration"
+              web_icon="custom_instrument_calibration,static/description/icon.png"
+              groups="custom_instrument_calibration.group_calibration_user"
+              sequence="65"/>
+
+    <menuitem id="menu_calibration_dashboard" name="Dashboard"
+              parent="menu_calibration_root"
+              action="action_calibration_dashboard" sequence="5"/>
+
+    <menuitem id="menu_calibration_instruments" name="Instruments"
+              parent="menu_calibration_root"
+              action="action_calibration_instrument" sequence="10"/>
+
+    <menuitem id="menu_calibration_orders" name="Calibration Orders"
+              parent="menu_calibration_root"
+              action="action_calibration_order" sequence="20"/>
+
+    <menuitem id="menu_certificate_repository" name="Certificate Repository"
+              parent="menu_calibration_root"
+              action="action_certificate_repository" sequence="30"/>
+
+    <menuitem id="menu_calibration_reports" name="Reports"
+              parent="menu_calibration_root" sequence="40"/>
+    <menuitem id="menu_register_wizard" name="Registers &amp; MIS Export"
+              parent="menu_calibration_reports"
+              action="action_register_wizard" sequence="10"/>
+
+    <menuitem id="menu_calibration_config" name="Configuration"
+              parent="menu_calibration_root" sequence="90"
+              groups="custom_instrument_calibration.group_calibration_manager"/>
+    <menuitem id="menu_calibration_categories" name="Instrument Categories"
+              parent="menu_calibration_config"
+              action="action_calibration_category" sequence="10"/>
+    <menuitem id="menu_retirement_reasons" name="Retirement Reasons"
+              parent="menu_calibration_config"
+              action="action_retirement_reason" sequence="20"/>
+    <menuitem id="menu_disposition_register" name="Disposition Register"
+              parent="menu_calibration_config"
+              action="action_disposition_register" sequence="30"/>
+    <menuitem id="menu_disposition_wizard" name="Record Disposition"
+              parent="menu_calibration_config"
+              action="action_disposition_wizard" sequence="40"/>
+    <menuitem id="menu_calibration_settings" name="Settings"
+              parent="menu_calibration_config"
+              action="action_calibration_settings" sequence="90"/>
+</odoo>

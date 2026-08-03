@@ -1,0 +1,24 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cal_category_user,cal.category user,model_calibration_instrument_category,group_calibration_user,1,0,0,0
+access_cal_category_mgr,cal.category mgr,model_calibration_instrument_category,group_calibration_manager,1,1,1,1
+access_cal_param_tmpl_user,cal.param.tmpl user,model_calibration_parameter_template,group_calibration_user,1,0,0,0
+access_cal_param_tmpl_mgr,cal.param.tmpl mgr,model_calibration_parameter_template,group_calibration_manager,1,1,1,1
+access_cal_instrument_user,cal.instrument user,model_calibration_instrument,group_calibration_user,1,1,1,0
+access_cal_instrument_mgr,cal.instrument mgr,model_calibration_instrument,group_calibration_manager,1,1,1,1
+access_cal_order_user,cal.order user,model_calibration_order,group_calibration_user,1,1,1,0
+access_cal_order_mgr,cal.order mgr,model_calibration_order,group_calibration_manager,1,1,1,1
+access_cal_order_line_user,cal.order.line user,model_calibration_order_line,group_calibration_user,1,1,1,1
+access_cal_order_line_mgr,cal.order.line mgr,model_calibration_order_line,group_calibration_manager,1,1,1,1
+access_cal_ret_reason_user,cal.ret.reason user,model_calibration_retirement_reason,group_calibration_user,1,0,0,0
+access_cal_ret_reason_mgr,cal.ret.reason mgr,model_calibration_retirement_reason,group_calibration_manager,1,1,1,1
+access_cal_disposition_user,cal.disposition user,model_calibration_record_disposition,group_calibration_user,1,0,0,0
+access_cal_disposition_mgr,cal.disposition mgr,model_calibration_record_disposition,group_calibration_manager,1,1,1,0
+access_cal_state_log_user,cal.state.log user,model_calibration_state_log,group_calibration_user,1,0,0,0
+access_cal_state_log_mgr,cal.state.log mgr,model_calibration_state_log,group_calibration_manager,1,1,1,1
+access_wiz_historical_mgr,wiz.historical mgr,model_calibration_historical_wizard,group_calibration_manager,1,1,1,1
+access_wiz_damage_user,wiz.damage user,model_calibration_damage_wizard,group_calibration_user,1,1,1,1
+access_wiz_retire_user,wiz.retire user,model_calibration_retirement_wizard,group_calibration_user,1,1,1,1
+access_wiz_override_mgr,wiz.override mgr,model_calibration_state_override_wizard,group_calibration_manager,1,1,1,1
+access_wiz_correct_mgr,wiz.correct mgr,model_calibration_certificate_correction_wizard,group_calibration_manager,1,1,1,1
+access_wiz_disposition_mgr,wiz.disposition mgr,model_calibration_disposition_wizard,group_calibration_manager,1,1,1,1
+access_wiz_register_user,wiz.register user,model_calibration_register_wizard,group_calibration_user,1,1,1,1

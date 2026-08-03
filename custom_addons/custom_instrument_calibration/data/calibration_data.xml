@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_instrument_code" model="ir.sequence">
+        <field name="name">Instrument Code (fallback)</field>
+        <field name="code">calibration.instrument.code</field>
+        <field name="prefix">INS/</field>
+        <field name="padding">4</field>
+        <field name="implementation">no_gap</field>
+    </record>
+    <record id="seq_calibration_order" model="ir.sequence">
+        <field name="name">Calibration Order</field>
+        <field name="code">calibration.order</field>
+        <field name="prefix">CAL/%(y)s/</field>
+        <field name="padding">5</field>
+        <field name="implementation">no_gap</field>
+    </record>
+    <record id="seq_certificate_internal" model="ir.sequence">
+        <field name="name">Internal Calibration Certificate</field>
+        <field name="code">calibration.certificate.internal</field>
+        <field name="prefix">CIN/%(y)s/</field>
+        <field name="padding">5</field>
+        <field name="implementation">no_gap</field>
+    </record>
+
+    <record id="cron_calibration_states" model="ir.cron">
+        <field name="name">Calibration: derive statuses</field>
+        <field name="model_id" ref="model_calibration_instrument"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_update_states()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+    <record id="cron_calibration_notifications" model="ir.cron">
+        <field name="name">Calibration: notifications and digest</field>
+        <field name="model_id" ref="model_calibration_instrument"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_notifications()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="reason_worn" model="calibration.retirement.reason">
+        <field name="name">Worn out</field>
+    </record>
+    <record id="reason_damaged" model="calibration.retirement.reason">
+        <field name="name">Damaged beyond repair</field>
+    </record>
+    <record id="reason_obsolete" model="calibration.retirement.reason">
+        <field name="name">Obsolete</field>
+    </record>
+    <record id="reason_repeat_fail" model="calibration.retirement.reason">
+        <field name="name">Repeated calibration failure</field>
+    </record>
+    <record id="reason_eol" model="calibration.retirement.reason">
+        <field name="name">End of life</field>
+    </record>
+    <record id="reason_other" model="calibration.retirement.reason">
+        <field name="name">Others</field>
+    </record>
+
+    <record id="paperformat_label_50" model="report.paperformat">
+        <field name="name">Calibration Label 50x25</field>
+        <field name="format">custom</field>
+        <field name="page_width">50</field>
+        <field name="page_height">25</field>
+        <field name="margin_top">1</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="paperformat_label_70" model="report.paperformat">
+        <field name="name">Calibration Label 70x35</field>
+        <field name="format">custom</field>
+        <field name="page_width">70</field>
+        <field name="page_height">35</field>
+        <field name="margin_top">1</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="dpi">90</field>
+    </record>
+</odoo>

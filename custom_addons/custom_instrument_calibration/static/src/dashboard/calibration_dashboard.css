@@ -1,0 +1,30 @@
+.o_calibration_dashboard { background: #f6f7f9; min-height: 100%; }
+.o_cal_tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 10px;
+}
+.o_cal_tile {
+    background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+    padding: 12px; cursor: pointer; transition: box-shadow .15s;
+}
+.o_cal_tile:hover { box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.o_cal_tile.o_cal_ok { border-left: 4px solid #2e7d32; }
+.o_cal_tile.o_cal_bad { border-left: 4px solid #c0392b; }
+.o_cal_kpi { font-size: 22px; font-weight: 700; color: #1F3864; }
+.o_cal_lbl { font-size: 11px; color: #6c757d; }
+.o_cal_card {
+    background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+    padding: 12px;
+}
+.o_cal_row {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; margin-bottom: 3px; cursor: pointer;
+}
+.o_cal_row_lbl { flex: 0 0 90px; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; }
+.o_cal_row_val { flex: 0 0 auto; font-weight: 600; }
+.o_cal_bar_wrap { flex: 1 1 auto; background: #eef1f5; border-radius: 3px;
+    overflow: hidden; }
+.o_cal_bar { height: 10px; border-radius: 3px; }
+.o_cal_bar_dual .o_cal_bar { height: 6px; margin-bottom: 1px; }

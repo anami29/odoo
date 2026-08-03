@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_list" model="ir.ui.view">
+        <field name="name">calibration.order.list</field>
+        <field name="model">calibration.order</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="overall_result == 'fail'"
+                  decoration-warning="overall_result == 'conditional'"
+                  decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="instrument_code"/>
+                <field name="instrument_id"/>
+                <field name="calibration_type"/>
+                <field name="scheduled_date" optional="show"/>
+                <field name="calibration_date"/>
+                <field name="agency_id" optional="show"/>
+                <field name="overall_result" widget="badge"
+                       decoration-success="overall_result == 'pass'"
+                       decoration-warning="overall_result == 'conditional'"
+                       decoration-danger="overall_result == 'fail'"/>
+                <field name="certificate_no"/>
+                <field name="certificate_valid_until"/>
+                <field name="cost" optional="hide" sum="Total"
+                       groups="custom_instrument_calibration.group_calibration_manager"/>
+                <field name="tat_days" optional="hide"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"
+                       optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">calibration.order.form</field>
+        <field name="model">calibration.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_in_progress" type="object"
+                            string="Start (In Progress)" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_load_template" type="object"
+                            string="Load Parameter Template"
+                            invisible="state not in ('draft', 'in_progress')"/>
+                    <button name="action_done" type="object" string="Mark Done"
+                            class="btn-primary" invisible="state != 'in_progress'"/>
+                    <button name="action_complete_impact" type="object"
+                            string="Complete Impact Assessment" class="btn-warning"
+                            invisible="overall_result != 'fail' or failure_review_done or state != 'done'"/>
+                    <button name="%(action_correction_wizard)d" type="action"
+                            string="Correct Certificate"
+                            invisible="state != 'done'"
+                            groups="custom_instrument_calibration.group_calibration_manager"
+                            context="{'default_order_id': id}"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state not in ('draft', 'in_progress')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,in_progress,done"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="OUT OF TOLERANCE"
+                            bg_color="text-bg-danger"
+                            invisible="overall_result != 'fail'"/>
+                    <widget name="web_ribbon" title="Historical"
+                            invisible="not is_historical"/>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group string="Instrument">
+                            <field name="instrument_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="instrument_code"/>
+                            <field name="category_id"/>
+                            <field name="custodian_id"/>
+                            <field name="is_historical" invisible="1"/>
+                            <field name="failure_review_done" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="scheduled_date"/>
+                            <field name="calibration_date"
+                                   required="state == 'in_progress'"/>
+                            <field name="calibration_type"/>
+                            <field name="seal_intact"/>
+                        </group>
+                        <group string="Internal Execution"
+                               invisible="calibration_type != 'internal'">
+                            <field name="performed_by_id"/>
+                            <field name="calibrator_qualification_ref"/>
+                            <field name="temperature_c"/>
+                            <field name="humidity_pct"/>
+                        </group>
+                        <group string="External Agency"
+                               invisible="calibration_type != 'external'">
+                            <field name="agency_id"/>
+                            <field name="nabl_accredited"/>
+                            <field name="accreditation_no"
+                                   invisible="not nabl_accredited"/>
+                            <field name="sent_date"/>
+                            <field name="received_date"/>
+                            <field name="outward_ref"/>
+                            <field name="cost"
+                                   groups="custom_instrument_calibration.group_calibration_manager"/>
+                            <field name="vendor_bill_ref"/>
+                        </group>
+                        <group string="Traceability">
+                            <field name="master_standard_ids" widget="many2many_tags"/>
+                            <field name="master_snapshot"/>
+                            <field name="traceability_basis"
+                                   placeholder="Basis used for calibration when no traceable standard applies..."/>
+                        </group>
+                        <group string="Certificate">
+                            <field name="certificate_no"
+                                   readonly="state == 'done'"/>
+                            <field name="certificate_date"
+                                   readonly="state == 'done'"/>
+                            <field name="certificate_valid_until"
+                                   readonly="state == 'done'"/>
+                            <field name="certificate_file" widget="binary"
+                                   filename="certificate_filename"
+                                   readonly="state == 'done'"/>
+                            <field name="certificate_filename" invisible="1"/>
+                            <field name="certificate_checksum"/>
+                            <field name="certificate_revision"
+                                   invisible="certificate_revision == 0"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Readings">
+                            <field name="line_ids"
+                                   readonly="state == 'done'">
+                                <list editable="bottom">
+                                    <field name="parameter_name"/>
+                                    <field name="uom_id"/>
+                                    <field name="nominal_value"/>
+                                    <field name="tolerance_plus"/>
+                                    <field name="tolerance_minus"/>
+                                    <field name="as_found_value"/>
+                                    <field name="as_left_value"/>
+                                    <field name="error"/>
+                                    <field name="result"/>
+                                    <field name="override_remark"/>
+                                </list>
+                            </field>
+                            <group>
+                                <group>
+                                    <field name="overall_result"
+                                           readonly="state == 'done'"/>
+                                    <field name="conditional_remarks"
+                                           invisible="overall_result != 'conditional'"
+                                           required="overall_result == 'conditional'"/>
+                                </group>
+                                <group>
+                                    <field name="tat_days"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Failure / Impact Assessment"
+                              invisible="overall_result != 'fail'">
+                            <group>
+                                <group>
+                                    <field name="impact_from"/>
+                                    <field name="impact_to"/>
+                                    <field name="product_action"/>
+                                </group>
+                                <group>
+                                    <field name="impact_notes"
+                                           placeholder="Assessment of validity of previous measurement results..."/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Remarks">
+                            <field name="remarks"/>
+                            <field name="cancel_reason"
+                                   invisible="state not in ('draft', 'in_progress', 'cancel')"
+                                   placeholder="Required before cancelling"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_order_search" model="ir.ui.view">
+        <field name="name">calibration.order.search</field>
+        <field name="model">calibration.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="instrument_code"/>
+                <field name="instrument_id"/>
+                <field name="certificate_no"/>
+                <field name="agency_id"/>
+                <filter name="f_open" string="Open"
+                        domain="[('state', 'in', ('draft', 'in_progress'))]"/>
+                <filter name="f_done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter name="f_fail" string="Out of Tolerance"
+                        domain="[('overall_result', '=', 'fail')]"/>
+                <filter name="f_hist" string="Historical"
+                        domain="[('is_historical', '=', True)]"/>
+                <separator/>
+                <filter name="f_date" string="Calibration Date"
+                        date="calibration_date"/>
+                <group expand="0" string="Group By">
+                    <filter name="g_instrument" string="Instrument"
+                            context="{'group_by': 'instrument_id'}"/>
+                    <filter name="g_agency" string="Agency"
+                            context="{'group_by': 'agency_id'}"/>
+                    <filter name="g_result" string="Result"
+                            context="{'group_by': 'overall_result'}"/>
+                    <filter name="g_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_calibration_order" model="ir.actions.act_window">
+        <field name="name">Calibration Orders</field>
+        <field name="res_model">calibration.order</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_order_search"/>
+    </record>
+
+    <record id="view_certificate_repo_list" model="ir.ui.view">
+        <field name="name">calibration.order.repo.list</field>
+        <field name="model">calibration.order</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="0" default_order="calibration_date desc">
+                <field name="certificate_no"/>
+                <field name="instrument_code"/>
+                <field name="instrument_id"/>
+                <field name="calibration_date"/>
+                <field name="certificate_date" optional="hide"/>
+                <field name="certificate_valid_until"/>
+                <field name="overall_result" widget="badge"/>
+                <field name="agency_id"/>
+                <field name="certificate_file" widget="binary"
+                       filename="certificate_filename"/>
+                <field name="certificate_checksum" optional="show"/>
+                <field name="certificate_revision" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company"
+                       optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_certificate_repository" model="ir.actions.act_window">
+        <field name="name">Certificate Repository</field>
+        <field name="res_model">calibration.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_certificate_repo_list"/>
+        <field name="search_view_id" ref="view_order_search"/>
+        <field name="domain">[('state', '=', 'done')]</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+</odoo>

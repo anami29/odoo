@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="custom_instrument_calibration.Dashboard">
+    <div class="o_calibration_dashboard p-3">
+        <t t-if="state.loading">
+            <div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"/></div>
+        </t>
+        <t t-else="">
+            <t t-set="d" t-value="state.data"/>
+            <!-- Filter bar -->
+            <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+                <h4 class="me-3 mb-0">Calibration Dashboard</h4>
+                <select class="form-select w-auto"
+                        t-on-change="(ev) => this.onFilterChange('period', ev)">
+                    <option value="">Default Period</option>
+                    <option value="fy" t-att-selected="d.period.key === 'fy'">Fiscal Year</option>
+                    <option value="cy" t-att-selected="d.period.key === 'cy'">Calendar Year</option>
+                    <option value="12m" t-att-selected="d.period.key === '12m'">Rolling 12 Months</option>
+                </select>
+                <select class="form-select w-auto"
+                        t-on-change="(ev) => this.onFilterChange('category_id', ev)">
+                    <option value="">All Categories</option>
+                    <t t-foreach="d.options.categories" t-as="c" t-key="c.id">
+                        <option t-att-value="c.id"
+                                t-att-selected="state.filters.category_id === c.id"
+                                t-out="c.name"/>
+                    </t>
+                </select>
+                <select class="form-select w-auto"
+                        t-on-change="(ev) => this.onFilterChange('department_id', ev)">
+                    <option value="">All Departments</option>
+                    <t t-foreach="d.options.departments" t-as="c" t-key="c.id">
+                        <option t-att-value="c.id"
+                                t-att-selected="state.filters.department_id === c.id"
+                                t-out="c.name"/>
+                    </t>
+                </select>
+                <select class="form-select w-auto"
+                        t-on-change="(ev) => this.onFilterChange('agency_id', ev)">
+                    <option value="">All Agencies</option>
+                    <t t-foreach="d.options.agencies" t-as="c" t-key="c.id">
+                        <option t-att-value="c.id"
+                                t-att-selected="state.filters.agency_id === c.id"
+                                t-out="c.name"/>
+                    </t>
+                </select>
+                <span class="text-muted ms-auto">
+                    <t t-out="d.period.from"/> → <t t-out="d.period.to"/>
+                </span>
+            </div>
+
+            <!-- KPI tiles -->
+            <div class="o_cal_tiles">
+                <div class="o_cal_tile" t-on-click="() => this.open('in_service')">
+                    <div class="o_cal_kpi" t-out="d.kpis.in_service"/>
+                    <div class="o_cal_lbl">In-service Instruments</div>
+                </div>
+                <div class="o_cal_tile"
+                     t-att-class="d.kpis.compliance >= d.kpis.target ? 'o_cal_ok' : 'o_cal_bad'"
+                     t-on-click="() => this.open('in_use')">
+                    <div class="o_cal_kpi"><t t-out="d.kpis.compliance"/>%</div>
+                    <div class="o_cal_lbl">Compliance (target <t t-out="d.kpis.target"/>%)</div>
+                </div>
+                <div class="o_cal_tile" t-on-click="() => this.open('orders')">
+                    <div class="o_cal_kpi"><t t-out="d.kpis.on_time"/>%</div>
+                    <div class="o_cal_lbl">On-time Calibration</div>
+                </div>
+                <div class="o_cal_tile o_cal_bad" t-on-click="() => this.open('overdue')">
+                    <div class="o_cal_kpi" t-out="d.kpis.overdue"/>
+                    <div class="o_cal_lbl">Overdue (worst <t t-out="d.kpis.worst_aging"/> d)</div>
+                </div>
+                <div class="o_cal_tile" t-on-click="() => this.open('fails')">
+                    <div class="o_cal_kpi"><t t-out="d.kpis.oot_rate"/>%</div>
+                    <div class="o_cal_lbl">OOT Rate</div>
+                </div>
+                <div class="o_cal_tile" t-on-click="() => this.open('orders')">
+                    <div class="o_cal_kpi">
+                        <t t-out="d.kpis.tat_ext"/> / <t t-out="d.kpis.tat_int"/>
+                    </div>
+                    <div class="o_cal_lbl">Avg TAT ext / int (days)</div>
+                </div>
+                <div class="o_cal_tile" t-on-click="() => this.open('under_calibration')">
+                    <div class="o_cal_kpi" t-out="d.kpis.out_of_service"/>
+                    <div class="o_cal_lbl">Out of Service</div>
+                </div>
+                <div class="o_cal_tile" t-on-click="() => this.open('expiring30')">
+                    <div class="o_cal_kpi">
+                        <t t-out="d.kpis.expiring['30']"/> /
+                        <t t-out="d.kpis.expiring['60']"/> /
+                        <t t-out="d.kpis.expiring['90']"/>
+                    </div>
+                    <div class="o_cal_lbl">Certs Expiring 30/60/90 d</div>
+                </div>
+                <t t-if="d.is_manager">
+                    <div class="o_cal_tile" t-on-click="() => this.open('orders')">
+                        <div class="o_cal_kpi">
+                            <t t-out="d.currency"/><t t-out="d.kpis.cost_period"/>
+                        </div>
+                        <div class="o_cal_lbl">Cost (period)</div>
+                    </div>
+                    <div class="o_cal_tile" t-on-click="() => this.open('orders')">
+                        <div class="o_cal_kpi">
+                            <t t-out="d.currency"/><t t-out="d.kpis.cost_ytd"/>
+                        </div>
+                        <div class="o_cal_lbl">Cost (fiscal YTD)</div>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Charts -->
+            <div class="row mt-3">
+                <div class="col-lg-4">
+                    <div class="o_cal_card">
+                        <h6>Status Distribution</h6>
+                        <t t-set="mx" t-value="max(d.charts.status)"/>
+                        <t t-foreach="d.charts.status" t-as="s" t-key="s.state">
+                            <div class="o_cal_row" t-on-click="() => this.open(s.state)">
+                                <span class="o_cal_row_lbl" t-out="s.label"/>
+                                <div class="o_cal_bar_wrap">
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.value, mx, '#2E5395')"/>
+                                </div>
+                                <span class="o_cal_row_val" t-out="s.value"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="o_cal_card mt-3">
+                        <h6>Overdue Aging (days)</h6>
+                        <t t-set="mx" t-value="max(d.charts.aging)"/>
+                        <t t-foreach="d.charts.aging" t-as="s" t-key="s.label">
+                            <div class="o_cal_row" t-on-click="() => this.open('overdue')">
+                                <span class="o_cal_row_lbl" t-out="s.label"/>
+                                <div class="o_cal_bar_wrap">
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.value, mx, '#c0392b')"/>
+                                </div>
+                                <span class="o_cal_row_val" t-out="s.value"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="o_cal_card">
+                        <h6>Due-Load Forecast (12 months)</h6>
+                        <t t-set="mx" t-value="max(d.charts.due_load)"/>
+                        <t t-foreach="d.charts.due_load" t-as="s" t-key="s.label">
+                            <div class="o_cal_row">
+                                <span class="o_cal_row_lbl" t-out="s.label"/>
+                                <div class="o_cal_bar_wrap">
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.value, mx, '#1F3864')"/>
+                                </div>
+                                <span class="o_cal_row_val" t-out="s.value"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="o_cal_card mt-3">
+                        <h6>OOT Trend</h6>
+                        <t t-set="mx" t-value="max(d.charts.oot_trend)"/>
+                        <t t-foreach="d.charts.oot_trend" t-as="s" t-key="s.label">
+                            <div class="o_cal_row" t-on-click="() => this.open('fails')">
+                                <span class="o_cal_row_lbl" t-out="s.label"/>
+                                <div class="o_cal_bar_wrap">
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.value, mx, '#e69500')"/>
+                                </div>
+                                <span class="o_cal_row_val" t-out="s.value"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="o_cal_card">
+                        <h6>Plan vs Actual (due · done)</h6>
+                        <t t-set="mxd" t-value="Math.max(max(d.charts.plan_actual, 'due'), max(d.charts.plan_actual, 'done'))"/>
+                        <t t-foreach="d.charts.plan_actual" t-as="s" t-key="s.label">
+                            <div class="o_cal_row">
+                                <span class="o_cal_row_lbl" t-out="s.label"/>
+                                <div class="o_cal_bar_wrap o_cal_bar_dual">
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.due, mxd, '#9db3d6')"/>
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.done, mxd, '#2E5395')"/>
+                                </div>
+                                <span class="o_cal_row_val">
+                                    <t t-out="s.due"/>·<t t-out="s.done"/>
+                                </span>
+                            </div>
+                        </t>
+                    </div>
+                    <t t-if="d.is_manager">
+                        <div class="o_cal_card mt-3">
+                            <h6>Cost by Agency</h6>
+                            <t t-set="mx" t-value="max(d.charts.cost_by_agency)"/>
+                            <t t-foreach="d.charts.cost_by_agency" t-as="s" t-key="s.label">
+                                <div class="o_cal_row">
+                                    <span class="o_cal_row_lbl" t-out="s.label"/>
+                                    <div class="o_cal_bar_wrap">
+                                        <div class="o_cal_bar"
+                                             t-att-style="barStyle(s.value, mx, '#4a6741')"/>
+                                    </div>
+                                    <span class="o_cal_row_val" t-out="s.value"/>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                    <div class="o_cal_card mt-3">
+                        <h6>TAT by Agency (days)</h6>
+                        <t t-set="mx" t-value="max(d.charts.tat_by_agency)"/>
+                        <t t-foreach="d.charts.tat_by_agency" t-as="s" t-key="s.label">
+                            <div class="o_cal_row">
+                                <span class="o_cal_row_lbl" t-out="s.label"/>
+                                <div class="o_cal_bar_wrap">
+                                    <div class="o_cal_bar"
+                                         t-att-style="barStyle(s.value, mx, '#6c757d')"/>
+                                </div>
+                                <span class="o_cal_row_val" t-out="s.value"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </div>
+</t>
+
+</templates>

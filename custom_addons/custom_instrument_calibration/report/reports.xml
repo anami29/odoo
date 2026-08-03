@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================ Internal certificate ================= -->
+    <template id="report_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3 class="text-center">Calibration Certificate</h3>
+                        <p class="text-center">
+                            Certificate No.: <strong t-out="o.certificate_no"/> ·
+                            Date: <span t-out="o.certificate_date"/> ·
+                            Valid Until: <span t-out="o.certificate_valid_until"/>
+                            <t t-if="o.certificate_revision">
+                                · Revision <t t-out="o.certificate_revision"/>
+                            </t>
+                        </p>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td style="width:50%">
+                                    <strong>Instrument:</strong>
+                                    <span t-out="o.instrument_id.code"/> —
+                                    <span t-out="o.instrument_id.name"/><br/>
+                                    <strong>Make / Model / Serial:</strong>
+                                    <span t-out="o.instrument_id.make or '-'"/> /
+                                    <span t-out="o.instrument_id.model_no or '-'"/> /
+                                    <span t-out="o.instrument_id.serial_no or '-'"/><br/>
+                                    <strong>Range:</strong>
+                                    <span t-out="o.instrument_id.range_min"/> –
+                                    <span t-out="o.instrument_id.range_max"/>
+                                    <span t-out="o.instrument_id.range_uom_id.name or ''"/>
+                                    · <strong>Least Count:</strong>
+                                    <span t-out="o.instrument_id.least_count or '-'"/>
+                                </td>
+                                <td>
+                                    <strong>Calibration Date:</strong>
+                                    <span t-out="o.calibration_date"/><br/>
+                                    <strong>Procedure Ref.:</strong>
+                                    <span t-out="o.instrument_id.calibration_procedure_ref or '-'"/><br/>
+                                    <strong>Environment:</strong>
+                                    <span t-out="o.temperature_c"/> °C /
+                                    <span t-out="o.humidity_pct"/> %RH<br/>
+                                    <strong>Seal As Received:</strong>
+                                    <span t-out="dict(o._fields['seal_intact'].selection).get(o.seal_intact, '-')"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <p t-if="o.master_snapshot">
+                            <strong>Master Standards (traceability):</strong>
+                            <span t-out="o.master_snapshot"/>
+                        </p>
+                        <p t-if="o.traceability_basis">
+                            <strong>Basis of Calibration:</strong>
+                            <span t-out="o.traceability_basis"/>
+                        </p>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr style="background-color:#1F3864;color:#fff;">
+                                    <th>Parameter</th><th>UoM</th><th>Nominal</th>
+                                    <th>Tol. +</th><th>Tol. −</th>
+                                    <th>As Found</th><th>As Left</th>
+                                    <th>Error</th><th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="l">
+                                    <td t-out="l.parameter_name"/>
+                                    <td t-out="l.uom_id.name or ''"/>
+                                    <td class="text-end" t-out="l.nominal_value"/>
+                                    <td class="text-end" t-out="l.tolerance_plus"/>
+                                    <td class="text-end" t-out="l.tolerance_minus"/>
+                                    <td class="text-end" t-out="l.as_found_value"/>
+                                    <td class="text-end" t-out="l.as_left_value"/>
+                                    <td class="text-end" t-out="l.error"/>
+                                    <td t-out="(l.result or '').upper()"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4>Overall Result:
+                            <span t-out="(o.overall_result or '').upper()"/>
+                            <t t-if="o.overall_result == 'conditional'">
+                                — <span t-out="o.conditional_remarks"/>
+                            </t>
+                        </h4>
+                        <br/><br/>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td style="width:50%">
+                                    Calibrated By:
+                                    <span t-out="o.performed_by_id.name or ''"/><br/>
+                                    Qualification Ref.:
+                                    <span t-out="o.calibrator_qualification_ref or '-'"/>
+                                </td>
+                                <td class="text-end">Approved By: ______________</td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_certificate" model="ir.actions.report">
+        <field name="name">Internal Calibration Certificate</field>
+        <field name="model">calibration.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_instrument_calibration.report_certificate</field>
+        <field name="report_file">custom_instrument_calibration.report_certificate</field>
+        <field name="binding_model_id" ref="model_calibration_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- ============================ History card ========================= -->
+    <template id="report_history_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3>Calibration History Card —
+                            <span t-out="o.code"/> · <span t-out="o.name"/>
+                        </h3>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td style="width:50%">
+                                    <strong>Category:</strong>
+                                    <span t-out="o.category_id.name"/><br/>
+                                    <strong>Make / Model / Serial:</strong>
+                                    <span t-out="o.make or '-'"/> /
+                                    <span t-out="o.model_no or '-'"/> /
+                                    <span t-out="o.serial_no or '-'"/><br/>
+                                    <strong>Custodian:</strong>
+                                    <span t-out="o.custodian_id.name"/> ·
+                                    <strong>Location:</strong>
+                                    <span t-out="o.location or '-'"/>
+                                </td>
+                                <td>
+                                    <strong>Frequency:</strong>
+                                    <span t-out="o.frequency_interval"/>
+                                    <span t-out="o.frequency_uom"/><br/>
+                                    <strong>Status:</strong>
+                                    <span t-out="dict(o._fields['state'].selection).get(o.state)"/><br/>
+                                    <strong>Effective Due:</strong>
+                                    <span t-out="o.effective_due_date"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <p t-if="o.safeguard_note">
+                            <strong>Handling &amp; Safeguarding:</strong>
+                            <span t-out="o.safeguard_note"/>
+                        </p>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr style="background-color:#1F3864;color:#fff;">
+                                    <th>Order</th><th>Date</th><th>Type</th>
+                                    <th>Agency / By</th><th>Result</th>
+                                    <th>Certificate No.</th><th>Valid Until</th>
+                                    <th>Seal</th><th>Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.calibration_ids.filtered(lambda x: x.state == 'done').sorted(key=lambda x: (x.calibration_date or x.create_date.date(), x.id))"
+                                    t-as="c">
+                                    <td t-out="c.name"/>
+                                    <td t-out="c.calibration_date"/>
+                                    <td t-out="c.calibration_type"/>
+                                    <td t-out="c.agency_id.name or c.performed_by_id.name or ''"/>
+                                    <td t-out="(c.overall_result or '').upper()"/>
+                                    <td t-out="c.certificate_no"/>
+                                    <td t-out="c.certificate_valid_until"/>
+                                    <td t-out="c.seal_intact or ''"/>
+                                    <td class="text-end" t-out="c.cost"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_history_card" model="ir.actions.report">
+        <field name="name">Calibration History Card</field>
+        <field name="model">calibration.instrument</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_instrument_calibration.report_history_card</field>
+        <field name="report_file">custom_instrument_calibration.report_history_card</field>
+        <field name="binding_model_id" ref="model_calibration_instrument"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- ============================ Labels =============================== -->
+    <template id="report_label_content">
+        <div style="font-family:sans-serif; font-size:8px; line-height:1.15;
+                    padding:1mm; page-break-after:always;">
+            <table style="width:100%; border-collapse:collapse;">
+                <tr>
+                    <td style="width:38%; vertical-align:top;">
+                        <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', o.code, 120, 120)"
+                             style="width:100%;"/>
+                    </td>
+                    <td style="vertical-align:top; padding-left:1mm;">
+                        <div style="font-size:10px;"><strong t-out="o.code"/></div>
+                        <div t-out="(o.name or '')[:30]"/>
+                        <div>Cal: <span t-out="o.last_calibration_date or '-'"/></div>
+                        <div>Due: <strong t-out="o.effective_due_date or '-'"/></div>
+                        <div t-if="o.state in ('overdue', 'quarantine', 'retired', 'scrapped', 'lost')"
+                             style="background:#c00;color:#fff;text-align:center;
+                                    font-weight:bold;">DO NOT USE</div>
+                        <div t-elif="o.restricted_use"
+                             style="background:#e69500;color:#fff;text-align:center;
+                                    font-weight:bold;">RESTRICTED USE</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+    <template id="report_label_50">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="custom_instrument_calibration.report_label_content"/>
+            </t>
+        </t>
+    </template>
+    <template id="report_label_70">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="custom_instrument_calibration.report_label_content"/>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_label_50" model="ir.actions.report">
+        <field name="name">Instrument Label (50x25)</field>
+        <field name="model">calibration.instrument</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_instrument_calibration.report_label_50</field>
+        <field name="report_file">custom_instrument_calibration.report_label_50</field>
+        <field name="paperformat_id" ref="paperformat_label_50"/>
+        <field name="binding_model_id" ref="model_calibration_instrument"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="action_report_label_70" model="ir.actions.report">
+        <field name="name">Instrument Label (70x35)</field>
+        <field name="model">calibration.instrument</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_instrument_calibration.report_label_70</field>
+        <field name="report_file">custom_instrument_calibration.report_label_70</field>
+        <field name="paperformat_id" ref="paperformat_label_70"/>
+        <field name="binding_model_id" ref="model_calibration_instrument"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

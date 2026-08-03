@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Category -->
+    <record id="view_category_list" model="ir.ui.view">
+        <field name="name">calibration.instrument.category.list</field>
+        <field name="model">calibration.instrument.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code_prefix"/>
+                <field name="default_frequency_interval"/>
+                <field name="default_frequency_uom"/>
+                <field name="default_calibration_type"/>
+                <field name="instrument_count"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_category_form" model="ir.ui.view">
+        <field name="name">calibration.instrument.category.form</field>
+        <field name="model">calibration.instrument.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code_prefix"/>
+                            <field name="sequence_id" groups="base.group_no_one"/>
+                        </group>
+                        <group>
+                            <field name="default_frequency_interval"/>
+                            <field name="default_frequency_uom"/>
+                            <field name="default_calibration_type"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Parameter Template">
+                            <field name="parameter_template_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="parameter_name"/>
+                                    <field name="uom_id"/>
+                                    <field name="nominal_value"/>
+                                    <field name="tolerance_plus"/>
+                                    <field name="tolerance_minus"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_calibration_category" model="ir.actions.act_window">
+        <field name="name">Instrument Categories</field>
+        <field name="res_model">calibration.instrument.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Retirement reasons -->
+    <record id="action_retirement_reason" model="ir.actions.act_window">
+        <field name="name">Retirement Reasons</field>
+        <field name="res_model">calibration.retirement.reason</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Disposition register -->
+    <record id="view_disposition_list" model="ir.ui.view">
+        <field name="name">calibration.record.disposition.list</field>
+        <field name="model">calibration.record.disposition</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="instrument_name"/>
+                <field name="category_name"/>
+                <field name="end_of_life_date"/>
+                <field name="order_count"/>
+                <field name="disposition_date"/>
+                <field name="user_id"/>
+                <field name="reason"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_disposition_register" model="ir.actions.act_window">
+        <field name="name">Disposition Register</field>
+        <field name="res_model">calibration.record.disposition</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Wizards -->
+    <record id="view_historical_wizard" model="ir.ui.view">
+        <field name="name">calibration.historical.wizard.form</field>
+        <field name="model">calibration.historical.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="instrument_id" readonly="1"/>
+                    <field name="calibration_type"/>
+                    <field name="calibration_date"/>
+                    <field name="agency_id"
+                           invisible="calibration_type != 'external'"/>
+                    <field name="certificate_no"/>
+                    <field name="certificate_date"/>
+                    <field name="certificate_valid_until"/>
+                    <field name="certificate_file" filename="certificate_filename"/>
+                    <field name="certificate_filename" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Record"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_historical_wizard" model="ir.actions.act_window">
+        <field name="name">Record Historical Calibration</field>
+        <field name="res_model">calibration.historical.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_damage_wizard" model="ir.ui.view">
+        <field name="name">calibration.damage.wizard.form</field>
+        <field name="model">calibration.damage.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="instrument_id" readonly="1"/>
+                    <field name="description"/>
+                    <field name="photo" widget="image"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Report Damage (Quarantine)" class="btn-warning"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_damage_wizard" model="ir.actions.act_window">
+        <field name="name">Report Damage</field>
+        <field name="res_model">calibration.damage.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_retirement_wizard" model="ir.ui.view">
+        <field name="name">calibration.retirement.wizard.form</field>
+        <field name="model">calibration.retirement.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="instrument_id" readonly="1"/>
+                    <field name="reason_id"/>
+                    <field name="remarks"/>
+                    <field name="photo" widget="image"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Submit for Approval" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_retirement_wizard" model="ir.actions.act_window">
+        <field name="name">Request Retirement</field>
+        <field name="res_model">calibration.retirement.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_state_override_wizard" model="ir.ui.view">
+        <field name="name">calibration.state.override.wizard.form</field>
+        <field name="model">calibration.state.override.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="instrument_id" readonly="1"/>
+                    <field name="new_state"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Override"
+                            class="btn-danger"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_state_override_wizard" model="ir.actions.act_window">
+        <field name="name">Override State</field>
+        <field name="res_model">calibration.state.override.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_correction_wizard" model="ir.ui.view">
+        <field name="name">calibration.certificate.correction.wizard.form</field>
+        <field name="model">calibration.certificate.correction.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-info" role="alert">
+                    Prior values and the previous attachment are preserved in the
+                    audit trail; leave a field empty to keep the current value.
+                </div>
+                <group>
+                    <field name="order_id" readonly="1"/>
+                    <field name="new_certificate_no"/>
+                    <field name="new_certificate_date"/>
+                    <field name="new_certificate_valid_until"/>
+                    <field name="new_certificate_file"
+                           filename="new_certificate_filename"/>
+                    <field name="new_certificate_filename" invisible="1"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Apply Correction" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_correction_wizard" model="ir.actions.act_window">
+        <field name="name">Correct Certificate</field>
+        <field name="res_model">calibration.certificate.correction.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_disposition_wizard" model="ir.ui.view">
+        <field name="name">calibration.disposition.wizard.form</field>
+        <field name="model">calibration.disposition.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-danger" role="alert">
+                    Disposition permanently removes the listed instruments and their
+                    calibration records. A Disposition Register entry is written for
+                    each. Only records past the configured retention period are
+                    eligible.
+                </div>
+                <group>
+                    <field name="eligible_ids" widget="many2many_tags"
+                           options="{'no_create': True}"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Dispose Records" class="btn-danger"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_disposition_wizard" model="ir.actions.act_window">
+        <field name="name">Record Disposition</field>
+        <field name="res_model">calibration.disposition.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_register_wizard" model="ir.ui.view">
+        <field name="name">calibration.register.wizard.form</field>
+        <field name="model">calibration.register.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="report_type"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="include_archived"/>
+                    </group>
+                    <group>
+                        <field name="category_id"/>
+                        <field name="department_id"/>
+                        <field name="agency_id"/>
+                        <field name="custodian_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_export" type="object"
+                            string="Export XLSX" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_register_wizard" model="ir.actions.act_window">
+        <field name="name">Registers &amp; MIS Reports</field>
+        <field name="res_model">calibration.register.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Partner: agency flag -->
+    <record id="view_partner_form_calibration" model="ir.ui.view">
+        <field name="name">res.partner.form.calibration</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_calibration_agency"/>
+                <field name="nabl_accreditation_no"
+                       invisible="not is_calibration_agency"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Settings -->
+    <record id="res_config_settings_view_form_cal" model="ir.ui.view">
+        <field name="name">res.config.settings.form.calibration</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Calibration" name="custom_instrument_calibration">
+                    <block title="Scheduling">
+                        <setting string="Default Lead Days"
+                                 help="Due-soon window before the effective due date.">
+                            <field name="cal_lead_days"/>
+                        </setting>
+                        <setting string="Auto-create Draft Orders"
+                                 help="Scheduler creates draft calibration orders ahead of the effective due date.">
+                            <field name="cal_auto_create"/>
+                            <div invisible="not cal_auto_create">
+                                Offset (days): <field name="cal_auto_offset"
+                                                      class="oe_inline"/>
+                            </div>
+                        </setting>
+                        <setting string="Overdue Escalation Days">
+                            <field name="cal_escalation_days"/>
+                        </setting>
+                    </block>
+                    <block title="Records &amp; Dashboard">
+                        <setting string="Record Retention (years)"
+                                 help="Counted from instrument end of life. 0 = indefinite.">
+                            <field name="cal_retention_years"/>
+                        </setting>
+                        <setting string="Compliance Target (%)">
+                            <field name="cal_compliance_target"/>
+                        </setting>
+                        <setting string="Default Dashboard Period">
+                            <field name="cal_dashboard_period"/>
+                            <div>Fiscal year start month:
+                                <field name="cal_fy_start_month" class="oe_inline"/>
+                            </div>
+                        </setting>
+                        <setting string="Label Size">
+                            <field name="cal_label_size"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_calibration_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'custom_instrument_calibration'}</field>
+    </record>
+</odoo>

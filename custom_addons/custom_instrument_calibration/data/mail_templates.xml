@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_template_overdue_escalation" model="mail.template">
+        <field name="name">Calibration: Overdue Escalation</field>
+        <field name="model_id" ref="model_calibration_instrument"/>
+        <field name="subject">OVERDUE calibration: {{ object.code }} {{ object.name }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Instrument <b t-out="object.code"/> — <t t-out="object.name"/> is
+       <b>OVERDUE</b> for calibration.</p>
+    <p>Effective due date: <t t-out="object.effective_due_date"/><br/>
+       Custodian: <t t-out="object.custodian_id.name"/><br/>
+       Location: <t t-out="object.location or ''"/></p>
+    <p>The instrument is flagged DO NOT USE until recalibrated.</p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>
