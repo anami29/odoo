@@ -14,8 +14,13 @@ class StockMove(models.Model):
             return mo.subcontract_owner_id
         if self.picking_id.owner_id:
             return self.picking_id.owner_id
-        if self.picking_type_id.is_jw_challan and self.group_id.sale_id:
-            return self.group_id.sale_id.partner_id
+        if self.picking_type_id.is_jw_challan:
+            dest_mo = self.move_dest_ids.raw_material_production_id[:1]
+            if dest_mo.subcontract_owner_id:
+                return dest_mo.subcontract_owner_id
+            sale = self.group_id.sale_id or self.picking_id.sale_id
+            if sale:
+                return sale.partner_id
         return self.env['res.partner']
 
     def _adjust_procure_method(self, picking_type_code=False):

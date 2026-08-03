@@ -36,12 +36,13 @@ class MrpProduction(models.Model):
             and mv.product_id.l10n_in_jw_auto_return)
         if not byprods or not self.procurement_group_id:
             return
+        sale = self._jw_find_sale()
         delivery = self.env['stock.picking'].search([
-            ('group_id', '=', self.procurement_group_id.id),
+            ('sale_id', '=', sale.id),
             ('picking_type_id.is_jw_challan', '=', True),
             ('picking_type_id.code', '=', 'outgoing'),
             ('state', 'not in', ('done', 'cancel')),
-        ], limit=1)
+        ], limit=1) if sale else self.env['stock.picking']
         if not delivery:
             return  # dispatch already closed: periodic manual challan
         for bmove in byprods:
@@ -66,9 +67,26 @@ class MrpProduction(models.Model):
             new_move._action_confirm()
             new_move._action_assign()
 
+    def _jw_find_sale(self):
+        """Climb the move_dest chain (child MO -> parent MO -> delivery)
+        to the sale order. Group-based lookup fails on 1-step warehouses
+        where every MO owns a fresh group (defect #6)."""
+        self.ensure_one()
+        mo, guard = self, 0
+        while mo and guard < 10:
+            dest = mo.move_finished_ids.move_dest_ids or mo.move_dest_ids
+            sale = dest.group_id.sale_id or dest.picking_id.sale_id
+            if sale:
+                return sale[:1]
+            mo, guard = dest.raw_material_production_id[:1], guard + 1
+        return self.procurement_group_id.sale_id
+
     def _resolve_jw_owner(self):
         self.ensure_one()
-        sale = self.procurement_group_id.sale_id
+        parent = self.move_dest_ids.raw_material_production_id[:1]
+        if parent.subcontract_owner_id:
+            return parent.subcontract_owner_id
+        sale = self._jw_find_sale()
         if not sale:
             return False
         chain = (self.product_id.l10n_in_is_jobwork
