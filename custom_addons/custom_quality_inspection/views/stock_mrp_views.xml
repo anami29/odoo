@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_form_quality" model="ir.ui.view">
+        <field name="name">stock.lot.form.quality</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <field name="ref" position="after">
+                <field name="quality_state" widget="badge"
+                       decoration-warning="quality_state == 'pending'"
+                       decoration-success="quality_state == 'accepted'"
+                       decoration-danger="quality_state == 'rejected'"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_form_quality" model="ir.ui.view">
+        <field name="name">stock.picking.form.quality</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_view_inspection_sets" type="object"
+                        class="oe_stat_button" icon="fa-check-square-o"
+                        invisible="inspection_set_count == 0">
+                    <field name="inspection_set_count" widget="statinfo"
+                           string="Inspections"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_form_quality" model="ir.ui.view">
+        <field name="name">mrp.production.form.quality</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(action_set)d" type="action"
+                        class="oe_stat_button" icon="fa-check-square-o"
+                        context="{'search_default_production_id': id}">
+                    <span>Inspections</span>
+                </button>
+            </div>
+            <field name="origin" position="after">
+                <field name="rework_ncr_id" invisible="not rework_ncr_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

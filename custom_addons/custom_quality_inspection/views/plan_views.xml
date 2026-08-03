@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_plan_form" model="ir.ui.view">
+        <field name="name">quality.inspection.plan.form</field>
+        <field name="model">quality.inspection.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="btn-primary" invisible="state != 'draft'"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                    <button name="action_new_version" type="object" string="New Version"
+                            invisible="state != 'approved'"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                    <button name="action_obsolete" type="object" string="Mark Obsolete"
+                            invisible="state != 'approved'"
+                            groups="custom_quality_inspection.group_quality_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id" readonly="state != 'draft'"/>
+                            <field name="product_id" readonly="state != 'draft'"/>
+                            <field name="stage" readonly="state != 'draft'"/>
+                            <field name="operation_id" readonly="state != 'draft'"
+                                   invisible="stage != 'inprocess'"/>
+                            <field name="workcenter_id" invisible="stage != 'inprocess'"/>
+                        </group>
+                        <group>
+                            <field name="drawing_no" readonly="state != 'draft'"/>
+                            <field name="drawing_rev" readonly="state != 'draft'"/>
+                            <field name="sampling_rule_id" readonly="state != 'draft'"/>
+                            <field name="version"/>
+                            <field name="previous_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Characteristics">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <control>
+                                        <create string="Add a characteristic"/>
+                                    </control>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="balloon_ref"/>
+                                    <field name="name"/>
+                                    <field name="char_type"/>
+                                    <field name="specification" optional="show"/>
+                                    <field name="nominal_value"/>
+                                    <field name="tol_min"/>
+                                    <field name="tol_max"/>
+                                    <field name="uom_id"/>
+                                    <field name="instrument_note" optional="show"/>
+                                    <field name="method" optional="hide"/>
+                                    <field name="mandatory"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_plan_list" model="ir.ui.view">
+        <field name="name">quality.inspection.plan.list</field>
+        <field name="model">quality.inspection.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="product_id" optional="hide"/>
+                <field name="stage"/>
+                <field name="operation_id" optional="show"/>
+                <field name="version"/>
+                <field name="sampling_rule_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'approved'"
+                       decoration-muted="state == 'obsolete'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_plan_search" model="ir.ui.view">
+        <field name="name">quality.inspection.plan.search</field>
+        <field name="model">quality.inspection.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_stage" string="Stage" context="{'group_by': 'stage'}"/>
+                    <filter name="group_product" string="Product"
+                            context="{'group_by': 'product_tmpl_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_plan" model="ir.actions.act_window">
+        <field name="name">Inspection Plans (QIP)</field>
+        <field name="res_model">quality.inspection.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_approved': 1}</field>
+    </record>
+</odoo>

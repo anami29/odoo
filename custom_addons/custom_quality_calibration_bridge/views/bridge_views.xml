@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_plan_form_bridge" model="ir.ui.view">
+        <field name="name">quality.inspection.plan.form.bridge</field>
+        <field name="model">quality.inspection.plan</field>
+        <field name="inherit_id"
+               ref="custom_quality_inspection.view_plan_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/list/field[@name='instrument_note']"
+                   position="after">
+                <field name="instrument_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_ir_form_bridge" model="ir.ui.view">
+        <field name="name">quality.inspection.report.form.bridge</field>
+        <field name="model">quality.inspection.report</field>
+        <field name="inherit_id"
+               ref="custom_quality_inspection.view_ir_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/list/field[@name='instrument_note']"
+                   position="after">
+                <field name="instrument_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_grr_form_bridge" model="ir.ui.view">
+        <field name="name">quality.grr.study.form.bridge</field>
+        <field name="model">quality.grr.study</field>
+        <field name="inherit_id" ref="custom_quality_inspection.view_grr_form"/>
+        <field name="arch" type="xml">
+            <field name="instrument_note" position="after">
+                <field name="instrument_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

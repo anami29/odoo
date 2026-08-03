@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_defect_code_list" model="ir.ui.view">
+        <field name="name">quality.defect.code.list</field>
+        <field name="model">quality.defect.code</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="active" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_defect_code" model="ir.actions.act_window">
+        <field name="name">Defect Codes</field>
+        <field name="res_model">quality.defect.code</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_cause_code_list" model="ir.ui.view">
+        <field name="name">quality.cause.code.list</field>
+        <field name="model">quality.cause.code</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_cause_code" model="ir.actions.act_window">
+        <field name="name">Cause Codes</field>
+        <field name="res_model">quality.cause.code</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_qualification_list" model="ir.ui.view">
+        <field name="name">quality.inspector.qualification.list</field>
+        <field name="model">quality.inspector.qualification</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="employee_id"/>
+                <field name="categ_id"/>
+                <field name="stage"/>
+                <field name="valid_until"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_qualification" model="ir.actions.act_window">
+        <field name="name">Inspector Qualifications</field>
+        <field name="res_model">quality.inspector.qualification</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

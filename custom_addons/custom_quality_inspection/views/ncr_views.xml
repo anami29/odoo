@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ncr_form" model="ir.ui.view">
+        <field name="name">quality.ncr.form</field>
+        <field name="model">quality.ncr</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve_disposition" type="object"
+                            string="Approve Disposition" class="btn-primary"
+                            invisible="state != 'open' or mr_state != 'none'"
+                            groups="custom_quality_inspection.group_quality_manager"/>
+                    <button name="action_mr_approve_qm" type="object"
+                            string="Approve M Report (QM)"
+                            invisible="mr_state != 'to_approve' or qm_approver_id"
+                            groups="custom_quality_inspection.group_quality_manager"/>
+                    <button name="action_mr_approve_plant" type="object"
+                            string="Approve M Report (Plant)"
+                            invisible="mr_state != 'to_approve' or not plant_required or plant_approver_id"
+                            groups="custom_quality_inspection.group_quality_plant"/>
+                    <button name="action_close" type="object" string="Close"
+                            invisible="state not in ('approved',)"
+                            groups="custom_quality_inspection.group_quality_manager"/>
+                    <button name="action_create_capa" type="object" string="Create CAPA"
+                            invisible="state == 'closed'"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                    <button name="action_recompute_loss" type="object"
+                            string="Recompute Loss" invisible="state == 'closed'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('closed','cancel')"
+                            groups="custom_quality_inspection.group_quality_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="open,approved,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                        <h3 invisible="not mr_name">M Report: <field name="mr_name"
+                            readonly="1" class="oe_inline"/></h3>
+                        <h3 invisible="not dev_name">Concession: <field name="dev_name"
+                            readonly="1" class="oe_inline"/></h3>
+                    </div>
+                    <group>
+                        <group string="Subject">
+                            <field name="set_id"/>
+                            <field name="stage"/>
+                            <field name="product_id" readonly="set_id != False"/>
+                            <field name="lot_id"/>
+                            <field name="serial_ids" widget="many2many_tags"/>
+                            <field name="qty"/>
+                            <field name="picking_id"/>
+                            <field name="production_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Disposition">
+                            <field name="disposition" readonly="state != 'open'"/>
+                            <field name="mr_state" invisible="disposition != 'scrap'"/>
+                            <field name="plant_required" invisible="disposition != 'scrap'"/>
+                            <field name="repair_order_id" invisible="not repair_order_id"/>
+                            <field name="rework_mo_id" invisible="not rework_mo_id"/>
+                            <field name="reinspection_set_id"
+                                   invisible="not reinspection_set_id"/>
+                            <field name="scrap_id" invisible="not scrap_id"/>
+                            <field name="return_picking_id"
+                                   invisible="not return_picking_id"/>
+                            <field name="debit_note_ref" invisible="disposition != 'rtv'"/>
+                            <field name="disposal_instruction"
+                                   invisible="disposition != 'scrap'"/>
+                        </group>
+                    </group>
+                    <group string="Accountability (mandatory before approval)">
+                        <group>
+                            <field name="defect_ids" widget="many2many_tags"
+                                   readonly="state not in ('open',)"/>
+                            <field name="cause_id" readonly="state not in ('open',)"/>
+                            <field name="cause_note" readonly="state not in ('open',)"/>
+                        </group>
+                        <group>
+                            <field name="resp_type" readonly="state not in ('open',)"/>
+                            <field name="resp_partner_id"
+                                   invisible="resp_type not in ('vendor','subcontractor')"
+                                   readonly="state not in ('open',)"/>
+                            <field name="resp_workcenter_id"
+                                   invisible="resp_type != 'workcenter'"
+                                   readonly="state not in ('open',)"/>
+                            <field name="resp_employee_id"
+                                   invisible="resp_type != 'operator'"
+                                   readonly="state not in ('open',)"/>
+                            <field name="resp_department_id"
+                                   invisible="resp_type not in ('design','stores','other')"
+                                   readonly="state not in ('open',)"/>
+                        </group>
+                    </group>
+                    <group string="Loss Valuation">
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="material_cost"/>
+                            <field name="conversion_cost"/>
+                            <field name="total_loss"/>
+                        </group>
+                        <group>
+                            <field name="loss_adjust_reason"/>
+                            <field name="qm_approver_id" invisible="not qm_approver_id"/>
+                            <field name="plant_approver_id"
+                                   invisible="not plant_approver_id"/>
+                        </group>
+                    </group>
+                    <group string="Deviation (Use-As-Is)" invisible="disposition != 'deviation'">
+                        <group>
+                            <field name="dev_qty"/>
+                            <field name="dev_valid_until"/>
+                        </group>
+                        <group>
+                            <field name="dev_justification"/>
+                            <field name="dev_approver_id" invisible="not dev_approver_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Failed IRs">
+                            <field name="report_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="unit_no"/>
+                                    <field name="serial_id"/>
+                                    <field name="verdict"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="CAPA">
+                            <field name="capa_required" invisible="1"/>
+                            <field name="capa_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="problem"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ncr_list" model="ir.ui.view">
+        <field name="name">quality.ncr.list</field>
+        <field name="model">quality.ncr</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="state == 'open'"
+                  decoration-success="state == 'closed'">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="lot_id" optional="show"/>
+                <field name="qty"/>
+                <field name="stage"/>
+                <field name="disposition"/>
+                <field name="mr_name" optional="show"/>
+                <field name="resp_type" optional="show"/>
+                <field name="total_loss" sum="Total Loss"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ncr_search" model="ir.ui.view">
+        <field name="name">quality.ncr.search</field>
+        <field name="model">quality.ncr</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="mr_name"/>
+                <filter name="open" string="Open" domain="[('state','=','open')]"/>
+                <filter name="mr" string="M Reports" domain="[('mr_name','!=',False)]"/>
+                <filter name="dev" string="Concessions" domain="[('dev_name','!=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_disp" string="Disposition"
+                            context="{'group_by': 'disposition'}"/>
+                    <filter name="group_resp" string="Responsibility"
+                            context="{'group_by': 'resp_type'}"/>
+                    <filter name="group_vendor" string="Vendor"
+                            context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ncr" model="ir.actions.act_window">
+        <field name="name">Non-Conformance Reports</field>
+        <field name="res_model">quality.ncr</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_open': 1}</field>
+    </record>
+
+    <record id="action_mr" model="ir.actions.act_window">
+        <field name="name">M Reports (Scrap)</field>
+        <field name="res_model">quality.ncr</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('mr_name','!=',False)]</field>
+    </record>
+</odoo>

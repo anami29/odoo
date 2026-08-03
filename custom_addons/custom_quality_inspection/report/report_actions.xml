@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_inspection_report" model="ir.actions.report">
+        <field name="name">Inspection Report</field>
+        <field name="model">quality.inspection.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_quality_inspection.report_ir_doc</field>
+        <field name="report_file">custom_quality_inspection.report_ir_doc</field>
+        <field name="binding_model_id" ref="model_quality_inspection_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_m_report" model="ir.actions.report">
+        <field name="name">M Report (Material Rejection)</field>
+        <field name="model">quality.ncr</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_quality_inspection.report_mr_doc</field>
+        <field name="report_file">custom_quality_inspection.report_mr_doc</field>
+        <field name="binding_model_id" ref="model_quality_ncr"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_concession" model="ir.actions.report">
+        <field name="name">Concession Note</field>
+        <field name="model">quality.ncr</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_quality_inspection.report_dev_doc</field>
+        <field name="report_file">custom_quality_inspection.report_dev_doc</field>
+        <field name="binding_model_id" ref="model_quality_ncr"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_ir_doc">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3>Inspection Report <span t-field="o.name"/>
+                            <span t-if="o.superseded" class="text-danger"> (SUPERSEDED)</span>
+                        </h3>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td><strong>Product:</strong> <span t-field="o.product_id.display_name"/></td>
+                                <td><strong>Stage:</strong> <span t-field="o.stage"/></td>
+                                <td><strong>Set:</strong> <span t-field="o.set_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Drawing:</strong>
+                                    <span t-field="o.plan_id.drawing_no"/> Rev
+                                    <span t-field="o.plan_id.drawing_rev"/></td>
+                                <td><strong>QIP:</strong> <span t-field="o.plan_id.name"/>
+                                    (v<span t-field="o.set_id.plan_version"/>)</td>
+                                <td><strong>Sampling:</strong>
+                                    <span t-field="o.set_id.basis"/> n=<span t-field="o.set_id.sample_qty"/>
+                                    Ac=<span t-field="o.set_id.ac"/> Re=<span t-field="o.set_id.re"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lot / Serial:</strong>
+                                    <span t-esc="o.serial_id.name or o.lot_id.name or '-'"/></td>
+                                <td><strong>Unit:</strong> <span t-field="o.unit_no"/>
+                                    of <span t-esc="int(o.set_id.lot_qty)"/></td>
+                                <td><strong>Date:</strong> <span t-field="o.date_done"/></td>
+                            </tr>
+                        </table>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Balloon</th><th>Parameter</th><th>Type</th>
+                                    <th>Specification</th><th>LSL</th><th>Nominal</th>
+                                    <th>USL</th><th>Observed</th><th>Result</th>
+                                    <th>Instrument</th><th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="l" class="text-center">
+                                    <td><span t-field="l.balloon_ref"/></td>
+                                    <td class="text-start"><span t-field="l.name"/></td>
+                                    <td><span t-field="l.char_type"/></td>
+                                    <td><span t-field="l.specification"/></td>
+                                    <td><span t-if="l.char_type == 'variable'" t-field="l.tol_min"/></td>
+                                    <td><span t-if="l.char_type == 'variable'" t-field="l.nominal_value"/></td>
+                                    <td><span t-if="l.char_type == 'variable'" t-field="l.tol_max"/></td>
+                                    <td>
+                                        <span t-if="l.char_type == 'variable'" t-field="l.observed_value"/>
+                                        <span t-else="" t-field="l.observed_ok"/>
+                                    </td>
+                                    <td>
+                                        <strong t-if="l.result == 'fail'" class="text-danger">FAIL</strong>
+                                        <span t-elif="l.result == 'pass'">Pass</span>
+                                    </td>
+                                    <td><span t-field="l.instrument_note"/></td>
+                                    <td><span t-field="l.remark"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4>Unit Verdict:
+                            <strong t-if="o.verdict == 'pass'" class="text-success">PASS</strong>
+                            <strong t-if="o.verdict == 'fail'" class="text-danger">FAIL</strong>
+                        </h4>
+                        <br/><br/>
+                        <table class="table table-sm table-borderless" style="width:70%">
+                            <tr>
+                                <td><strong>Inspector:</strong><br/><br/>
+                                    _______________________<br/>
+                                    <span t-field="o.inspector_id.name"/></td>
+                                <td><strong>Quality Manager:</strong><br/><br/>
+                                    _______________________</td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_mr_doc">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3>M Report - Material Rejection
+                            <span t-esc="o.mr_name or '(not yet generated)'"/></h3>
+                        <p><strong>NCR:</strong> <span t-field="o.name"/></p>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td><strong>Product:</strong> <span t-field="o.product_id.display_name"/></td>
+                                <td><strong>Lot / Serial:</strong>
+                                    <span t-esc="o.lot_id.name or ', '.join(o.serial_ids.mapped('name')) or '-'"/></td>
+                                <td><strong>Qty:</strong> <span t-field="o.qty"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vendor:</strong> <span t-field="o.partner_id.name"/></td>
+                                <td><strong>Source:</strong>
+                                    <span t-esc="(o.picking_id.name or o.production_id.name) or '-'"/></td>
+                                <td><strong>Stage:</strong> <span t-field="o.stage"/></td>
+                            </tr>
+                        </table>
+                        <h5>Non-Conformance and Accountability</h5>
+                        <table class="table table-sm">
+                            <tr><th>Defect Code(s)</th>
+                                <td><span t-esc="', '.join(o.defect_ids.mapped('display_name'))"/></td></tr>
+                            <tr><th>Cause</th>
+                                <td><span t-field="o.cause_id.display_name"/> -
+                                    <span t-field="o.cause_note"/></td></tr>
+                            <tr><th>Responsibility</th>
+                                <td><span t-field="o.resp_type"/>:
+                                    <span t-esc="o.resp_partner_id.name or o.resp_workcenter_id.name or o.resp_employee_id.name or o.resp_department_id.name or '-'"/></td></tr>
+                            <tr><th>Disposal Instruction</th>
+                                <td><span t-field="o.disposal_instruction"/></td></tr>
+                        </table>
+                        <h5>Loss Valuation</h5>
+                        <table class="table table-sm" style="width:60%">
+                            <tr><th>Material Cost</th>
+                                <td class="text-end"><span t-field="o.material_cost"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td></tr>
+                            <tr><th>Conversion Cost</th>
+                                <td class="text-end"><span t-field="o.conversion_cost"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td></tr>
+                            <tr><th>Total Loss</th>
+                                <td class="text-end"><strong><span t-field="o.total_loss"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></strong></td></tr>
+                        </table>
+                        <br/>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td><strong>Quality Manager:</strong><br/>
+                                    <span t-field="o.qm_approver_id.name"/><br/>
+                                    <span t-field="o.qm_approve_date"/></td>
+                                <td><strong>Plant Approver:</strong><br/>
+                                    <span t-esc="o.plant_approver_id.name or ('N/A' if not o.plant_required else 'Pending')"/><br/>
+                                    <span t-field="o.plant_approve_date"/></td>
+                                <td><strong>Scrap Doc:</strong><br/>
+                                    <span t-field="o.scrap_id.name"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_dev_doc">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3>Concession / Deviation Note
+                            <span t-esc="o.dev_name or '(not yet approved)'"/></h3>
+                        <p><strong>NCR:</strong> <span t-field="o.name"/></p>
+                        <table class="table table-sm">
+                            <tr><th>Product</th>
+                                <td><span t-field="o.product_id.display_name"/></td></tr>
+                            <tr><th>Lot / Serial</th>
+                                <td><span t-esc="o.lot_id.name or ', '.join(o.serial_ids.mapped('name')) or '-'"/></td></tr>
+                            <tr><th>Concession Qty</th><td><span t-field="o.dev_qty"/></td></tr>
+                            <tr><th>Valid Until</th><td><span t-field="o.dev_valid_until"/></td></tr>
+                            <tr><th>Deviating Characteristics</th>
+                                <td><span t-esc="', '.join(o.defect_ids.mapped('display_name'))"/></td></tr>
+                            <tr><th>Justification</th>
+                                <td><span t-field="o.dev_justification"/></td></tr>
+                            <tr><th>Approved By (Plant)</th>
+                                <td><span t-field="o.dev_approver_id.name"/></td></tr>
+                        </table>
+                        <p class="text-muted">The lot traceability record permanently
+                        carries this concession flag (FR-NCR-06).</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

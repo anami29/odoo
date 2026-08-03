@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_quality" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.quality</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Quality" string="Quality"
+                     name="custom_quality_inspection" groups="custom_quality_inspection.group_quality_manager">
+                    <block title="Locations and Flow">
+                        <setting string="Quality Control Location"
+                                 help="Source for automatic QC to Stock / NC moves">
+                            <field name="quality_qc_location_id"/>
+                        </setting>
+                        <setting string="Non-Conformance Location">
+                            <field name="quality_nc_location_id"/>
+                        </setting>
+                        <setting string="Inspection SLA (hours)">
+                            <field name="quality_sla_hours"/>
+                        </setting>
+                        <setting string="Quality Notification User">
+                            <field name="quality_notify_user_id"/>
+                        </setting>
+                        <setting string="Skip-Lot After N Acceptances"
+                                 help="0 disables skip-lot control (FR-TRG-06)">
+                            <field name="quality_skiplot_count"/>
+                        </setting>
+                        <setting string="Automate AQL Switching Rules"
+                                 help="Normal / tightened switching per ISO 2859-1 (FR-SMP-05)">
+                            <field name="quality_switching_auto"/>
+                        </setting>
+                    </block>
+                    <block title="Approvals, Loss and CAPA">
+                        <setting string="M Report Plant-Approval Limit"
+                                 help="Losses above this need Plant approval (FR-ACC-03)">
+                            <field name="quality_mr_approval_limit"/>
+                        </setting>
+                        <setting string="Include Conversion Cost in Loss">
+                            <field name="quality_include_conversion"/>
+                        </setting>
+                        <setting string="CAPA Mandatory on Scrap">
+                            <field name="quality_capa_on_scrap"/>
+                        </setting>
+                        <setting string="CAPA Mandatory on Deviation">
+                            <field name="quality_capa_on_deviation"/>
+                        </setting>
+                        <setting string="Inspector Competence Gate">
+                            <field name="quality_competence_mode"/>
+                        </setting>
+                    </block>
+                    <block title="Six Sigma">
+                        <setting string="GRR Acceptable Below (%)">
+                            <field name="quality_grr_accept"/>
+                        </setting>
+                        <setting string="GRR Conditional Up To (%)">
+                            <field name="quality_grr_cond"/>
+                        </setting>
+                        <setting string="Apply 1.5 Sigma Shift">
+                            <field name="quality_sigma_shift"/>
+                        </setting>
+                        <setting string="Capability Minimum Observations">
+                            <field name="quality_capability_min"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

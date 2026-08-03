@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_quality_plan" model="ir.sequence">
+        <field name="name">Quality Inspection Plan</field>
+        <field name="code">quality.plan</field>
+        <field name="prefix">QIP/%(range_year)s/</field>
+        <field name="padding">4</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_set" model="ir.sequence">
+        <field name="name">Inspection Set</field>
+        <field name="code">quality.set</field>
+        <field name="prefix">IRS/%(range_year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_ir_iqc" model="ir.sequence">
+        <field name="name">Inspection Report IQC</field>
+        <field name="code">quality.ir.iqc</field>
+        <field name="prefix">IR/IQC/%(range_year)s/</field>
+        <field name="padding">6</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_ir_ipq" model="ir.sequence">
+        <field name="name">Inspection Report IPQC</field>
+        <field name="code">quality.ir.ipq</field>
+        <field name="prefix">IR/IPQ/%(range_year)s/</field>
+        <field name="padding">6</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_ir_fqc" model="ir.sequence">
+        <field name="name">Inspection Report FQC</field>
+        <field name="code">quality.ir.fqc</field>
+        <field name="prefix">IR/FQC/%(range_year)s/</field>
+        <field name="padding">6</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_ncr" model="ir.sequence">
+        <field name="name">Non-Conformance Report</field>
+        <field name="code">quality.ncr</field>
+        <field name="prefix">NCR/%(range_year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_mr" model="ir.sequence">
+        <field name="name">M Report (Material Rejection)</field>
+        <field name="code">quality.mr</field>
+        <field name="prefix">MR/%(range_year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_dev" model="ir.sequence">
+        <field name="name">Deviation / Concession</field>
+        <field name="code">quality.dev</field>
+        <field name="prefix">DEV/%(range_year)s/</field>
+        <field name="padding">4</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_capa" model="ir.sequence">
+        <field name="name">CAPA</field>
+        <field name="code">quality.capa</field>
+        <field name="prefix">CAPA/%(range_year)s/</field>
+        <field name="padding">4</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_grr" model="ir.sequence">
+        <field name="name">Gauge R&amp;R Study</field>
+        <field name="code">quality.grr</field>
+        <field name="prefix">GRR/%(range_year)s/</field>
+        <field name="padding">4</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_quality_capability" model="ir.sequence">
+        <field name="name">Capability Study</field>
+        <field name="code">quality.capability</field>
+        <field name="prefix">CAP/%(range_year)s/</field>
+        <field name="padding">4</field>
+        <field name="use_date_range">True</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

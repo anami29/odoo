@@ -1,0 +1,52 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_defect_user,defect user,model_quality_defect_code,base.group_user,1,0,0,0
+access_defect_eng,defect engineer,model_quality_defect_code,group_quality_engineer,1,1,1,1
+access_cause_user,cause user,model_quality_cause_code,base.group_user,1,0,0,0
+access_cause_eng,cause engineer,model_quality_cause_code,group_quality_engineer,1,1,1,1
+access_qualification_user,qualification user,model_quality_inspector_qualification,group_quality_user,1,0,0,0
+access_qualification_eng,qualification engineer,model_quality_inspector_qualification,group_quality_engineer,1,1,1,1
+access_srule_user,sampling rule user,model_quality_sampling_rule,base.group_user,1,0,0,0
+access_srule_eng,sampling rule engineer,model_quality_sampling_rule,group_quality_engineer,1,1,1,1
+access_aql_letter_user,aql letter user,model_quality_aql_letter,base.group_user,1,0,0,0
+access_aql_letter_eng,aql letter engineer,model_quality_aql_letter,group_quality_engineer,1,1,1,1
+access_aql_plan_user,aql plan user,model_quality_aql_plan,base.group_user,1,0,0,0
+access_aql_plan_eng,aql plan engineer,model_quality_aql_plan,group_quality_engineer,1,1,1,1
+access_switch_user,switch user,model_quality_sampling_switch,group_quality_user,1,1,1,0
+access_switch_mgr,switch manager,model_quality_sampling_switch,group_quality_manager,1,1,1,1
+access_plan_user,plan user,model_quality_inspection_plan,base.group_user,1,0,0,0
+access_plan_eng,plan engineer,model_quality_inspection_plan,group_quality_engineer,1,1,1,0
+access_plan_mgr,plan manager,model_quality_inspection_plan,group_quality_manager,1,1,1,1
+access_plan_line_user,plan line user,model_quality_inspection_plan_line,base.group_user,1,0,0,0
+access_plan_line_eng,plan line engineer,model_quality_inspection_plan_line,group_quality_engineer,1,1,1,1
+access_set_user,set user,model_quality_inspection_set,base.group_user,1,0,0,0
+access_set_insp,set inspector,model_quality_inspection_set,group_quality_user,1,1,1,0
+access_set_mgr,set manager,model_quality_inspection_set,group_quality_manager,1,1,1,1
+access_ir_user,ir user,model_quality_inspection_report,base.group_user,1,0,0,0
+access_ir_insp,ir inspector,model_quality_inspection_report,group_quality_user,1,1,1,0
+access_ir_mgr,ir manager,model_quality_inspection_report,group_quality_manager,1,1,1,1
+access_ir_line_user,ir line user,model_quality_inspection_report_line,base.group_user,1,0,0,0
+access_ir_line_insp,ir line inspector,model_quality_inspection_report_line,group_quality_user,1,1,1,0
+access_ir_line_mgr,ir line manager,model_quality_inspection_report_line,group_quality_manager,1,1,1,1
+access_ncr_insp,ncr inspector,model_quality_ncr,group_quality_user,1,1,1,0
+access_ncr_plant,ncr plant,model_quality_ncr,group_quality_plant,1,1,0,0
+access_ncr_mgr,ncr manager,model_quality_ncr,group_quality_manager,1,1,1,1
+access_capa_insp,capa inspector,model_quality_capa,group_quality_user,1,1,1,0
+access_capa_plant,capa plant,model_quality_capa,group_quality_plant,1,1,0,0
+access_capa_mgr,capa manager,model_quality_capa,group_quality_manager,1,1,1,1
+access_capa_action_insp,capa action inspector,model_quality_capa_action,group_quality_user,1,1,1,0
+access_capa_action_mgr,capa action manager,model_quality_capa_action,group_quality_manager,1,1,1,1
+access_spc_chart_user,spc chart user,model_quality_spc_chart,group_quality_user,1,0,0,0
+access_spc_chart_eng,spc chart engineer,model_quality_spc_chart,group_quality_engineer,1,1,1,1
+access_spc_point_user,spc point user,model_quality_spc_point,group_quality_user,1,0,0,0
+access_spc_point_eng,spc point engineer,model_quality_spc_point,group_quality_engineer,1,1,1,1
+access_capability_user,capability user,model_quality_capability_study,group_quality_user,1,0,0,0
+access_capability_eng,capability engineer,model_quality_capability_study,group_quality_engineer,1,1,1,1
+access_grr_user,grr user,model_quality_grr_study,group_quality_user,1,0,0,0
+access_grr_eng,grr engineer,model_quality_grr_study,group_quality_engineer,1,1,1,1
+access_grr_line_user,grr line user,model_quality_grr_line,group_quality_user,1,0,0,0
+access_grr_line_eng,grr line engineer,model_quality_grr_line,group_quality_engineer,1,1,1,1
+access_rej_analysis_user,rejection analysis user,model_quality_rejection_analysis,group_quality_user,1,0,0,0
+access_screening_wiz,screening wizard,model_quality_screening_wizard,group_quality_user,1,1,1,1
+access_supersede_wiz,supersede wizard,model_quality_supersede_wizard,group_quality_user,1,1,1,1
+access_sixsigma_wiz,sixsigma wizard,model_quality_sixsigma_wizard,group_quality_user,1,1,1,1
+access_sixsigma_wiz_line,sixsigma wizard line,model_quality_sixsigma_wizard_line,group_quality_user,1,1,1,1

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sampling_rule_form" model="ir.ui.view">
+        <field name="name">quality.sampling.rule.form</field>
+        <field name="model">quality.sampling.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="rule_type"/>
+                            <field name="fixed_qty" invisible="rule_type != 'fixed'"/>
+                            <field name="percent" invisible="rule_type != 'percent'"/>
+                            <field name="min_qty" invisible="rule_type != 'percent'"/>
+                        </group>
+                        <group>
+                            <field name="aql_level" invisible="rule_type != 'aql'"/>
+                            <field name="aql_value" invisible="rule_type != 'aql'"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Notes..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_sampling_rule_list" model="ir.ui.view">
+        <field name="name">quality.sampling.rule.list</field>
+        <field name="model">quality.sampling.rule</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="aql_level" optional="show"/>
+                <field name="aql_value" optional="show"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_sampling_rule" model="ir.actions.act_window">
+        <field name="name">Sampling Rules</field>
+        <field name="res_model">quality.sampling.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_sampling_switch_list" model="ir.ui.view">
+        <field name="name">quality.sampling.switch.list</field>
+        <field name="model">quality.sampling.switch</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="severity"/>
+                <field name="last_results" readonly="1"/>
+                <field name="consec_accept" readonly="1"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_sampling_switch" model="ir.actions.act_window">
+        <field name="name">Sampling Severity (per Vendor-Product)</field>
+        <field name="res_model">quality.sampling.switch</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_aql_letter_list" model="ir.ui.view">
+        <field name="name">quality.aql.letter.list</field>
+        <field name="model">quality.aql.letter</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="level"/>
+                <field name="lot_min"/>
+                <field name="lot_max"/>
+                <field name="letter"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_aql_letter" model="ir.actions.act_window">
+        <field name="name">AQL Code Letters</field>
+        <field name="res_model">quality.aql.letter</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_aql_plan_list" model="ir.ui.view">
+        <field name="name">quality.aql.plan.list</field>
+        <field name="model">quality.aql.plan</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="letter"/>
+                <field name="sample_size"/>
+                <field name="aql"/>
+                <field name="severity"/>
+                <field name="ac"/>
+                <field name="re"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_aql_plan" model="ir.actions.act_window">
+        <field name="name">AQL Sampling Plans</field>
+        <field name="res_model">quality.aql.plan</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

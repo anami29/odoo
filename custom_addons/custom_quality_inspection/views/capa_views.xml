@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_capa_form" model="ir.ui.view">
+        <field name="name">quality.capa.form</field>
+        <field name="model">quality.capa</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start" type="object" string="Start"
+                            invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_implemented" type="object" string="Implemented"
+                            invisible="state != 'in_progress'" class="btn-primary"/>
+                    <button name="action_to_effect_check" type="object"
+                            string="To Effectiveness Check"
+                            invisible="state != 'implemented'"/>
+                    <button name="action_close" type="object" string="Close (Effective)"
+                            invisible="state != 'effect_check'" class="btn-primary"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                    <button name="action_effect_failed" type="object"
+                            string="Not Effective - Reopen"
+                            invisible="state != 'effect_check'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="ncr_ids" widget="many2many_tags"/>
+                            <field name="problem"/>
+                            <field name="containment"/>
+                        </group>
+                        <group string="Root Cause (5-Why)">
+                            <field name="why1"/>
+                            <field name="why2"/>
+                            <field name="why3"/>
+                            <field name="why4"/>
+                            <field name="why5"/>
+                            <field name="root_cause"/>
+                        </group>
+                    </group>
+                    <group string="Actions">
+                        <field name="action_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="owner_id"/>
+                                <field name="date_due"/>
+                                <field name="done"/>
+                                <field name="date_done"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Effectiveness Verification (FR-CAPA-02)">
+                        <group>
+                            <field name="eff_result"/>
+                            <field name="eff_evidence"/>
+                        </group>
+                        <group>
+                            <field name="eff_verifier_id"/>
+                            <field name="eff_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_capa_list" model="ir.ui.view">
+        <field name="name">quality.capa.list</field>
+        <field name="model">quality.capa</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'closed'">
+                <field name="name"/>
+                <field name="problem"/>
+                <field name="ncr_ids" widget="many2many_tags" optional="show"/>
+                <field name="eff_result" optional="show"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_capa" model="ir.actions.act_window">
+        <field name="name">CAPA</field>
+        <field name="res_model">quality.capa</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

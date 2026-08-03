@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_spc_chart_form" model="ir.ui.view">
+        <field name="name">quality.spc.chart.form</field>
+        <field name="model">quality.spc.chart</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_recompute" type="object" string="Recompute"
+                            class="btn-primary" invisible="locked"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                    <button name="action_lock" type="object" string="Lock Limits"
+                            invisible="locked"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                    <button name="action_unlock" type="object" string="Unlock"
+                            invisible="not locked"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Limits Locked"
+                            invisible="not locked"/>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="balloon_ref"/>
+                            <field name="parameter"/>
+                            <field name="stage"/>
+                            <field name="chart_type"/>
+                            <field name="subgroup_size"
+                                   invisible="chart_type != 'xbar_r'"/>
+                            <field name="rule_set"/>
+                        </group>
+                        <group>
+                            <field name="baseline_from"/>
+                            <field name="baseline_to"/>
+                            <field name="cl"/>
+                            <field name="ucl"/>
+                            <field name="lcl"/>
+                            <field name="r_cl" invisible="chart_type in ('p','np')"/>
+                            <field name="r_ucl" invisible="chart_type in ('p','np')"/>
+                            <field name="alert_count"/>
+                        </group>
+                    </group>
+                    <field name="point_ids" readonly="1">
+                        <list decoration-danger="violation != ''">
+                            <field name="sequence"/>
+                            <field name="date"/>
+                            <field name="value"/>
+                            <field name="range_val"/>
+                            <field name="ref"/>
+                            <field name="violation"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_spc_chart_list" model="ir.ui.view">
+        <field name="name">quality.spc.chart.list</field>
+        <field name="model">quality.spc.chart</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="parameter"/>
+                <field name="chart_type"/>
+                <field name="rule_set"/>
+                <field name="alert_count"/>
+                <field name="locked"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_spc_point_graph" model="ir.ui.view">
+        <field name="name">quality.spc.point.graph</field>
+        <field name="model">quality.spc.point</field>
+        <field name="arch" type="xml">
+            <graph type="line">
+                <field name="sequence"/>
+                <field name="value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_spc_chart" model="ir.actions.act_window">
+        <field name="name">SPC Control Charts</field>
+        <field name="res_model">quality.spc.chart</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_capability_form" model="ir.ui.view">
+        <field name="name">quality.capability.study.form</field>
+        <field name="model">quality.capability.study</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object" string="Compute"
+                            class="btn-primary"
+                            groups="custom_quality_inspection.group_quality_engineer"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="balloon_ref"/>
+                            <field name="parameter"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="subgroup_size"/>
+                        </group>
+                        <group>
+                            <field name="lsl"/>
+                            <field name="usl"/>
+                            <field name="n"/>
+                            <field name="mean"/>
+                            <field name="sigma_within"/>
+                            <field name="sigma_overall"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="cp"/>
+                            <field name="cpk"/>
+                        </group>
+                        <group>
+                            <field name="pp"/>
+                            <field name="ppk"/>
+                        </group>
+                    </group>
+                    <field name="note" readonly="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_capability_list" model="ir.ui.view">
+        <field name="name">quality.capability.study.list</field>
+        <field name="model">quality.capability.study</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="parameter"/>
+                <field name="n"/>
+                <field name="cp"/>
+                <field name="cpk"/>
+                <field name="pp"/>
+                <field name="ppk"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_capability" model="ir.actions.act_window">
+        <field name="name">Capability Studies</field>
+        <field name="res_model">quality.capability.study</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

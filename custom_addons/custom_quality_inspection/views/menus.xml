@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_quality_root" name="Quality" sequence="42"
+              groups="custom_quality_inspection.group_quality_user"/>
+
+    <menuitem id="menu_quality_operations" name="Operations"
+              parent="menu_quality_root" sequence="10"/>
+    <menuitem id="menu_sets" name="Inspection Sets" parent="menu_quality_operations"
+              action="action_set" sequence="10"/>
+    <menuitem id="menu_irs" name="Inspection Reports" parent="menu_quality_operations"
+              action="action_ir" sequence="20"/>
+    <menuitem id="menu_ncr" name="NCRs" parent="menu_quality_operations"
+              action="action_ncr" sequence="30"/>
+    <menuitem id="menu_mr" name="M Reports" parent="menu_quality_operations"
+              action="action_mr" sequence="40"/>
+    <menuitem id="menu_capa" name="CAPA" parent="menu_quality_operations"
+              action="action_capa" sequence="50"/>
+
+    <menuitem id="menu_quality_planning" name="Planning"
+              parent="menu_quality_root" sequence="20"/>
+    <menuitem id="menu_plans" name="Inspection Plans (QIP)" parent="menu_quality_planning"
+              action="action_plan" sequence="10"/>
+    <menuitem id="menu_sampling_rules" name="Sampling Rules" parent="menu_quality_planning"
+              action="action_sampling_rule" sequence="20"/>
+    <menuitem id="menu_sampling_switch" name="Sampling Severity" parent="menu_quality_planning"
+              action="action_sampling_switch" sequence="30"/>
+
+    <menuitem id="menu_quality_sixsigma" name="Six Sigma"
+              parent="menu_quality_root" sequence="30"/>
+    <menuitem id="menu_spc" name="Control Charts" parent="menu_quality_sixsigma"
+              action="action_spc_chart" sequence="10"/>
+    <menuitem id="menu_capability" name="Capability Studies" parent="menu_quality_sixsigma"
+              action="action_capability" sequence="20"/>
+    <menuitem id="menu_grr" name="Gauge R&amp;R" parent="menu_quality_sixsigma"
+              action="action_grr" sequence="30"/>
+    <menuitem id="menu_sixsigma_wizard" name="DPMO / Sigma Metrics"
+              parent="menu_quality_sixsigma" action="action_sixsigma_wizard" sequence="40"/>
+
+    <menuitem id="menu_quality_reporting" name="Reporting"
+              parent="menu_quality_root" sequence="40"/>
+    <menuitem id="menu_rejection_analysis" name="Rejection Analysis"
+              parent="menu_quality_reporting" action="action_rejection_analysis" sequence="10"/>
+    <menuitem id="menu_register_ir" name="IR Register" parent="menu_quality_reporting"
+              action="action_register_ir" sequence="20"/>
+    <menuitem id="menu_register_ncr" name="NCR Register" parent="menu_quality_reporting"
+              action="action_register_ncr" sequence="30"/>
+
+    <menuitem id="menu_quality_config" name="Configuration"
+              parent="menu_quality_root" sequence="50"
+              groups="custom_quality_inspection.group_quality_engineer"/>
+    <menuitem id="menu_defects" name="Defect Codes" parent="menu_quality_config"
+              action="action_defect_code" sequence="10"/>
+    <menuitem id="menu_causes" name="Cause Codes" parent="menu_quality_config"
+              action="action_cause_code" sequence="20"/>
+    <menuitem id="menu_qualifications" name="Inspector Qualifications"
+              parent="menu_quality_config" action="action_qualification" sequence="30"/>
+    <menuitem id="menu_aql_letters" name="AQL Code Letters" parent="menu_quality_config"
+              action="action_aql_letter" sequence="40"/>
+    <menuitem id="menu_aql_plans" name="AQL Plans" parent="menu_quality_config"
+              action="action_aql_plan" sequence="50"/>
+    <menuitem id="menu_quality_settings" name="Settings" parent="menu_quality_config"
+              action="base_setup.action_general_configuration" sequence="60"
+              groups="custom_quality_inspection.group_quality_manager"/>
+</odoo>

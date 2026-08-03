@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_screening_wizard_form" model="ir.ui.view">
+        <field name="name">quality.screening.wizard.form</field>
+        <field name="model">quality.screening.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="set_id" readonly="1"/>
+                    <field name="failed" readonly="1"/>
+                </group>
+                <p>Sampling rejected (failed units &#8805; Re). Choose the lot
+                   treatment (FR-EVAL-02):</p>
+                <footer>
+                    <button name="action_full_screening" type="object"
+                            string="100% Screening" class="btn-primary"/>
+                    <button name="action_reject_lot" type="object"
+                            string="Reject Entire Lot" class="btn-danger"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_supersede_wizard_form" model="ir.ui.view">
+        <field name="name">quality.supersede.wizard.form</field>
+        <field name="model">quality.supersede.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="report_id" readonly="1"/>
+                    <field name="reason" required="1"/>
+                </group>
+                <footer>
+                    <button name="action_supersede" type="object" string="Supersede"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sixsigma_wizard_form" model="ir.ui.view">
+        <field name="name">quality.sixsigma.wizard.form</field>
+        <field name="model">quality.sixsigma.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="product_tmpl_id"/>
+                    </group>
+                    <group>
+                        <field name="units"/>
+                        <field name="defects"/>
+                        <field name="opportunities"/>
+                        <field name="dpmo"/>
+                        <field name="rty"/>
+                        <field name="sigma_level"/>
+                    </group>
+                </group>
+                <field name="line_ids" readonly="1">
+                    <list>
+                        <field name="stage"/>
+                        <field name="inspected"/>
+                        <field name="passed"/>
+                        <field name="fpy"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_compute" type="object" string="Compute"
+                            class="btn-primary"/>
+                    <button string="Close" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sixsigma_wizard" model="ir.actions.act_window">
+        <field name="name">Six Sigma Metrics (DPMO / Sigma / FPY-RTY)</field>
+        <field name="res_model">quality.sixsigma.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

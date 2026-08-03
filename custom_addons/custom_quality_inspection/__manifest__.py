@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Custom Quality Inspection (Stage-wise IR, NCR, M Report, SPC)',
+    'summary': 'Stage-wise inspection plans (quotation-style), per-unit inspection '
+               'reports, AQL sampling, quality gates, NCR/M-Report with accountability, '
+               'CAPA, SPC, capability and Gauge R&R. Implements RLFB-FSD-QMS-001 v1.1.',
+    'version': '18.0.1.0.0',
+    'author': 'RLFB',
+    'license': 'OPL-1',
+    'category': 'Manufacturing/Quality',
+    'depends': ['stock', 'mrp', 'purchase', 'repair', 'hr', 'mail', 'product'],
+    'data': [
+        'security/quality_security.xml',
+        'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
+        'data/quality.aql.letter.csv',
+        'data/quality.aql.plan.csv',
+        'data/ir_cron_data.xml',
+        'views/masters_views.xml',
+        'views/sampling_views.xml',
+        'views/plan_views.xml',
+        'views/inspection_views.xml',
+        'views/ncr_views.xml',
+        'views/capa_views.xml',
+        'views/spc_views.xml',
+        'views/grr_views.xml',
+        'views/registers_views.xml',
+        'views/stock_mrp_views.xml',
+        'views/settings_views.xml',
+        'wizards/wizard_views.xml',
+        'report/report_actions.xml',
+        'report/report_templates.xml',
+        'views/menus.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

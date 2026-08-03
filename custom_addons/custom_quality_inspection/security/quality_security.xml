@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_quality" model="ir.module.category">
+        <field name="name">Quality</field>
+        <field name="sequence">22</field>
+    </record>
+
+    <record id="group_quality_user" model="res.groups">
+        <field name="name">Inspector</field>
+        <field name="category_id" ref="module_category_quality"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_quality_engineer" model="res.groups">
+        <field name="name">Quality Engineer</field>
+        <field name="category_id" ref="module_category_quality"/>
+        <field name="implied_ids" eval="[(4, ref('group_quality_user'))]"/>
+    </record>
+
+    <record id="group_quality_manager" model="res.groups">
+        <field name="name">Quality Manager</field>
+        <field name="category_id" ref="module_category_quality"/>
+        <field name="implied_ids" eval="[(4, ref('group_quality_engineer'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_quality_plant" model="res.groups">
+        <field name="name">Plant-Level Approver</field>
+        <field name="category_id" ref="module_category_quality"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_inspection_set_company" model="ir.rule">
+        <field name="name">Inspection Set: multi-company</field>
+        <field name="model_id" ref="model_quality_inspection_set"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_inspection_report_company" model="ir.rule">
+        <field name="name">Inspection Report: multi-company</field>
+        <field name="model_id" ref="model_quality_inspection_report"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_ncr_company" model="ir.rule">
+        <field name="name">NCR: multi-company</field>
+        <field name="model_id" ref="model_quality_ncr"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_capa_company" model="ir.rule">
+        <field name="name">CAPA: multi-company</field>
+        <field name="model_id" ref="model_quality_capa"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_plan_company" model="ir.rule">
+        <field name="name">QIP: multi-company</field>
+        <field name="model_id" ref="model_quality_inspection_plan"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>
