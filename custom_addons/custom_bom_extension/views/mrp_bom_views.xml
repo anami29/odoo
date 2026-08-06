@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit standard MRP BOM Form View -->
+    <record id="mrp_bom_form_view_inherit_custom" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.custom</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                <field name="custom_drawing_number"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Custom Notes" name="custom_notes_page">
+                    <field name="custom_notes" placeholder="Enter custom production guidelines or notes here..."/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
