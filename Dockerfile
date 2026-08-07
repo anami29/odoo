@@ -23,6 +23,9 @@ RUN grep -l -r "security risk" /usr/ /etc/ 2>/dev/null | xargs -r sed -i "s/'pos
 COPY custom_addons /mnt/extra-addons
 COPY odoo.conf /etc/odoo/odoo.conf
 
+ENV PORT=8069
+EXPOSE 8069
+
 USER odoo
 
-CMD ["sh", "-c", "odoo --config=/etc/odoo/odoo.conf --db_host=\"$PGHOST\" --db_port=\"$PGPORT\" --db_user=\"$PGUSER\" --db_password=\"$PGPASSWORD\" --http-interface=0.0.0.0 --http-port=${PORT:-8069}"]
+CMD ["sh", "-c", "odoo --config=/etc/odoo/odoo.conf --db_host=\"$PGHOST\" --db_port=\"$PGPORT\" --db_user=\"$PGUSER\" --db_password=\"$PGPASSWORD\" --http-interface=0.0.0.0 --http-port=8069"]
