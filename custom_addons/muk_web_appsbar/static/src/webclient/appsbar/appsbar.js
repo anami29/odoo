@@ -32,7 +32,7 @@ export class AppsBar extends Component {
         return this.appMenuService.selectApp(app);
     }
     getAppIcon(app) {
-        if (app.webIconData && !app.webIconData.includes('data:image/svg+xml')) {
+        if (app.webIconData && !app.webIconData.includes('default_icon_app') && !app.webIconData.includes('data:image/svg+xml')) {
             return app.webIconData;
         }
         if (app.webIcon) {
@@ -62,7 +62,7 @@ export class AppsBar extends Component {
         if (xmlid.includes('repair') || label.includes('repair')) return '/repair/static/description/icon.png';
         if (xmlid.includes('settings') || label.includes('settings')) return '/base/static/description/settings.png';
         if (xmlid.includes('apps') || label.includes('apps')) return '/base/static/description/settings.png';
-        if (app.webIconData) return app.webIconData;
+        if (app.webIconData && !app.webIconData.includes('default_icon_app')) return app.webIconData;
         return '/base/static/description/icon.png';
     }
 }
