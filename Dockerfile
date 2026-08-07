@@ -17,6 +17,7 @@ COPY odoo.conf /etc/odoo/odoo.conf
 
 USER odoo
 
+ENTRYPOINT []
 
 CMD sh -c 'odoo \
   --config=/etc/odoo/odoo.conf \
