@@ -41,6 +41,23 @@ export class AppsBar extends Component {
                 return `/${parts[0].trim()}/${parts[1].trim()}`;
             }
         }
+        const xmlid = (app.xmlid || '').toLowerCase();
+        const label = (app.label || '').toLowerCase();
+        if (xmlid.includes('discuss') || xmlid.includes('mail') || label.includes('discuss')) return '/mail/static/description/icon.png';
+        if (xmlid.includes('todo') || label.includes('to-do') || label.includes('todo')) return '/project/static/description/icon.png';
+        if (xmlid.includes('contacts') || label.includes('contacts')) return '/contacts/static/description/icon.png';
+        if (xmlid.includes('hr') || xmlid.includes('employee') || label.includes('employee')) return '/hr/static/description/icon.png';
+        if (xmlid.includes('sale') || label.includes('sales')) return '/sale/static/description/icon.png';
+        if (xmlid.includes('purchase') || label.includes('purchase')) return '/purchase/static/description/icon.png';
+        if (xmlid.includes('stock') || label.includes('inventory')) return '/stock/static/description/icon.png';
+        if (xmlid.includes('mrp') || label.includes('manufacturing')) return '/mrp/static/description/icon.png';
+        if (xmlid.includes('account') || label.includes('invoicing')) return '/account/static/description/icon.png';
+        if (xmlid.includes('helpdesk') || label.includes('helpdesk')) return '/helpdesk_mgmt/static/description/icon.png';
+        if (xmlid.includes('project') || label.includes('project')) return '/project/static/description/icon.png';
+        if (xmlid.includes('dashboard') || label.includes('dashboard')) return '/spreadsheet_dashboard/static/description/icon.png';
+        if (xmlid.includes('spreadsheet') || label.includes('spreadsheet')) return '/spreadsheet_dashboard/static/description/icon.png';
+        if (xmlid.includes('settings') || label.includes('settings')) return '/base/static/description/settings.png';
+        if (xmlid.includes('apps') || label.includes('apps')) return '/base/static/description/settings.png';
         return '/base/static/description/icon.png';
     }
 }

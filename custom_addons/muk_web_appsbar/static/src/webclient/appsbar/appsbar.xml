@@ -28,8 +28,8 @@
 			            </li>
 			    	</t>
 				</ul>
-				<div t-if="sidebarImageUrl" class="mk_apps_sidebar_logo p-2">
-					<img class="img-fluid mx-auto" t-att-src="sidebarImageUrl" alt="Logo"/>
+				<div t-if="sidebarImageUrl" class="mk_apps_sidebar_logo p-2 d-none">
+					<img class="img-fluid mx-auto" t-att-src="sidebarImageUrl"/>
 				</div>
 			</div>
 		</div>
