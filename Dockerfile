@@ -14,19 +14,8 @@ RUN pip3 install --break-system-packages html2text python-magic
 
 RUN printf '#!/bin/bash\nexec "$@"\n' > /entrypoint.sh && chmod +x /entrypoint.sh
 
-RUN python3 -c " \
-import os, re; \
-for root, dirs, files in os.walk('/usr/'): \
-    for f in files: \
-        if f.endswith('.py'): \
-            p = os.path.join(root, f); \
-            try: \
-                with open(p, 'r') as file: c = file.read(); \
-                if 'security risk' in c: \
-                    c = re.sub(r'sys\.exit\(.*security risk.*\)', 'pass', c); \
-                    with open(p, 'w') as file: file.write(c); \
-            except Exception: pass \
-"
+COPY patch_postgres_check.py /tmp/patch_postgres_check.py
+RUN python3 /tmp/patch_postgres_check.py && rm /tmp/patch_postgres_check.py
 
 COPY custom_addons /mnt/extra-addons
 COPY odoo.conf /etc/odoo/odoo.conf
