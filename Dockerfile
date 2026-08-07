@@ -20,6 +20,8 @@ RUN sed -i "s/'postgres'/'nobody_dummy'/g" /usr/lib/python3/dist-packages/odoo/t
 RUN sed -i 's/"postgres"/"nobody_dummy"/g' /usr/lib/python3/dist-packages/odoo/tools/config.py 2>/dev/null || true
 RUN grep -l -r "security risk" /usr/ /etc/ 2>/dev/null | xargs -r sed -i "s/'postgres'/'nobody_dummy'/g" 2>/dev/null || true
 
+RUN mkdir -p /var/lib/odoo && chown -R odoo:odoo /var/lib/odoo
+
 COPY custom_addons /mnt/extra-addons
 COPY odoo.conf /etc/odoo/odoo.conf
 
