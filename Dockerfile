@@ -17,13 +17,8 @@ COPY odoo.conf /etc/odoo/odoo.conf
 
 USER odoo
 
-ENTRYPOINT []
+ENV DB_USER=railway
 
-CMD sh -c 'odoo \
-  --config=/etc/odoo/odoo.conf \
-  --db_host="$PGHOST" \
-  --db_port="$PGPORT" \
-  --db_user="$PGUSER" \
-  --db_password="$PGPASSWORD" \
-  --http-interface=0.0.0.0 \
-  --http-port=${PORT:-8069}'
+ENTRYPOINT ["/bin/sh", "-c"]
+
+CMD ["odoo --config=/etc/odoo/odoo.conf --db_host=\"$PGHOST\" --db_port=\"$PGPORT\" --db_user=\"$PGUSER\" --db_password=\"$PGPASSWORD\" --http-interface=0.0.0.0 --http-port=${PORT:-8069} -d test --without-demo=all -i base,web,spreadsheet,spreadsheet_oca,spreadsheet_dashboard_oca,helpdesk_sla_traffic_light,home-theme,website_watson,custom_subcontract_product,custom_quality_inspection,custom_instrument_calibration,custom_bom_extension"]
