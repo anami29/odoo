@@ -32,7 +32,7 @@ export class AppsBar extends Component {
         return this.appMenuService.selectApp(app);
     }
     getAppIcon(app) {
-        if (app.webIconData) {
+        if (app.webIconData && !app.webIconData.includes('data:image/svg+xml')) {
             return app.webIconData;
         }
         if (app.webIcon) {
@@ -47,7 +47,7 @@ export class AppsBar extends Component {
         if (xmlid.includes('todo') || label.includes('to-do') || label.includes('todo')) return '/project/static/description/icon.png';
         if (xmlid.includes('contacts') || label.includes('contacts')) return '/contacts/static/description/icon.png';
         if (xmlid.includes('hr') || xmlid.includes('employee') || label.includes('employee')) return '/hr/static/description/icon.png';
-        if (xmlid.includes('sale') || label.includes('sales')) return '/sale/static/description/icon.png';
+        if (xmlid.includes('sale') || label.includes('sales') || label.includes('sale')) return '/sale/static/description/icon.png';
         if (xmlid.includes('purchase') || label.includes('purchase')) return '/purchase/static/description/icon.png';
         if (xmlid.includes('stock') || label.includes('inventory')) return '/stock/static/description/icon.png';
         if (xmlid.includes('mrp') || label.includes('manufacturing')) return '/mrp/static/description/icon.png';
@@ -56,8 +56,13 @@ export class AppsBar extends Component {
         if (xmlid.includes('project') || label.includes('project')) return '/project/static/description/icon.png';
         if (xmlid.includes('dashboard') || label.includes('dashboard')) return '/spreadsheet_dashboard/static/description/icon.png';
         if (xmlid.includes('spreadsheet') || label.includes('spreadsheet')) return '/spreadsheet_dashboard/static/description/icon.png';
+        if (xmlid.includes('quality') || label.includes('quality')) return '/custom_quality_inspection/static/description/icon.png';
+        if (xmlid.includes('calibration') || label.includes('calibration')) return '/custom_instrument_calibration/static/description/icon.png';
+        if (xmlid.includes('timesheet') || label.includes('timesheet')) return '/hr_timesheet/static/description/icon.png';
+        if (xmlid.includes('repair') || label.includes('repair')) return '/repair/static/description/icon.png';
         if (xmlid.includes('settings') || label.includes('settings')) return '/base/static/description/settings.png';
         if (xmlid.includes('apps') || label.includes('apps')) return '/base/static/description/settings.png';
+        if (app.webIconData) return app.webIconData;
         return '/base/static/description/icon.png';
     }
 }
