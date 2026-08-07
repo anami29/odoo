@@ -25,5 +25,4 @@ CMD sh -c 'odoo \
   --db_user="$PGUSER" \
   --db_password="$PGPASSWORD" \
   --http-interface=0.0.0.0 \
-  --http-port=${PORT:-8069} \
-  -d cleansystemtesting --without-demo=all -u web,spreadsheet,spreadsheet_oca,spreadsheet_dashboard_oca,helpdesk_sla_traffic_light,home-theme,website_watson,custom_subcontract_product,custom_quality_inspection,custom_instrument_calibration,custom_bom_extension'
+  --http-port=${PORT:-8069}'
