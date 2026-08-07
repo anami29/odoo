@@ -15,11 +15,6 @@
         <field name="scrap_location" eval="True"/>
         <field name="location_id" ref="stock.stock_location_locations_virtual"/>
     </record>
-    <record id="location_production" model="stock.location">
-        <field name="name">Production</field>
-        <field name="usage">production</field>
-        <field name="location_id" ref="stock.stock_location_locations_virtual"/>
-    </record>
 
     <!-- Operation types (FR-30/31). -->
     <record id="picking_type_jw_in" model="stock.picking.type">
