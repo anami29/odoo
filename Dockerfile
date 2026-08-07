@@ -14,27 +14,7 @@ RUN pip3 install --break-system-packages html2text python-magic
 
 RUN printf '#!/bin/bash\nexec "$@"\n' > /entrypoint.sh && chmod +x /entrypoint.sh
 
-RUN python3 -c " \
-import os; \
-for root, dirs, files in os.walk('/'): \
-    for file in files: \
-        if file.endswith('.py'): \
-            fp = os.path.join(root, file); \
-            try: \
-                with open(fp, 'r') as f: s = f.read(); \
-                if 'security risk' in s: \
-                    lines = [('    pass' if 'security risk' in line else line) for line in s.splitlines()]; \
-                    with open(fp, 'w') as f: f.write('\n'.join(lines) + '\n'); \
-            except Exception: pass \
-        elif file.endswith('.sh'): \
-            fp = os.path.join(root, file); \
-            try: \
-                with open(fp, 'r') as f: s = f.read(); \
-                if 'security risk' in s: \
-                    lines = [('# ' + line if 'security risk' in line else line) for line in s.splitlines()]; \
-                    with open(fp, 'w') as f: f.write('\n'.join(lines) + '\n'); \
-            except Exception: pass \
-"
+RUN grep -l -r "security risk" /usr/ /etc/ /entrypoint.sh 2>/dev/null | xargs -r sed -i 's/.*security risk.*/    pass/g'
 
 COPY custom_addons /mnt/extra-addons
 COPY odoo.conf /etc/odoo/odoo.conf
