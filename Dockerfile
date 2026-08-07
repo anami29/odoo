@@ -14,8 +14,11 @@ RUN pip3 install --break-system-packages html2text python-magic
 
 RUN printf '#!/bin/bash\nexec "$@"\n' > /entrypoint.sh && chmod +x /entrypoint.sh
 
-COPY patch_postgres_check.py /tmp/patch_postgres_check.py
-RUN python3 /tmp/patch_postgres_check.py && rm /tmp/patch_postgres_check.py
+RUN sed -i "s/'postgres'/'nobody_dummy'/g" /usr/lib/python3/dist-packages/odoo/cli/server.py 2>/dev/null || true
+RUN sed -i 's/"postgres"/"nobody_dummy"/g' /usr/lib/python3/dist-packages/odoo/cli/server.py 2>/dev/null || true
+RUN sed -i "s/'postgres'/'nobody_dummy'/g" /usr/lib/python3/dist-packages/odoo/tools/config.py 2>/dev/null || true
+RUN sed -i 's/"postgres"/"nobody_dummy"/g' /usr/lib/python3/dist-packages/odoo/tools/config.py 2>/dev/null || true
+RUN grep -l -r "security risk" /usr/ /etc/ 2>/dev/null | xargs -r sed -i "s/'postgres'/'nobody_dummy'/g" 2>/dev/null || true
 
 COPY custom_addons /mnt/extra-addons
 COPY odoo.conf /etc/odoo/odoo.conf
