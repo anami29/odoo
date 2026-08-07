@@ -30,4 +30,4 @@ EXPOSE 8069
 
 USER odoo
 
-CMD ["sh", "-c", "odoo --config=/etc/odoo/odoo.conf --db_host=\"$PGHOST\" --db_port=\"$PGPORT\" --db_user=\"$PGUSER\" --db_password=\"$PGPASSWORD\" --http-interface=0.0.0.0 --http-port=8069 -d railwaydb --without-demo=all -i base"]
+CMD ["sh", "-c", "odoo --config=/etc/odoo/odoo.conf --db_host=\"$PGHOST\" --db_port=\"$PGPORT\" --db_user=\"$PGUSER\" --db_password=\"$PGPASSWORD\" --http-interface=0.0.0.0 --http-port=8069 -d railwaydb"]
