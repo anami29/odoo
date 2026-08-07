@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="custom_financial_reports.ReportView">
+    <div class="o_cfr_report o_action h-100 d-flex flex-column">
+        <div class="o_cfr_header border-bottom px-3 py-2 d-flex flex-wrap align-items-center gap-2">
+            <h4 class="mb-0 me-2" t-esc="state.title"/>
+            <select class="form-select form-select-sm w-auto"
+                    t-model="state.report_type"
+                    t-on-change="() => this.load()">
+                <option value="bs">Balance Sheet</option>
+                <option value="pl">Profit and Loss</option>
+                <option value="cf">Cash Flow Statement</option>
+            </select>
+            <t t-if="state.report_type !== 'bs'">
+                <label class="small text-muted mb-0">From</label>
+                <input type="date" class="form-control form-control-sm w-auto"
+                       t-model="state.date_from"
+                       t-on-change="() => this.load()"/>
+            </t>
+            <label class="small text-muted mb-0"
+                   t-esc="state.report_type === 'bs' ? 'As of' : 'To'"/>
+            <input type="date" class="form-control form-control-sm w-auto"
+                   t-model="state.date_to"
+                   t-on-change="() => this.load()"/>
+            <select class="form-select form-select-sm w-auto"
+                    t-model="state.target_move"
+                    t-on-change="() => this.load()">
+                <option value="posted">Posted Entries</option>
+                <option value="all">All Entries</option>
+            </select>
+            <select class="form-select form-select-sm w-auto"
+                    t-model="state.comparison"
+                    t-on-change="() => this.load()">
+                <option value="none">No Comparison</option>
+                <option t-if="state.report_type !== 'bs'"
+                        value="previous_period">Previous Period</option>
+                <option value="previous_year">Previous Year</option>
+            </select>
+            <div class="ms-auto d-flex gap-2">
+                <button class="btn btn-sm btn-secondary"
+                        t-on-click="toggleAll"
+                        t-esc="allFolded ? 'Expand All' : 'Collapse All'"/>
+                <button class="btn btn-sm btn-secondary"
+                        t-on-click="exportXlsx">XLSX</button>
+                <button class="btn btn-sm btn-primary"
+                        t-on-click="printPdf">PDF</button>
+            </div>
+        </div>
+
+        <div class="o_cfr_body flex-grow-1 overflow-auto">
+            <div t-if="state.loading" class="p-5 text-center text-muted">
+                <i class="fa fa-spinner fa-spin me-2"/>Computing...
+            </div>
+            <div t-else="" class="o_cfr_table mx-auto my-3 px-3">
+                <div class="text-muted small mb-2">
+                    <span t-esc="state.company_name"/> &#8226;
+                    <span t-esc="state.periods[0] and state.periods[0].label"/>
+                </div>
+                <table class="table table-sm o_cfr_lines">
+                    <thead>
+                        <tr>
+                            <th/>
+                            <th class="o_cfr_amount"
+                                t-esc="state.periods[0] and state.periods[0].label"/>
+                            <th t-if="state.has_comparison" class="o_cfr_amount"
+                                t-esc="state.periods[1] and state.periods[1].label"/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="visibleLines" t-as="line" t-key="line.key">
+                            <tr t-if="line.type === 'spacer'" class="o_cfr_spacer">
+                                <td t-att-colspan="state.has_comparison ? 3 : 2"/>
+                            </tr>
+                            <tr t-else=""
+                                t-attf-class="o_cfr_row o_cfr_{{ line.type }} {{ line.unfoldable ? 'o_cfr_unfoldable' : '' }} {{ line.clickable ? 'o_cfr_clickable' : '' }}"
+                                t-on-click="() => line.unfoldable ? this.toggleFold(line) : this.openJournalItems(line)">
+                                <td>
+                                    <span t-attf-style="padding-left: {{ line.level * 20 }}px;">
+                                        <i t-if="line.unfoldable"
+                                           t-attf-class="fa fa-fw {{ state.folded[line.key] ? 'fa-caret-right' : 'fa-caret-down' }} me-1"/>
+                                        <t t-esc="line.name"/>
+                                    </span>
+                                </td>
+                                <td class="o_cfr_amount">
+                                    <t t-if="line.amount !== null"
+                                       t-esc="fmt(line.amount)"/>
+                                </td>
+                                <td t-if="state.has_comparison" class="o_cfr_amount">
+                                    <t t-if="line.amount !== null"
+                                       t-esc="fmt(line.amount_cmp || 0)"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</t>
+
+</templates>

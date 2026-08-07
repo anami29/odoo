@@ -5,21 +5,21 @@ from odoo.http import request, content_disposition
 XLSX_MIME = ('application/vnd.openxmlformats-officedocument'
              '.spreadsheetml.sheet')
 
+OPTION_KEYS = ('report_type', 'date_from', 'date_to', 'target_move',
+               'comparison', 'detail_level')
+
 
 class FinancialReportController(http.Controller):
 
-    @http.route('/custom_financial_reports/xlsx/<int:wizard_id>',
-                type='http', auth='user')
-    def download_xlsx(self, wizard_id, **kwargs):
-        wizard = request.env['custom.financial.report.wizard'].browse(
-            wizard_id).exists()
-        if not wizard:
-            return request.not_found()
-        wizard.check_access('read')
-        data = wizard.build_xlsx()
+    @http.route('/custom_financial_reports/xlsx', type='http', auth='user')
+    def download_xlsx(self, **kwargs):
+        options = {key: kwargs.get(key) for key in OPTION_KEYS
+                   if kwargs.get(key)}
+        Engine = request.env['custom.financial.report']
+        data = Engine.build_xlsx(options)
+        filename = Engine.xlsx_filename(options)
         return request.make_response(data, headers=[
             ('Content-Type', XLSX_MIME),
             ('Content-Length', len(data)),
-            ('Content-Disposition',
-             content_disposition(wizard.xlsx_filename())),
+            ('Content-Disposition', content_disposition(filename)),
         ])

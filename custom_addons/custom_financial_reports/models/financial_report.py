@@ -4,7 +4,7 @@ import io
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 from odoo.tools import format_date
 
 LIQUIDITY_TYPES = ('asset_cash', 'liability_credit_card')
@@ -48,75 +48,106 @@ REPORT_TITLES = {
     'cf': 'Cash Flow Statement',
 }
 
+TARGET_MOVE_LABELS = {
+    'posted': 'Posted Entries',
+    'all': 'All Entries',
+}
 
-class CustomFinancialReportWizard(models.TransientModel):
-    _name = 'custom.financial.report.wizard'
-    _description = 'Financial Report (Balance Sheet / P&L / Cash Flow)'
 
-    report_type = fields.Selection(
-        [('bs', 'Balance Sheet'),
-         ('pl', 'Profit and Loss'),
-         ('cf', 'Cash Flow Statement')],
-        required=True, default='bs')
-    company_id = fields.Many2one(
-        'res.company', string='Company', required=True,
-        default=lambda self: self.env.company)
-    date_from = fields.Date(string='Date From')
-    date_to = fields.Date(
-        string='Date To', required=True,
-        default=fields.Date.context_today)
-    target_move = fields.Selection(
-        [('posted', 'Posted Entries'), ('all', 'All Entries')],
-        string='Target Moves', required=True, default='posted')
-    comparison = fields.Selection(
-        [('none', 'No Comparison'),
-         ('previous_period', 'Previous Period'),
-         ('previous_year', 'Previous Year')],
-        required=True, default='none')
-    detail_level = fields.Selection(
-        [('summary', 'Summary'), ('detail', 'Detail by Account')],
-        required=True, default='detail')
+class CustomFinancialReport(models.AbstractModel):
+    """Stateless engine behind the on-screen view, the PDF and the XLSX.
+
+    Everything is a function of an ``options`` dict:
+    ``report_type`` (bs/pl/cf), ``date_from``, ``date_to``,
+    ``target_move`` (posted/all), ``comparison``
+    (none/previous_period/previous_year), ``detail_level``
+    (summary/detail). Company is the active company of the caller.
+    """
+    _name = 'custom.financial.report'
+    _description = 'Financial Report Engine (BS / P&L / Cash Flow)'
 
     # ------------------------------------------------------------------
-    # Defaults / onchange
+    # Access / options
     # ------------------------------------------------------------------
-    @api.onchange('report_type', 'date_to', 'company_id')
-    def _onchange_report_type(self):
-        for wiz in self:
-            if wiz.report_type in ('pl', 'cf') and wiz.date_to and not wiz.date_from:
-                company = wiz.company_id or self.env.company
-                fy = company.compute_fiscalyear_dates(wiz.date_to)
-                wiz.date_from = fy['date_from']
-            if wiz.report_type == 'bs' and wiz.comparison == 'previous_period':
-                wiz.comparison = 'previous_year'
+    def _check_group(self):
+        if not self.env.user.has_group('account.group_account_invoice'):
+            raise AccessError(_(
+                'Financial statements require Invoicing/Accounting '
+                'access rights.'))
+
+    @api.model
+    def _normalize_options(self, options):
+        options = dict(options or {})
+        report_type = options.get('report_type')
+        if report_type not in REPORT_TITLES:
+            raise UserError(_('Invalid report type.'))
+        company = self.env.company
+
+        def to_date(value):
+            return fields.Date.to_date(value) if value else False
+
+        date_to = to_date(options.get('date_to')) or fields.Date.context_today(self)
+        date_from = to_date(options.get('date_from'))
+        if report_type == 'bs':
+            date_from = False
+        elif not date_from:
+            date_from = company.compute_fiscalyear_dates(date_to)['date_from']
+        if date_from and date_from > date_to:
+            raise UserError(_('Date From must precede Date To.'))
+
+        comparison = options.get('comparison') or 'none'
+        if comparison not in ('none', 'previous_period', 'previous_year'):
+            comparison = 'none'
+        if report_type == 'bs' and comparison == 'previous_period':
+            comparison = 'previous_year'
+
+        return {
+            'report_type': report_type,
+            'company_id': company.id,
+            'date_from': date_from,
+            'date_to': date_to,
+            'target_move': ('all' if options.get('target_move') == 'all'
+                            else 'posted'),
+            'comparison': comparison,
+            'detail_level': ('summary'
+                            if options.get('detail_level') == 'summary'
+                            else 'detail'),
+        }
+
+    @api.model
+    def _serialize_options(self, options):
+        out = dict(options)
+        out['date_from'] = (fields.Date.to_string(options['date_from'])
+                            if options['date_from'] else False)
+        out['date_to'] = fields.Date.to_string(options['date_to'])
+        return out
 
     # ------------------------------------------------------------------
     # Periods
     # ------------------------------------------------------------------
-    def _get_periods(self):
-        """Return the list of periods to compute (1 or 2 dicts)."""
-        self.ensure_one()
-        if self.report_type in ('pl', 'cf') and not self.date_from:
-            raise UserError(_('Date From is required for this report.'))
-        if self.report_type == 'bs':
-            base = {'date_from': False, 'date_to': self.date_to,
-                    'label': _('As of %s', format_date(self.env, self.date_to))}
+    @api.model
+    def _get_periods(self, options):
+        report_type = options['report_type']
+        date_from, date_to = options['date_from'], options['date_to']
+        if report_type == 'bs':
+            base = {'date_from': False, 'date_to': date_to,
+                    'label': _('As of %s', format_date(self.env, date_to))}
         else:
-            base = {'date_from': self.date_from, 'date_to': self.date_to,
-                    'label': '%s - %s' % (format_date(self.env, self.date_from),
-                                          format_date(self.env, self.date_to))}
+            base = {'date_from': date_from, 'date_to': date_to,
+                    'label': '%s - %s' % (format_date(self.env, date_from),
+                                          format_date(self.env, date_to))}
         periods = [base]
-        if self.comparison == 'none':
+        if options['comparison'] == 'none':
             return periods
 
-        if self.comparison == 'previous_year' or self.report_type == 'bs':
-            df = self.date_from - relativedelta(years=1) if (
-                self.date_from and self.report_type != 'bs') else False
-            dt = self.date_to - relativedelta(years=1)
+        if options['comparison'] == 'previous_year' or report_type == 'bs':
+            df = date_from - relativedelta(years=1) if (
+                date_from and report_type != 'bs') else False
+            dt = date_to - relativedelta(years=1)
         else:  # previous_period, P&L / CF only
-            dt = self.date_from - relativedelta(days=1)
-            df = dt - (self.date_to - self.date_from)
-        if self.report_type == 'bs':
+            dt = date_from - relativedelta(days=1)
+            df = dt - (date_to - date_from)
+        if report_type == 'bs':
             label = _('As of %s', format_date(self.env, dt))
         else:
             label = '%s - %s' % (format_date(self.env, df),
@@ -127,15 +158,15 @@ class CustomFinancialReportWizard(models.TransientModel):
     # ------------------------------------------------------------------
     # Low-level query
     # ------------------------------------------------------------------
-    def _query_balances(self, date_from, date_to, account_types):
+    @api.model
+    def _query_balances(self, options, date_from, date_to, account_types):
         """{account_id: company-currency balance} for the given scope."""
-        self.ensure_one()
         domain = [
-            ('company_id', '=', self.company_id.id),
+            ('company_id', '=', options['company_id']),
             ('display_type', 'not in', ('line_section', 'line_note')),
             ('account_id.account_type', 'in', list(account_types)),
         ]
-        if self.target_move == 'posted':
+        if options['target_move'] == 'posted':
             domain.append(('parent_state', '=', 'posted'))
         else:
             domain.append(('parent_state', 'in', ('posted', 'draft')))
@@ -150,15 +181,20 @@ class CustomFinancialReportWizard(models.TransientModel):
     # ------------------------------------------------------------------
     # Line helpers
     # ------------------------------------------------------------------
-    def _make_line(self, key, name, level, amount=None, ltype='line'):
-        return {'key': key, 'name': name, 'level': level,
-                'amount': amount, 'type': ltype}
+    @api.model
+    def _make_line(self, key, name, level, amount=None, ltype='line',
+                   parent_key=False, account_id=False):
+        return {'key': key, 'name': name, 'level': level, 'amount': amount,
+                'type': ltype, 'parent_key': parent_key,
+                'account_id': account_id}
 
-    def _detail_lines(self, key, per_account, level):
+    @api.model
+    def _detail_lines(self, options, key, per_account, level):
         """Account-level rows, sorted by code, zero rows dropped."""
-        if self.detail_level != 'detail':
+        if options['detail_level'] != 'detail':
             return []
-        currency = self.company_id.currency_id
+        currency = self.env['res.company'].browse(
+            options['company_id']).currency_id
         rows = []
         for account, value in sorted(
                 per_account.items(),
@@ -168,7 +204,8 @@ class CustomFinancialReportWizard(models.TransientModel):
             label = '%s %s' % (account.code or '', account.name)
             rows.append(self._make_line(
                 '%s:acc%s' % (key, account.id), label.strip(),
-                level, value, 'account'))
+                level, value, 'account', parent_key=key,
+                account_id=account.id))
         return rows
 
     @staticmethod
@@ -187,20 +224,20 @@ class CustomFinancialReportWizard(models.TransientModel):
     # ------------------------------------------------------------------
     # Balance Sheet
     # ------------------------------------------------------------------
-    def _bs_lines(self, period):
+    def _bs_lines(self, options, period):
         date_to = period['date_to']
-        company = self.company_id
+        company = self.env['res.company'].browse(options['company_id'])
         fy = company.compute_fiscalyear_dates(date_to)
         prev_fy_end = fy['date_from'] - relativedelta(days=1)
 
-        balances = self._query_balances(False, date_to, BS_TYPES)
+        balances = self._query_balances(options, False, date_to, BS_TYPES)
         accounts = self.env['account.account'].browse(list(balances))
         accounts_by_id = {a.id: a for a in accounts}
 
         pl_current = sum(self._query_balances(
-            fy['date_from'], date_to, PL_TYPES).values())
+            options, fy['date_from'], date_to, PL_TYPES).values())
         pl_previous = sum(self._query_balances(
-            False, prev_fy_end, PL_TYPES).values())
+            options, False, prev_fy_end, PL_TYPES).values())
 
         lines = []
 
@@ -208,7 +245,8 @@ class CustomFinancialReportWizard(models.TransientModel):
             total, per_account = self._aggregate(
                 balances, accounts_by_id, types, sign)
             lines.append(self._make_line(key, name, level, total, 'group'))
-            lines.extend(self._detail_lines(key, per_account, level + 1))
+            lines.extend(self._detail_lines(
+                options, key, per_account, level + 1))
             return total
 
         # ---- ASSETS ----
@@ -266,13 +304,13 @@ class CustomFinancialReportWizard(models.TransientModel):
         lines.append(self._make_line(
             'prev_earnings', _('Previous Years Unallocated Earnings'), 1,
             previous_earnings, 'group'))
-        if self.detail_level == 'detail':
+        if options['detail_level'] == 'detail':
             lines.extend(self._detail_lines(
-                'prev_earnings', unaffected_detail, 2))
+                options, 'prev_earnings', unaffected_detail, 2))
             if not company.currency_id.is_zero(pl_previous):
                 lines.append(self._make_line(
                     'prev_earnings:pl', _('Prior P&L not yet allocated'),
-                    2, -pl_previous, 'account'))
+                    2, -pl_previous, 'account', parent_key='prev_earnings'))
         total_equity = eq + current_earnings + previous_earnings
         lines.append(self._make_line(
             'total_equity', _('TOTAL EQUITY'), 0, total_equity, 'grand_total'))
@@ -285,9 +323,9 @@ class CustomFinancialReportWizard(models.TransientModel):
     # ------------------------------------------------------------------
     # Profit and Loss
     # ------------------------------------------------------------------
-    def _pl_lines(self, period):
+    def _pl_lines(self, options, period):
         balances = self._query_balances(
-            period['date_from'], period['date_to'], PL_TYPES)
+            options, period['date_from'], period['date_to'], PL_TYPES)
         accounts = self.env['account.account'].browse(list(balances))
         accounts_by_id = {a.id: a for a in accounts}
 
@@ -297,7 +335,8 @@ class CustomFinancialReportWizard(models.TransientModel):
             total, per_account = self._aggregate(
                 balances, accounts_by_id, types, sign)
             lines.append(self._make_line(key, name, level, total, 'group'))
-            lines.extend(self._detail_lines(key, per_account, level + 1))
+            lines.extend(self._detail_lines(
+                options, key, per_account, level + 1))
             return total
 
         lines.append(self._make_line('income', _('INCOME'), 0, None, 'section'))
@@ -345,20 +384,20 @@ class CustomFinancialReportWizard(models.TransientModel):
                 mapping[tag.id] = category
         return mapping
 
-    def _cf_lines(self, period):
+    def _cf_lines(self, options, period):
         date_from, date_to = period['date_from'], period['date_to']
-        company = self.company_id
+        company = self.env['res.company'].browse(options['company_id'])
         currency = company.currency_id
 
         beginning = sum(self._query_balances(
-            False, date_from - relativedelta(days=1),
+            options, False, date_from - relativedelta(days=1),
             LIQUIDITY_TYPES).values())
         ending = sum(self._query_balances(
-            False, date_to, LIQUIDITY_TYPES).values())
+            options, False, date_to, LIQUIDITY_TYPES).values())
 
         AML = self.env['account.move.line']
         state_domain = ([('parent_state', '=', 'posted')]
-                        if self.target_move == 'posted'
+                        if options['target_move'] == 'posted'
                         else [('parent_state', 'in', ('posted', 'draft'))])
         liquidity_lines = AML.search([
             ('company_id', '=', company.id),
@@ -413,12 +452,16 @@ class CustomFinancialReportWizard(models.TransientModel):
                 continue
             lines.append(self._make_line(key, title, 1, total, 'group'))
             per_account = {a: v for a, v in values.items() if a is not None}
-            lines.extend(self._detail_lines(key, per_account, 2))
-            if None in values and self.detail_level == 'detail' \
+            detail = self._detail_lines(options, key, per_account, 2)
+            for row in detail:
+                row['account_id'] = False  # CF rows are not drillable
+            lines.extend(detail)
+            if None in values and options['detail_level'] == 'detail' \
                     and not currency.is_zero(values[None]):
                 lines.append(self._make_line(
-                    '%s:other' % key, _('Unmatched / out-of-filter counterparts'),
-                    2, values[None], 'account'))
+                    '%s:other' % key,
+                    _('Unmatched / out-of-filter counterparts'),
+                    2, values[None], 'account', parent_key=key))
         lines.append(self._make_line(
             'net_increase', _('Net increase in cash and cash equivalents'),
             0, net, 'grand_total'))
@@ -428,77 +471,101 @@ class CustomFinancialReportWizard(models.TransientModel):
         return lines
 
     # ------------------------------------------------------------------
-    # Public API
+    # Assembly
     # ------------------------------------------------------------------
-    def _build_period_lines(self, period):
-        self.ensure_one()
+    def _build_period_lines(self, options, period):
         builder = {'bs': self._bs_lines, 'pl': self._pl_lines,
-                   'cf': self._cf_lines}[self.report_type]
-        return builder(period)
+                   'cf': self._cf_lines}[options['report_type']]
+        return builder(options, period)
 
-    def _report_title(self):
-        return REPORT_TITLES[self.report_type]
-
-    def get_report_lines(self):
+    def get_report_lines(self, options):
         """(lines, periods): lines carry 'amount' and, when a comparison
         is requested, 'amount_cmp' matched by line key (base-period
         structure drives the layout)."""
-        self.ensure_one()
-        periods = self._get_periods()
-        lines = self._build_period_lines(periods[0])
+        periods = self._get_periods(options)
+        lines = self._build_period_lines(options, periods[0])
         if len(periods) > 1:
             cmp_amounts = {
                 line['key']: line['amount']
-                for line in self._build_period_lines(periods[1])
+                for line in self._build_period_lines(options, periods[1])
                 if line['amount'] is not None}
             for line in lines:
                 if line['amount'] is not None:
                     line['amount_cmp'] = cmp_amounts.get(line['key'], 0.0)
+        parents = {l['parent_key'] for l in lines if l['parent_key']}
+        for line in lines:
+            line['unfoldable'] = line['key'] in parents
+            line['clickable'] = bool(
+                line['type'] == 'account' and line['account_id'])
         return lines, periods
 
-    def _prepare_render_data(self):
-        self.ensure_one()
-        lines, periods = self.get_report_lines()
+    def _prepare_render_data(self, options):
+        lines, periods = self.get_report_lines(options)
+        company = self.env['res.company'].browse(options['company_id'])
+        currency = company.currency_id
+        iso = fields.Date.to_string
         return {
-            'title': self._report_title(),
+            'title': REPORT_TITLES[options['report_type']],
+            'company_name': company.name,
             'lines': lines,
-            'periods': periods,
+            'periods': [{
+                'label': p['label'],
+                'date_from': iso(p['date_from']) if p['date_from'] else False,
+                'date_to': iso(p['date_to']),
+            } for p in periods],
             'has_comparison': len(periods) > 1,
-            'currency': self.company_id.currency_id,
-            'target_move_label': dict(
-                self._fields['target_move']._description_selection(
-                    self.env))[self.target_move],
+            'currency': {
+                'id': currency.id,
+                'symbol': currency.symbol,
+                'position': currency.position,
+                'decimal_places': currency.decimal_places,
+            },
+            'target_move_label': TARGET_MOVE_LABELS[options['target_move']],
+            'drill': {
+                'date_from': (iso(periods[0]['date_from'])
+                              if periods[0]['date_from'] else False),
+                'date_to': iso(periods[0]['date_to']),
+                'states': (['posted'] if options['target_move'] == 'posted'
+                           else ['posted', 'draft']),
+            },
         }
 
-    def action_print_pdf(self):
-        self.ensure_one()
+    # ------------------------------------------------------------------
+    # Public RPC API (on-screen view)
+    # ------------------------------------------------------------------
+    @api.model
+    def compute_report(self, options):
+        self._check_group()
+        options = self._normalize_options(options)
+        return {
+            'options': self._serialize_options(options),
+            'data': self._prepare_render_data(options),
+        }
+
+    @api.model
+    def get_pdf_action(self, options):
+        self._check_group()
+        options = self._normalize_options(options)
         return self.env.ref(
             'custom_financial_reports.action_report_financial'
-        ).report_action(self)
-
-    def action_export_xlsx(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_url',
-            'url': '/custom_financial_reports/xlsx/%s' % self.id,
-            'target': 'self',
-        }
+        ).report_action(None, data=self._serialize_options(options))
 
     # ------------------------------------------------------------------
     # XLSX
     # ------------------------------------------------------------------
-    def build_xlsx(self):
-        self.ensure_one()
+    @api.model
+    def build_xlsx(self, options):
+        self._check_group()
+        options = self._normalize_options(options)
         import xlsxwriter  # bundled with Odoo
 
-        data = self._prepare_render_data()
+        data = self._prepare_render_data(options)
         buf = io.BytesIO()
         workbook = xlsxwriter.Workbook(buf, {'in_memory': True})
         sheet = workbook.add_worksheet(data['title'][:31])
 
         money = '#,##0.00'
-        fmt_title = workbook.add_format(
-            {'bold': True, 'font_size': 14})
+        fmt_title = workbook.add_format({'bold': True, 'font_size': 14})
         fmt_meta = workbook.add_format({'font_size': 9, 'italic': True})
         fmt_col = workbook.add_format(
             {'bold': True, 'bottom': 1, 'align': 'right'})
@@ -524,10 +591,7 @@ class CustomFinancialReportWizard(models.TransientModel):
                     spec['top'] = 1
             elif ltype == 'account':
                 spec['font_color'] = '#444444'
-                if not is_amount:
-                    spec['font_size'] = 9
-                else:
-                    spec['font_size'] = 9
+                spec['font_size'] = 9
             formats[key] = workbook.add_format(spec)
             return formats[key]
 
@@ -535,7 +599,7 @@ class CustomFinancialReportWizard(models.TransientModel):
         sheet.set_column(1, 2, 18)
 
         row = 0
-        sheet.write(row, 0, self.company_id.name, fmt_title)
+        sheet.write(row, 0, data['company_name'], fmt_title)
         row += 1
         sheet.write(row, 0, data['title'], fmt_title)
         row += 1
@@ -569,7 +633,9 @@ class CustomFinancialReportWizard(models.TransientModel):
         buf.seek(0)
         return buf.read()
 
-    def xlsx_filename(self):
-        self.ensure_one()
+    @api.model
+    def xlsx_filename(self, options):
+        options = self._normalize_options(options)
         return '%s_%s.xlsx' % (
-            self._report_title().replace(' ', '_'), self.date_to)
+            REPORT_TITLES[options['report_type']].replace(' ', '_'),
+            options['date_to'])

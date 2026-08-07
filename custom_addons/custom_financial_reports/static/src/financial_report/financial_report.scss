@@ -1,0 +1,55 @@
+.o_cfr_report {
+    background-color: var(--o-view-background-color, #fff);
+
+    .o_cfr_table {
+        max-width: 980px;
+    }
+
+    .o_cfr_lines {
+        th.o_cfr_amount,
+        td.o_cfr_amount {
+            text-align: right;
+            white-space: nowrap;
+            width: 16%;
+            font-variant-numeric: tabular-nums;
+        }
+
+        tr.o_cfr_spacer td {
+            border: 0;
+            height: 0.75rem;
+        }
+
+        tr.o_cfr_section td,
+        tr.o_cfr_grand_total td {
+            font-weight: 600;
+        }
+
+        tr.o_cfr_grand_total td {
+            border-top: 1px solid #8f8f8f;
+        }
+
+        tr.o_cfr_header td,
+        tr.o_cfr_total td {
+            font-weight: 600;
+        }
+
+        tr.o_cfr_total td {
+            border-top: 1px solid #c9c9c9;
+        }
+
+        tr.o_cfr_account td {
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        tr.o_cfr_unfoldable,
+        tr.o_cfr_clickable {
+            cursor: pointer;
+        }
+
+        tr.o_cfr_unfoldable:hover td,
+        tr.o_cfr_clickable:hover td {
+            background-color: rgba(0, 0, 0, 0.035);
+        }
+    }
+}
