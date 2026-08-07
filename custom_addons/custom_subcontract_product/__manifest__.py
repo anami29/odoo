@@ -26,7 +26,6 @@
         'report/challan_templates.xml',
         'report/rm_calloff_report.xml',
         'report/rm_calloff_templates.xml',
-        'data/jw_gear_masters_v115.xml',
     ],
     'installable': True,
     'application': False,
