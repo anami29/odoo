@@ -53,3 +53,48 @@
         }
     }
 }
+
+.o_cfr_pill {
+    position: relative;
+
+    .o_cfr_menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        z-index: 1050;
+        min-width: 230px;
+        max-height: 60vh;
+        overflow-y: auto;
+        margin-top: 4px;
+        padding: 4px 0;
+        background: #fff;
+
+        .o_cfr_item {
+            padding: 6px 12px;
+            cursor: pointer;
+            white-space: nowrap;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        .o_cfr_sep {
+            border-top: 1px solid #e3e3e3;
+            margin: 4px 0;
+        }
+
+        .o_cfr_custom {
+            padding: 6px 12px;
+        }
+    }
+
+    .o_cfr_active {
+        border-color: #714b67 !important;
+        color: #714b67;
+    }
+}
+
+.o_cfr_banner a {
+    color: inherit;
+}

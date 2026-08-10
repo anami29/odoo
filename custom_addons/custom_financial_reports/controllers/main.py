@@ -6,7 +6,8 @@ XLSX_MIME = ('application/vnd.openxmlformats-officedocument'
              '.spreadsheetml.sheet')
 
 OPTION_KEYS = ('report_type', 'date_from', 'date_to', 'target_move',
-               'comparison', 'detail_level')
+               'comparison', 'periods_count', 'comparison_date',
+               'journal_ids', 'detail_level', 'hide_zero')
 
 
 class FinancialReportController(http.Controller):

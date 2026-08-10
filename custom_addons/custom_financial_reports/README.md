@@ -8,8 +8,11 @@ No OCA dependencies.
 ## Features
 - Accounting/Invoicing > Reporting > Financial Statements — opens the
   statement **on screen** (OWL client action), not a wizard
-- Filter bar: statement selector, dates, Posted/All, Previous Period /
-  Previous Year comparison
+- Enterprise-style filter bar: date presets (month/quarter/financial
+  year), Comparison (Previous Period / Same Period Last Year / Specific
+  Date, up to 12 periods), Journals filter, Posted/Draft toggle,
+  Hide lines at 0, Unfold/Fold All, currency pill
+- "Unposted Journal Entries" banner (click-through to the draft moves)
 - Collapse/expand groups; Expand All / Collapse All
 - Click an account row (BS / P&L) to open the matching journal items
 - PDF and XLSX buttons render the same computed line set

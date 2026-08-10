@@ -20,17 +20,15 @@
                         <thead>
                             <tr>
                                 <th>Description</th>
-                                <th class="text-end" style="width: 18%;"
-                                    t-out="d['periods'][0]['label']"/>
-                                <th t-if="d['has_comparison']"
-                                    class="text-end" style="width: 18%;"
-                                    t-out="d['periods'][1]['label']"/>
+                                <th t-foreach="d['periods']" t-as="period"
+                                    class="text-end" style="width: 16%;"
+                                    t-out="period['label']"/>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="d['lines']" t-as="line">
                                 <tr t-if="line['type'] == 'spacer'">
-                                    <td t-att-colspan="d['has_comparison'] and 3 or 2"
+                                    <td t-att-colspan="len(d['periods']) + 1"
                                         style="border: 0;">&#160;</td>
                                 </tr>
                                 <tr t-else="">
@@ -39,16 +37,10 @@
                                               t-attf-class="{{ 'fw-bold' if line['type'] in ('section', 'header', 'total', 'grand_total') else '' }} {{ 'text-muted small' if line['type'] == 'account' else '' }}"
                                               t-out="line['name']"/>
                                     </td>
-                                    <td class="text-end">
-                                        <span t-if="line['amount'] is not None"
+                                    <td t-foreach="line['amounts']" t-as="value" class="text-end">
+                                        <span t-if="value is not None"
                                               t-attf-class="{{ 'fw-bold' if line['type'] in ('section', 'total', 'grand_total') else '' }} {{ 'text-muted small' if line['type'] == 'account' else '' }}"
-                                              t-out="line['amount']"
-                                              t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
-                                    </td>
-                                    <td t-if="d['has_comparison']" class="text-end">
-                                        <span t-if="line['amount'] is not None"
-                                              t-attf-class="{{ 'fw-bold' if line['type'] in ('section', 'total', 'grand_total') else '' }} {{ 'text-muted small' if line['type'] == 'account' else '' }}"
-                                              t-out="line.get('amount_cmp', 0.0)"
+                                              t-out="value"
                                               t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
                                     </td>
                                 </tr>

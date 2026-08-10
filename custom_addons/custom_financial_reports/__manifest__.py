@@ -4,7 +4,7 @@
     'summary': 'Enterprise-style on-screen Balance Sheet, Profit & Loss '
                'and Cash Flow Statement with fold/unfold, drill-down to '
                'journal items, PDF and XLSX export - for Odoo Community',
-    'version': '18.0.2.0.0',
+    'version': '18.0.2.1.0',
     'category': 'Accounting/Accounting',
     'author': 'RLFB',
     'license': 'LGPL-3',

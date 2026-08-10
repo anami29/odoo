@@ -4,48 +4,154 @@
 <t t-name="custom_financial_reports.ReportView">
     <div class="o_cfr_report o_action h-100 d-flex flex-column">
         <div class="o_cfr_header border-bottom px-3 py-2 d-flex flex-wrap align-items-center gap-2">
-            <h4 class="mb-0 me-2" t-esc="state.title"/>
-            <select class="form-select form-select-sm w-auto"
+            <button class="btn btn-sm btn-primary" t-on-click="printPdf">PDF</button>
+            <button class="btn btn-sm btn-secondary" t-on-click="exportXlsx">XLSX</button>
+            <h5 class="mb-0 mx-1" t-esc="state.title"/>
+            <select class="form-select form-select-sm w-auto o_cfr_type"
                     t-model="state.report_type"
                     t-on-change="() => this.load()">
                 <option value="bs">Balance Sheet</option>
                 <option value="pl">Profit and Loss</option>
                 <option value="cf">Cash Flow Statement</option>
             </select>
-            <t t-if="state.report_type !== 'bs'">
-                <label class="small text-muted mb-0">From</label>
-                <input type="date" class="form-control form-control-sm w-auto"
-                       t-model="state.date_from"
-                       t-on-change="() => this.load()"/>
-            </t>
-            <label class="small text-muted mb-0"
-                   t-esc="state.report_type === 'bs' ? 'As of' : 'To'"/>
-            <input type="date" class="form-control form-control-sm w-auto"
-                   t-model="state.date_to"
-                   t-on-change="() => this.load()"/>
-            <select class="form-select form-select-sm w-auto"
-                    t-model="state.target_move"
-                    t-on-change="() => this.load()">
-                <option value="posted">Posted Entries</option>
-                <option value="all">All Entries</option>
-            </select>
-            <select class="form-select form-select-sm w-auto"
-                    t-model="state.comparison"
-                    t-on-change="() => this.load()">
-                <option value="none">No Comparison</option>
-                <option t-if="state.report_type !== 'bs'"
-                        value="previous_period">Previous Period</option>
-                <option value="previous_year">Previous Year</option>
-            </select>
-            <div class="ms-auto d-flex gap-2">
-                <button class="btn btn-sm btn-secondary"
-                        t-on-click="toggleAll"
-                        t-esc="allFolded ? 'Expand All' : 'Collapse All'"/>
-                <button class="btn btn-sm btn-secondary"
-                        t-on-click="exportXlsx">XLSX</button>
-                <button class="btn btn-sm btn-primary"
-                        t-on-click="printPdf">PDF</button>
+
+            <div class="ms-auto d-flex flex-wrap align-items-center gap-2">
+                <!-- Date pill -->
+                <div class="o_cfr_pill" t-on-click.stop="() => {}">
+                    <button class="btn btn-sm btn-light border"
+                            t-on-click="(ev) => this.toggleMenu('date', ev)">
+                        <i class="fa fa-calendar me-1"/>
+                        <t t-esc="dateLabel"/>
+                    </button>
+                    <div t-if="state.openMenu === 'date'" class="o_cfr_menu shadow border rounded">
+                        <t t-foreach="datePresets" t-as="preset" t-key="preset.name">
+                            <div class="o_cfr_item" t-on-click="() => this.applyPreset(preset)">
+                                <t t-esc="preset.name"/>
+                            </div>
+                        </t>
+                        <div class="o_cfr_sep"/>
+                        <div class="o_cfr_custom">
+                            <t t-if="state.report_type !== 'bs'">
+                                <label class="small text-muted">From</label>
+                                <input type="date" class="form-control form-control-sm"
+                                       t-model="state.date_from"/>
+                            </t>
+                            <label class="small text-muted"
+                                   t-esc="state.report_type === 'bs' ? 'As of' : 'To'"/>
+                            <input type="date" class="form-control form-control-sm"
+                                   t-model="state.date_to"/>
+                            <button class="btn btn-sm btn-primary mt-1 w-100"
+                                    t-on-click="() => { this.state.openMenu = null; this.load(); }">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison pill -->
+                <div class="o_cfr_pill" t-on-click.stop="() => {}">
+                    <button class="btn btn-sm btn-light border"
+                            t-attf-class="{{ state.comparison !== 'none' ? 'o_cfr_active' : '' }}"
+                            t-on-click="(ev) => this.toggleMenu('cmp', ev)">
+                        <i class="fa fa-percent me-1"/>
+                        <t t-esc="comparisonLabel"/>
+                    </button>
+                    <div t-if="state.openMenu === 'cmp'" class="o_cfr_menu shadow border rounded">
+                        <div class="o_cfr_item" t-on-click="() => this.setComparison('none')">
+                            <i t-attf-class="fa fa-fw {{ state.comparison === 'none' ? 'fa-check' : '' }}"/>
+                            No Comparison
+                        </div>
+                        <div class="o_cfr_item" t-on-click="() => this.setComparison('previous_period')">
+                            <i t-attf-class="fa fa-fw {{ state.comparison === 'previous_period' ? 'fa-check' : '' }}"/>
+                            Previous Period
+                        </div>
+                        <div class="o_cfr_item" t-on-click="() => this.setComparison('same_last_year')">
+                            <i t-attf-class="fa fa-fw {{ state.comparison === 'same_last_year' ? 'fa-check' : '' }}"/>
+                            Same Period Last Year
+                        </div>
+                        <div class="o_cfr_item" t-on-click="() => this.setComparison('specific_date')">
+                            <i t-attf-class="fa fa-fw {{ state.comparison === 'specific_date' ? 'fa-check' : '' }}"/>
+                            Specific Date
+                        </div>
+                        <div class="o_cfr_sep"/>
+                        <div class="o_cfr_custom"
+                             t-if="state.comparison === 'previous_period' or state.comparison === 'same_last_year'">
+                            <label class="small text-muted">Number of periods</label>
+                            <input type="number" min="1" max="12"
+                                   class="form-control form-control-sm"
+                                   t-model.number="state.periods_count"
+                                   t-on-change="() => this.load()"/>
+                        </div>
+                        <div class="o_cfr_custom" t-if="state.comparison === 'specific_date'">
+                            <label class="small text-muted">Compare to</label>
+                            <input type="date" class="form-control form-control-sm"
+                                   t-model="state.comparison_date"
+                                   t-on-change="() => this.load()"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Journals pill -->
+                <div class="o_cfr_pill" t-on-click.stop="() => {}">
+                    <button class="btn btn-sm btn-light border"
+                            t-attf-class="{{ state.journal_ids.length ? 'o_cfr_active' : '' }}"
+                            t-on-click="(ev) => this.toggleMenu('journals', ev)">
+                        <i class="fa fa-book me-1"/>
+                        <t t-esc="journalsLabel"/>
+                    </button>
+                    <div t-if="state.openMenu === 'journals'" class="o_cfr_menu shadow border rounded">
+                        <div class="o_cfr_item" t-on-click="clearJournals">
+                            <i t-attf-class="fa fa-fw {{ state.journal_ids.length ? '' : 'fa-check' }}"/>
+                            All Journals
+                        </div>
+                        <div class="o_cfr_sep"/>
+                        <t t-foreach="state.journals" t-as="journal" t-key="journal.id">
+                            <div class="o_cfr_item" t-on-click="() => this.toggleJournal(journal.id)">
+                                <i t-attf-class="fa fa-fw {{ state.journal_ids.includes(journal.id) ? 'fa-check' : '' }}"/>
+                                <t t-esc="journal.name"/>
+                                <span class="text-muted small ms-1" t-esc="journal.code"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- Options pill -->
+                <div class="o_cfr_pill" t-on-click.stop="() => {}">
+                    <button class="btn btn-sm btn-light border"
+                            t-on-click="(ev) => this.toggleMenu('opts', ev)">
+                        <i class="fa fa-sliders me-1"/>
+                        <t t-esc="optionsLabel"/>
+                    </button>
+                    <div t-if="state.openMenu === 'opts'" class="o_cfr_menu shadow border rounded">
+                        <div class="o_cfr_item" t-on-click="toggleDraft">
+                            <i t-attf-class="fa fa-fw {{ state.target_move === 'all' ? 'fa-check' : '' }}"/>
+                            Draft Entries
+                        </div>
+                        <div class="o_cfr_item" t-on-click="toggleHideZero">
+                            <i t-attf-class="fa fa-fw {{ state.hide_zero ? 'fa-check' : '' }}"/>
+                            Hide lines at 0
+                        </div>
+                        <div class="o_cfr_sep"/>
+                        <div class="o_cfr_item" t-on-click="() => this.setFoldAll(false)">
+                            <i class="fa fa-fw"/>Unfold All
+                        </div>
+                        <div class="o_cfr_item" t-on-click="() => this.setFoldAll(true)">
+                            <i class="fa fa-fw"/>Fold All
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currency pill -->
+                <span class="btn btn-sm btn-light border pe-none"
+                      t-esc="currencyLabel"/>
             </div>
+        </div>
+
+        <div t-if="state.has_unposted"
+             class="alert alert-info text-center mb-0 py-2 o_cfr_banner rounded-0">
+            There are <a href="#" class="fw-bold"
+                         t-on-click.prevent="openDraftEntries">unposted
+            Journal Entries</a> prior or included in this period.
         </div>
 
         <div class="o_cfr_body flex-grow-1 overflow-auto">
@@ -55,22 +161,21 @@
             <div t-else="" class="o_cfr_table mx-auto my-3 px-3">
                 <div class="text-muted small mb-2">
                     <span t-esc="state.company_name"/> &#8226;
-                    <span t-esc="state.periods[0] and state.periods[0].label"/>
+                    <span t-esc="dateLabel"/>
                 </div>
                 <table class="table table-sm o_cfr_lines">
                     <thead>
                         <tr>
                             <th/>
-                            <th class="o_cfr_amount"
-                                t-esc="state.periods[0] and state.periods[0].label"/>
-                            <th t-if="state.has_comparison" class="o_cfr_amount"
-                                t-esc="state.periods[1] and state.periods[1].label"/>
+                            <t t-foreach="state.periods" t-as="period" t-key="period_index">
+                                <th class="o_cfr_amount" t-esc="period.label"/>
+                            </t>
                         </tr>
                     </thead>
                     <tbody>
                         <t t-foreach="visibleLines" t-as="line" t-key="line.key">
                             <tr t-if="line.type === 'spacer'" class="o_cfr_spacer">
-                                <td t-att-colspan="state.has_comparison ? 3 : 2"/>
+                                <td t-att-colspan="state.periods.length + 1"/>
                             </tr>
                             <tr t-else=""
                                 t-attf-class="o_cfr_row o_cfr_{{ line.type }} {{ line.unfoldable ? 'o_cfr_unfoldable' : '' }} {{ line.clickable ? 'o_cfr_clickable' : '' }}"
@@ -82,14 +187,11 @@
                                         <t t-esc="line.name"/>
                                     </span>
                                 </td>
-                                <td class="o_cfr_amount">
-                                    <t t-if="line.amount !== null"
-                                       t-esc="fmt(line.amount)"/>
-                                </td>
-                                <td t-if="state.has_comparison" class="o_cfr_amount">
-                                    <t t-if="line.amount !== null"
-                                       t-esc="fmt(line.amount_cmp || 0)"/>
-                                </td>
+                                <t t-foreach="line.amounts" t-as="value" t-key="value_index">
+                                    <td class="o_cfr_amount">
+                                        <t t-if="value !== null" t-esc="fmt(value)"/>
+                                    </td>
+                                </t>
                             </tr>
                         </t>
                     </tbody>

@@ -59,9 +59,11 @@ class CustomFinancialReport(models.AbstractModel):
 
     Everything is a function of an ``options`` dict:
     ``report_type`` (bs/pl/cf), ``date_from``, ``date_to``,
-    ``target_move`` (posted/all), ``comparison``
-    (none/previous_period/previous_year), ``detail_level``
-    (summary/detail). Company is the active company of the caller.
+    ``target_move`` (posted/all), ``comparison`` (none/previous_period/
+    same_last_year/specific_date), ``periods_count``,
+    ``comparison_date``, ``journal_ids``, ``detail_level``
+    (summary/detail), ``hide_zero``. Company is the caller's active
+    company.
     """
     _name = 'custom.financial.report'
     _description = 'Financial Report Engine (BS / P&L / Cash Flow)'
@@ -96,10 +98,22 @@ class CustomFinancialReport(models.AbstractModel):
             raise UserError(_('Date From must precede Date To.'))
 
         comparison = options.get('comparison') or 'none'
-        if comparison not in ('none', 'previous_period', 'previous_year'):
+        if comparison == 'previous_year':  # 2.0 compatibility
+            comparison = 'same_last_year'
+        if comparison not in ('none', 'previous_period', 'same_last_year',
+                              'specific_date'):
             comparison = 'none'
-        if report_type == 'bs' and comparison == 'previous_period':
-            comparison = 'previous_year'
+
+        try:
+            periods_count = int(options.get('periods_count') or 1)
+        except (TypeError, ValueError):
+            periods_count = 1
+        periods_count = max(1, min(periods_count, 12))
+
+        journal_ids = options.get('journal_ids') or []
+        if isinstance(journal_ids, str):
+            journal_ids = [int(x) for x in journal_ids.split(',') if x]
+        journal_ids = [int(x) for x in journal_ids]
 
         return {
             'report_type': report_type,
@@ -109,50 +123,73 @@ class CustomFinancialReport(models.AbstractModel):
             'target_move': ('all' if options.get('target_move') == 'all'
                             else 'posted'),
             'comparison': comparison,
+            'periods_count': periods_count,
+            'comparison_date': to_date(options.get('comparison_date')),
+            'journal_ids': journal_ids,
             'detail_level': ('summary'
                             if options.get('detail_level') == 'summary'
                             else 'detail'),
+            'hide_zero': options.get('hide_zero')
+                in (True, 1, '1', 'true', 'True'),
         }
 
     @api.model
     def _serialize_options(self, options):
         out = dict(options)
-        out['date_from'] = (fields.Date.to_string(options['date_from'])
-                            if options['date_from'] else False)
-        out['date_to'] = fields.Date.to_string(options['date_to'])
+        iso = fields.Date.to_string
+        out['date_from'] = iso(options['date_from']) if options['date_from'] else False
+        out['date_to'] = iso(options['date_to'])
+        out['comparison_date'] = (iso(options['comparison_date'])
+                                  if options['comparison_date'] else False)
         return out
 
     # ------------------------------------------------------------------
     # Periods
     # ------------------------------------------------------------------
+    def _period_label(self, report_type, date_from, date_to):
+        if report_type == 'bs':
+            return _('As of %s', format_date(self.env, date_to))
+        return '%s - %s' % (format_date(self.env, date_from),
+                            format_date(self.env, date_to))
+
     @api.model
     def _get_periods(self, options):
         report_type = options['report_type']
         date_from, date_to = options['date_from'], options['date_to']
-        if report_type == 'bs':
-            base = {'date_from': False, 'date_to': date_to,
-                    'label': _('As of %s', format_date(self.env, date_to))}
-        else:
-            base = {'date_from': date_from, 'date_to': date_to,
-                    'label': '%s - %s' % (format_date(self.env, date_from),
-                                          format_date(self.env, date_to))}
-        periods = [base]
-        if options['comparison'] == 'none':
+        make = lambda df, dt: {  # noqa: E731
+            'date_from': df, 'date_to': dt,
+            'label': self._period_label(report_type, df, dt)}
+        periods = [make(date_from, date_to)]
+        comparison = options['comparison']
+        if comparison == 'none':
             return periods
 
-        if options['comparison'] == 'previous_year' or report_type == 'bs':
-            df = date_from - relativedelta(years=1) if (
-                date_from and report_type != 'bs') else False
-            dt = date_to - relativedelta(years=1)
-        else:  # previous_period, P&L / CF only
-            dt = date_from - relativedelta(days=1)
-            df = dt - (date_to - date_from)
-        if report_type == 'bs':
-            label = _('As of %s', format_date(self.env, dt))
-        else:
-            label = '%s - %s' % (format_date(self.env, df),
-                                 format_date(self.env, dt))
-        periods.append({'date_from': df, 'date_to': dt, 'label': label})
+        if comparison == 'specific_date':
+            cd = options['comparison_date'] or date_to - relativedelta(years=1)
+            if report_type == 'bs':
+                periods.append(make(False, cd))
+            else:
+                periods.append(make(cd - (date_to - date_from), cd))
+            return periods
+
+        count = options['periods_count']
+        if comparison == 'same_last_year':
+            for i in range(1, count + 1):
+                df = date_from - relativedelta(years=i) if (
+                    date_from and report_type != 'bs') else False
+                periods.append(make(df, date_to - relativedelta(years=i)))
+        else:  # previous_period
+            if report_type == 'bs':
+                for i in range(1, count + 1):
+                    periods.append(
+                        make(False, date_to - relativedelta(months=i)))
+            else:
+                length = date_to - date_from
+                df, dt = date_from, date_to
+                for _i in range(count):
+                    dt = df - relativedelta(days=1)
+                    df = dt - length
+                    periods.append(make(df, dt))
         return periods
 
     # ------------------------------------------------------------------
@@ -170,6 +207,8 @@ class CustomFinancialReport(models.AbstractModel):
             domain.append(('parent_state', '=', 'posted'))
         else:
             domain.append(('parent_state', 'in', ('posted', 'draft')))
+        if options['journal_ids']:
+            domain.append(('journal_id', 'in', options['journal_ids']))
         if date_from:
             domain.append(('date', '>=', date_from))
         if date_to:
@@ -399,11 +438,13 @@ class CustomFinancialReport(models.AbstractModel):
         state_domain = ([('parent_state', '=', 'posted')]
                         if options['target_move'] == 'posted'
                         else [('parent_state', 'in', ('posted', 'draft'))])
+        journal_domain = ([('journal_id', 'in', options['journal_ids'])]
+                          if options['journal_ids'] else [])
         liquidity_lines = AML.search([
             ('company_id', '=', company.id),
             ('date', '>=', date_from), ('date', '<=', date_to),
             ('account_id.account_type', 'in', list(LIQUIDITY_TYPES)),
-        ] + state_domain)
+        ] + state_domain + journal_domain)
         counterparts = AML._read_group([
             ('move_id', 'in', liquidity_lines.move_id.ids),
             ('account_id.account_type', 'not in', list(LIQUIDITY_TYPES)),
@@ -479,19 +520,42 @@ class CustomFinancialReport(models.AbstractModel):
         return builder(options, period)
 
     def get_report_lines(self, options):
-        """(lines, periods): lines carry 'amount' and, when a comparison
-        is requested, 'amount_cmp' matched by line key (base-period
-        structure drives the layout)."""
+        """(lines, periods): each line carries ``amounts``, one value per
+        period (base first), matched by line key; the base-period
+        structure drives the layout."""
         periods = self._get_periods(options)
         lines = self._build_period_lines(options, periods[0])
-        if len(periods) > 1:
-            cmp_amounts = {
-                line['key']: line['amount']
-                for line in self._build_period_lines(options, periods[1])
-                if line['amount'] is not None}
-            for line in lines:
-                if line['amount'] is not None:
-                    line['amount_cmp'] = cmp_amounts.get(line['key'], 0.0)
+        cmp_maps = [
+            {line['key']: line['amount']
+             for line in self._build_period_lines(options, period)
+             if line['amount'] is not None}
+            for period in periods[1:]]
+        for line in lines:
+            if line['amount'] is None:
+                line['amounts'] = [None] * len(periods)
+            else:
+                line['amounts'] = [line['amount']] + [
+                    m.get(line['key'], 0.0) for m in cmp_maps]
+
+        if options['hide_zero']:
+            currency = self.env['res.company'].browse(
+                options['company_id']).currency_id
+
+            def all_zero(line):
+                return line['amounts'][0] is not None and all(
+                    currency.is_zero(v)
+                    for v in line['amounts'] if v is not None)
+
+            kept_accounts = [l for l in lines
+                             if l['type'] == 'account' and not all_zero(l)]
+            parents_with_kept = {l['parent_key'] for l in kept_accounts}
+            lines = [
+                l for l in lines
+                if l['type'] not in ('group', 'account')
+                or not all_zero(l)
+                or (l['type'] == 'group' and l['key'] in parents_with_kept)
+            ]
+
         parents = {l['parent_key'] for l in lines if l['parent_key']}
         for line in lines:
             line['unfoldable'] = line['key'] in parents
@@ -504,6 +568,20 @@ class CustomFinancialReport(models.AbstractModel):
         company = self.env['res.company'].browse(options['company_id'])
         currency = company.currency_id
         iso = fields.Date.to_string
+        fy = company.compute_fiscalyear_dates(options['date_to'])
+
+        has_unposted = False
+        if options['target_move'] == 'posted':
+            domain = [
+                ('company_id', '=', company.id),
+                ('state', '=', 'draft'),
+                ('date', '<=', options['date_to']),
+            ]
+            if options['journal_ids']:
+                domain.append(('journal_id', 'in', options['journal_ids']))
+            has_unposted = bool(self.env['account.move'].search_count(
+                domain, limit=1))
+
         return {
             'title': REPORT_TITLES[options['report_type']],
             'company_name': company.name,
@@ -513,20 +591,24 @@ class CustomFinancialReport(models.AbstractModel):
                 'date_from': iso(p['date_from']) if p['date_from'] else False,
                 'date_to': iso(p['date_to']),
             } for p in periods],
-            'has_comparison': len(periods) > 1,
             'currency': {
                 'id': currency.id,
                 'symbol': currency.symbol,
+                'name': currency.name,
                 'position': currency.position,
                 'decimal_places': currency.decimal_places,
             },
             'target_move_label': TARGET_MOVE_LABELS[options['target_move']],
+            'fy': {'date_from': iso(fy['date_from']),
+                   'date_to': iso(fy['date_to'])},
+            'has_unposted': has_unposted,
             'drill': {
                 'date_from': (iso(periods[0]['date_from'])
                               if periods[0]['date_from'] else False),
                 'date_to': iso(periods[0]['date_to']),
                 'states': (['posted'] if options['target_move'] == 'posted'
                            else ['posted', 'draft']),
+                'journal_ids': options['journal_ids'],
             },
         }
 
@@ -560,6 +642,7 @@ class CustomFinancialReport(models.AbstractModel):
         import xlsxwriter  # bundled with Odoo
 
         data = self._prepare_render_data(options)
+        n_periods = len(data['periods'])
         buf = io.BytesIO()
         workbook = xlsxwriter.Workbook(buf, {'in_memory': True})
         sheet = workbook.add_worksheet(data['title'][:31])
@@ -596,7 +679,7 @@ class CustomFinancialReport(models.AbstractModel):
             return formats[key]
 
         sheet.set_column(0, 0, 55)
-        sheet.set_column(1, 2, 18)
+        sheet.set_column(1, n_periods, 18)
 
         row = 0
         sheet.write(row, 0, data['company_name'], fmt_title)
@@ -609,9 +692,8 @@ class CustomFinancialReport(models.AbstractModel):
                               data['target_move_label']), fmt_meta)
         row += 2
         sheet.write(row, 0, _('Description'), fmt_col_left)
-        sheet.write(row, 1, data['periods'][0]['label'], fmt_col)
-        if data['has_comparison']:
-            sheet.write(row, 2, data['periods'][1]['label'], fmt_col)
+        for i, period in enumerate(data['periods']):
+            sheet.write(row, 1 + i, period['label'], fmt_col)
         sheet.freeze_panes(row + 1, 0)
         row += 1
 
@@ -620,13 +702,10 @@ class CustomFinancialReport(models.AbstractModel):
                 row += 1
                 continue
             sheet.write(row, 0, line['name'], line_format(line, False))
-            if line['amount'] is not None:
-                sheet.write_number(
-                    row, 1, line['amount'], line_format(line, True))
-                if data['has_comparison']:
+            for i, value in enumerate(line['amounts']):
+                if value is not None:
                     sheet.write_number(
-                        row, 2, line.get('amount_cmp', 0.0),
-                        line_format(line, True))
+                        row, 1 + i, value, line_format(line, True))
             row += 1
 
         workbook.close()
