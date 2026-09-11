@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Partners -->
+        <record id="demo_signatory_internal" model="res.partner">
+            <field name="name">Vikram Sethi</field>
+            <field name="parent_id" ref="base.main_partner"/>
+            <field name="type">contact</field>
+            <field name="function">Chief Operating Officer</field>
+            <field name="email">vikram.sethi@example.com</field>
+        </record>
+        <record id="demo_partner_orion" model="res.partner">
+            <field name="name">Orion Fabrics Ltd</field>
+            <field name="is_company" eval="True"/>
+            <field name="street">Ring Road, Sachin GIDC</field>
+            <field name="city">Surat</field>
+            <field name="zip">394230</field>
+            <field name="country_id" ref="base.in"/>
+            <field name="email">legal@orionfabrics.example.com</field>
+        </record>
+        <record id="demo_signatory_orion" model="res.partner">
+            <field name="name">Sunita Rao</field>
+            <field name="parent_id" ref="demo_partner_orion"/>
+            <field name="type">contact</field>
+            <field name="function">Executive Director</field>
+            <field name="email">sunita.rao@orionfabrics.example.com</field>
+        </record>
+        <record id="demo_partner_kestrel" model="res.partner">
+            <field name="name">Kestrel Design Studio</field>
+            <field name="is_company" eval="True"/>
+            <field name="street">4th Floor, Kalaghoda</field>
+            <field name="city">Mumbai</field>
+            <field name="zip">400001</field>
+            <field name="country_id" ref="base.in"/>
+            <field name="email">hello@kestrel.example.com</field>
+        </record>
+        <record id="demo_signatory_kestrel" model="res.partner">
+            <field name="name">Priya Nair</field>
+            <field name="parent_id" ref="demo_partner_kestrel"/>
+            <field name="type">contact</field>
+            <field name="function">Founder</field>
+            <field name="email">priya.nair@kestrel.example.com</field>
+        </record>
+
+        <!-- NDA template -->
+        <record id="demo_template_nda" model="agreement.template">
+            <field name="name">Non-Disclosure Agreement</field>
+            <field name="code">NDA</field>
+            <field name="type_id" ref="agreement_type_confidentiality"/>
+            <field name="description">Mutual confidentiality agreement used before commercial or design discussions with a counterparty.</field>
+        </record>
+        <record id="demo_version_nda_1" model="agreement.template.version">
+            <field name="template_id" ref="demo_template_nda"/>
+            <field name="name">1.0</field>
+            <field name="change_note">Initial release</field>
+            <field name="content" type="html">
+<h2 style="text-align:center">NON-DISCLOSURE AGREEMENT</h2>
+<p style="text-align:center">Agreement No. {{agreement_number}} · Template {{template_code}} v{{template_version}}</p>
+<p>This Non-Disclosure Agreement (the "Agreement") is made on {{effective_from}} between <strong>{{party_a}}</strong>, having its office at {{party_a_address}} ("Party A"), and <strong>{{party_b}}</strong>, having its office at {{party_b_address}} ("Party B").</p>
+<p><strong>1. Purpose.</strong> The parties wish to exchange certain confidential information for the purpose of {{purpose}} (the "Purpose").</p>
+<p><strong>2. Term.</strong> This Agreement is effective from {{effective_from}} and the obligations of confidentiality shall continue for a period of {{period_years}} years from the date of execution, expiring no earlier than {{effective_to}}.</p>
+<p><strong>3. Confidential Information.</strong> "Confidential Information" means all technical, commercial, design and financial information disclosed by either party, whether disclosed orally, in writing or electronically. {{sig:A2}} {{sig:B2}}</p>
+<p><strong>4. Obligations.</strong> The receiving party shall (a) use the Confidential Information solely for the Purpose; (b) restrict disclosure to those employees and advisers who need to know; and (c) protect it with no less than reasonable care.</p>
+<p><strong>5. Governing Law.</strong> This Agreement is governed by the laws of India and the courts of {{jurisdiction}} shall have exclusive jurisdiction.</p>
+<p>{{page_break}}</p>
+<h3>EXECUTION</h3>
+<p>IN WITNESS WHEREOF the parties have executed this Agreement electronically on the dates stated against their respective signatures.</p>
+<p>{{sig:A1}} {{sig:B1}}</p>
+            </field>
+        </record>
+        <record id="demo_field_nda_purpose" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">10</field>
+            <field name="name">Purpose of Disclosure</field>
+            <field name="key">purpose</field>
+            <field name="field_type">text</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_field_nda_period" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">20</field>
+            <field name="name">Confidentiality Period (years)</field>
+            <field name="key">period_years</field>
+            <field name="field_type">integer</field>
+            <field name="required" eval="True"/>
+            <field name="default_value">2</field>
+        </record>
+        <record id="demo_field_nda_jurisdiction" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">30</field>
+            <field name="name">Jurisdiction</field>
+            <field name="key">jurisdiction</field>
+            <field name="field_type">selection</field>
+            <field name="selection_values">Mumbai
+Delhi
+Bengaluru</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_field_nda_dept" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">40</field>
+            <field name="name">Requesting Department</field>
+            <field name="key">department</field>
+            <field name="field_type">char</field>
+        </record>
+        <record id="demo_field_nda_annex_summary" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="applies_to">annexure</field>
+            <field name="sequence">10</field>
+            <field name="name">Clauses Amended</field>
+            <field name="key">clauses_amended</field>
+            <field name="field_type">char</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_area_nda_a1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">10</field>
+            <field name="code">A1</field>
+            <field name="name">Execution block – for and on behalf of Party A</field>
+            <field name="page">2</field>
+            <field name="party">a</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_area_nda_b1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">20</field>
+            <field name="code">B1</field>
+            <field name="name">Execution block – for and on behalf of Party B</field>
+            <field name="page">2</field>
+            <field name="party">b</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_area_nda_a2" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">30</field>
+            <field name="code">A2</field>
+            <field name="name">Initials – Clause 3 (Confidential Information)</field>
+            <field name="page">1</field>
+            <field name="party">a</field>
+            <field name="kind">initials</field>
+            <field name="required" eval="False"/>
+        </record>
+        <record id="demo_area_nda_b2" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="sequence">40</field>
+            <field name="code">B2</field>
+            <field name="name">Initials – Clause 3 (Confidential Information)</field>
+            <field name="page">1</field>
+            <field name="party">b</field>
+            <field name="kind">initials</field>
+            <field name="required" eval="False"/>
+        </record>
+        <record id="demo_area_nda_annex_a1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="applies_to">annexure</field>
+            <field name="sequence">10</field>
+            <field name="code">A1</field>
+            <field name="name">Annexure execution – Party A</field>
+            <field name="party">a</field>
+        </record>
+        <record id="demo_area_nda_annex_b1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_nda_1"/>
+            <field name="applies_to">annexure</field>
+            <field name="sequence">20</field>
+            <field name="code">B1</field>
+            <field name="name">Annexure execution – Party B</field>
+            <field name="party">b</field>
+        </record>
+        <function model="agreement.template.version" name="action_activate" eval="[[ref('demo_version_nda_1')]]"/>
+
+        <!-- Service agreement template -->
+        <record id="demo_template_msa" model="agreement.template">
+            <field name="name">Master Service Agreement</field>
+            <field name="code">SERVICE-AGREEMENT</field>
+            <field name="type_id" ref="agreement_type_commercial"/>
+            <field name="description">Framework for services with commercial value, payment terms and renewal.</field>
+        </record>
+        <record id="demo_version_msa_1" model="agreement.template.version">
+            <field name="template_id" ref="demo_template_msa"/>
+            <field name="name">1.0</field>
+            <field name="change_note">Initial release</field>
+            <field name="content" type="html">
+<h2 style="text-align:center">MASTER SERVICE AGREEMENT</h2>
+<p style="text-align:center">Agreement No. {{agreement_number}} · Template {{template_code}} v{{template_version}}</p>
+<p>This Master Service Agreement (the "Agreement") is entered into on {{effective_from}} between <strong>{{party_a}}</strong>, {{party_a_address}} ("Customer" or "Party A"), and <strong>{{party_b}}</strong>, {{party_b_address}} ("Service Provider" or "Party B").</p>
+<p><strong>1. Term.</strong> The Agreement commences on {{effective_from}} and, unless terminated earlier, continues until {{effective_to}}. Renewal period: {{renewal_period}}.</p>
+<p><strong>2. Scope of Services.</strong> The Service Provider shall provide {{service_type}} services for the {{department}} department of the Customer.</p>
+<p><strong>3. Fees and Payment.</strong> The aggregate contract value under this Agreement is {{contract_value}} (exclusive of applicable taxes). Invoices are payable {{payment_terms}} from the date of receipt of a valid tax invoice.</p>
+<p><strong>4. Confidentiality and Data.</strong> Each party shall keep the other party's confidential information secret and shall process personal data in accordance with applicable law.</p>
+<p>{{page_break}}</p>
+<h3>EXECUTION</h3>
+<p>IN WITNESS WHEREOF the parties have executed this Agreement electronically on the dates stated against their respective signatures.</p>
+<p>{{sig:A1}} {{sig:B1}}</p>
+            </field>
+        </record>
+        <record id="demo_field_msa_value" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">10</field>
+            <field name="name">Contract Value</field>
+            <field name="key">contract_value</field>
+            <field name="field_type">monetary</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_field_msa_terms" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">20</field>
+            <field name="name">Payment Terms</field>
+            <field name="key">payment_terms</field>
+            <field name="field_type">selection</field>
+            <field name="selection_values">Net 15
+Net 30
+Net 45
+Net 60</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_field_msa_dept" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">30</field>
+            <field name="name">Department</field>
+            <field name="key">department</field>
+            <field name="field_type">char</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_field_msa_service" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">40</field>
+            <field name="name">Service Type</field>
+            <field name="key">service_type</field>
+            <field name="field_type">char</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="demo_field_msa_renewal" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">50</field>
+            <field name="name">Renewal Period</field>
+            <field name="key">renewal_period</field>
+            <field name="field_type">char</field>
+            <field name="default_value">12 months</field>
+        </record>
+        <record id="demo_field_msa_review" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">60</field>
+            <field name="name">Next Review Date</field>
+            <field name="key">review_date</field>
+            <field name="field_type">date</field>
+        </record>
+        <record id="demo_field_msa_annex_value" model="agreement.template.field">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="applies_to">annexure</field>
+            <field name="sequence">10</field>
+            <field name="name">Revised Contract Value</field>
+            <field name="key">revised_value</field>
+            <field name="field_type">monetary</field>
+        </record>
+        <record id="demo_area_msa_a1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">10</field>
+            <field name="code">A1</field>
+            <field name="name">Execution block – for and on behalf of the Customer</field>
+            <field name="page">2</field>
+            <field name="party">a</field>
+        </record>
+        <record id="demo_area_msa_b1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="sequence">20</field>
+            <field name="code">B1</field>
+            <field name="name">Execution block – for and on behalf of the Service Provider</field>
+            <field name="page">2</field>
+            <field name="party">b</field>
+        </record>
+        <record id="demo_area_msa_annex_a1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="applies_to">annexure</field>
+            <field name="sequence">10</field>
+            <field name="code">A1</field>
+            <field name="name">Annexure execution – Party A</field>
+            <field name="party">a</field>
+        </record>
+        <record id="demo_area_msa_annex_b1" model="agreement.signature.area">
+            <field name="version_id" ref="demo_version_msa_1"/>
+            <field name="applies_to">annexure</field>
+            <field name="sequence">20</field>
+            <field name="code">B1</field>
+            <field name="name">Annexure execution – Party B</field>
+            <field name="party">b</field>
+        </record>
+        <function model="agreement.template.version" name="action_activate" eval="[[ref('demo_version_msa_1')]]"/>
+
+        <!-- Agreements -->
+        <record id="demo_agreement_nda_orion" model="agreement.agreement">
+            <field name="template_id" ref="demo_template_nda"/>
+            <field name="partner_a_id" ref="base.main_partner"/>
+            <field name="signatory_a_id" ref="demo_signatory_internal"/>
+            <field name="partner_b_id" ref="demo_partner_orion"/>
+            <field name="signatory_b_id" ref="demo_signatory_orion"/>
+            <field name="date_from" eval="(DateTime.today() - relativedelta(days=10)).strftime('%Y-%m-%d')"/>
+            <field name="date_to" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-%m-%d')"/>
+            <field name="agreement_properties" eval="{'purpose': 'assessment of a retail analytics platform for the company stores', 'period_years': 2, 'jurisdiction': 'mumbai', 'department': 'Sourcing'}"/>
+        </record>
+        <record id="demo_agreement_msa_kestrel" model="agreement.agreement">
+            <field name="template_id" ref="demo_template_msa"/>
+            <field name="partner_a_id" ref="base.main_partner"/>
+            <field name="signatory_a_id" ref="demo_signatory_internal"/>
+            <field name="partner_b_id" ref="demo_partner_kestrel"/>
+            <field name="signatory_b_id" ref="demo_signatory_kestrel"/>
+            <field name="date_from" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="date_to" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="agreement_properties" eval="{'contract_value': 1850000.0, 'payment_terms': 'net_30', 'department': 'Design', 'service_type': 'Design consulting', 'renewal_period': '12 months'}"/>
+        </record>
+        <record id="demo_agreement_nda_kestrel_draft" model="agreement.agreement">
+            <field name="template_id" ref="demo_template_nda"/>
+            <field name="partner_a_id" ref="base.main_partner"/>
+            <field name="signatory_a_id" ref="demo_signatory_internal"/>
+            <field name="partner_b_id" ref="demo_partner_kestrel"/>
+            <field name="date_from" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+        </record>
+        <!-- First demo agreement confirmed: number assigned, Party A signing pending -->
+        <function model="agreement.agreement" name="action_confirm" eval="[[ref('demo_agreement_nda_orion')]]"/>
+    </data>
+</odoo>

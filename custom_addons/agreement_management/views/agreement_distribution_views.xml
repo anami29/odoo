@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_distribution_view_list" model="ir.ui.view">
+        <field name="name">agreement.distribution.list</field>
+        <field name="model">agreement.distribution</field>
+        <field name="arch" type="xml">
+            <list string="Distribution Log" create="0" edit="0" delete="0" decoration-danger="state == 'exception'" decoration-info="state == 'outgoing'">
+                <field name="sent_on"/>
+                <field name="document_type" optional="show"/>
+                <field name="document_name"/>
+                <field name="sender_id"/>
+                <field name="mode"/>
+                <field name="partner_ids" widget="many2many_tags"/>
+                <field name="email_to" optional="hide"/>
+                <field name="subject"/>
+                <field name="attachment_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'sent'" decoration-danger="state == 'exception'" decoration-info="state == 'outgoing'"/>
+                <field name="failure_reason" optional="hide"/>
+                <field name="company_id" column_invisible="1"/>
+                <button name="action_open_document" type="object" string="Open" icon="fa-external-link" class="btn-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_distribution_view_search" model="ir.ui.view">
+        <field name="name">agreement.distribution.search</field>
+        <field name="model">agreement.distribution</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="document_name"/>
+                <field name="subject"/>
+                <field name="partner_ids"/>
+                <field name="email_to"/>
+                <filter name="auto" string="Automatic" domain="[('mode', '=', 'auto')]"/>
+                <filter name="manual" string="Manual" domain="[('mode', '=', 'manual')]"/>
+                <separator/>
+                <filter name="agreements" string="Agreements" domain="[('document_type', '=', 'agreement')]"/>
+                <filter name="annexures" string="Annexures" domain="[('document_type', '=', 'annexure')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_document" string="Document" context="{'group_by': 'document_name'}"/>
+                    <filter name="group_mode" string="Mode" context="{'group_by': 'mode'}"/>
+                    <filter name="group_sender" string="Sender" context="{'group_by': 'sender_id'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'sent_on:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement_distribution" model="ir.actions.act_window">
+        <field name="name">Distribution Log</field>
+        <field name="res_model">agreement.distribution</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No executed document has been emailed yet</p>
+            <p>Every automatic or manual email of an executed agreement or annexure is logged here with its date, sender, recipients, subject, attachment and delivery status.</p>
+        </field>
+    </record>
+</odoo>

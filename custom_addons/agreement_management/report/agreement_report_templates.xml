@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Shared styles for the document-style preview and the executed PDF -->
+    <template id="report_agreement_style">
+        <style type="text/css">
+            .agr-doc { font-family: 'Times New Roman', Georgia, serif; font-size: 11.5px; line-height: 1.55; color: #111; }
+            .agr-doc h2 { font-size: 15px; letter-spacing: .06em; margin: 0 0 4px; }
+            .agr-doc h3 { font-size: 12.5px; letter-spacing: .04em; margin: 16px 0 6px; }
+            .agr-doc h4 { font-size: 11.5px; margin: 12px 0 4px; }
+            .agr-doc p { margin: 0 0 8px; text-align: justify; }
+            .agr-doc table { border-collapse: collapse; width: 100%; }
+            .agr-doc td, .agr-doc th { border: 1px solid #999; padding: 3px 6px; vertical-align: top; }
+            .agr-ph { color: #111; }
+            .agr-meta { font-family: Arial, sans-serif; font-size: 8.5px; color: #555; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 14px; }
+            .agr-meta b { color: #222; }
+            .agr-doc { position: relative; }
+            .agr-watermark { position: absolute; top: 240px; left: 0; width: 100%; text-align: center; font-family: Arial, sans-serif; font-size: 40px; font-weight: bold; letter-spacing: .12em; color: rgba(180, 40, 40, 0.16); transform: rotate(-22deg); -webkit-transform: rotate(-22deg); }
+            .agr-exec { page-break-before: always; font-family: Arial, sans-serif; font-size: 9.5px; }
+            .agr-exec h3 { font-size: 12px; margin: 0 0 8px; letter-spacing: .06em; }
+            .agr-exec table { border-collapse: collapse; width: 100%; }
+            .agr-exec td, .agr-exec th { border: 1px solid #bbb; padding: 3px 6px; vertical-align: top; }
+            .agr-exec th { background: #f1f1f1; text-align: left; }
+            .agr-exec img { max-height: 36px; }
+        </style>
+    </template>
+
+    <!-- Common body: header line, watermark, rendered content, execution record -->
+    <template id="report_agreement_document_body">
+        <t t-call="agreement_management.report_agreement_style"/>
+        <div class="page agr-doc">
+            <t t-if="doc.state != 'executed'">
+                <div class="agr-watermark">PREVIEW – NOT EXECUTED</div>
+            </t>
+            <div class="agr-meta">
+                <b><t t-out="doc_label"/> <t t-out="doc.number or 'Draft'"/></b>
+                · Template <t t-out="doc.template_id.code or ''"/> v<t t-out="doc.template_version_id.name or ''"/>
+                · Status: <t t-out="doc._state_label()"/>
+                <t t-if="doc.executed_on"> · Executed <t t-out="doc.executed_on" t-options="{'widget': 'datetime'}"/></t>
+                <t t-if="doc.state == 'executed' and doc.executed_hash"> · SHA-256 <t t-out="doc.executed_hash[:16]"/>…</t>
+            </div>
+            <t t-out="doc._render_document_html('signed' if doc.state == 'executed' else 'preview')"/>
+            <t t-if="doc.state == 'executed'">
+                <div class="agr-exec">
+                    <h3>ELECTRONIC EXECUTION RECORD</h3>
+                    <table>
+                        <tr><th style="width:28%">Document</th><td><t t-out="doc_label"/> <t t-out="doc.number"/></td></tr>
+                        <tr><th>Template / Version</th><td><t t-out="doc.template_id.name"/> — v<t t-out="doc.template_version_id.name"/> (locked on confirmation)</td></tr>
+                        <tr><th>Party A</th><td><t t-out="doc.partner_a_id.display_name"/> — Signatory: <t t-out="doc.signatory_a_id.name or ''"/></td></tr>
+                        <tr><th>Party B</th><td><t t-out="doc.partner_b_id.display_name"/> — Signatory: <t t-out="doc.signatory_b_id.name or ''"/></td></tr>
+                        <tr><th>Confirmed</th><td><t t-out="doc.confirmed_on" t-options="{'widget': 'datetime'}"/> by <t t-out="doc.confirmed_by_id.name or ''"/></td></tr>
+                        <tr><th>Party A signing completed</th><td><t t-out="doc.signed_a_on" t-options="{'widget': 'datetime'}"/></td></tr>
+                        <tr><th>Party B signing completed</th><td><t t-out="doc.signed_b_on" t-options="{'widget': 'datetime'}"/></td></tr>
+                        <tr><th>Fully executed</th><td><t t-out="doc.executed_on" t-options="{'widget': 'datetime'}"/></td></tr>
+                        <tr><th>Document hash (SHA-256)</th><td><t t-out="doc.executed_hash or ''"/></td></tr>
+                    </table>
+                    <h3 style="margin-top:12px">SIGNATURE AREAS</h3>
+                    <table>
+                        <tr><th>#</th><th>Page</th><th>Section / anchor</th><th>Party</th><th>Signed by</th><th>Signed on</th><th>Captured by</th><th>IP</th><th>Signature</th></tr>
+                        <t t-foreach="doc.signature_ids.sorted(lambda s: (s.sequence, s.id))" t-as="sig">
+                            <tr>
+                                <td><t t-out="sig.code"/></td>
+                                <td><t t-out="sig.page"/></td>
+                                <td><t t-out="sig.name"/><t t-if="not sig.required"> (optional)</t></td>
+                                <td><t t-out="'Party A' if sig.party == 'a' else 'Party B'"/></td>
+                                <td><t t-out="sig.signer_name or ''"/></td>
+                                <td><t t-if="sig.signed_on"><t t-out="sig.signed_on" t-options="{'widget': 'datetime'}"/></t></td>
+                                <td><t t-out="sig.signed_by_user_id.name or ''"/></td>
+                                <td><t t-out="sig.signer_ip or ''"/></td>
+                                <td><t t-if="sig.signature"><img t-att-src="image_data_uri(sig.signature)"/></t><t t-else="">—</t></td>
+                            </tr>
+                        </t>
+                    </table>
+                    <p style="margin-top:8px;color:#666;">Generated automatically by Odoo Agreement Management on execution. This PDF is the official executed copy and is not regenerated.</p>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <template id="report_agreement_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc_label" t-value="'Agreement'"/>
+                <t t-call="web.external_layout">
+                    <t t-call="agreement_management.report_agreement_document_body"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_agreement_annexure_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc_label" t-value="'Supplementary Annexure'"/>
+                <t t-call="web.external_layout">
+                    <t t-call="agreement_management.report_agreement_document_body"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Layout preview of a template version (placeholders shown as labels) -->
+    <template id="report_agreement_version_sample">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="version">
+                <t t-call="web.external_layout">
+                    <t t-call="agreement_management.report_agreement_style"/>
+                    <div class="page agr-doc">
+                        <div class="agr-watermark">TEMPLATE PREVIEW</div>
+                        <div class="agr-meta">
+                            <b>Template <t t-out="version.template_id.code or ''"/> — <t t-out="version.template_id.name or ''"/></b>
+                            · Version <t t-out="version.name or ''"/>
+                            · <t t-out="version._state_label()"/>
+                            · Placeholders are shown as [labels]
+                        </div>
+                        <t t-out="version._render_sample_html()"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

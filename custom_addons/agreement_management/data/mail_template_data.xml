@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- BR-EMAIL-004: default distribution template for executed agreements -->
+        <record id="mail_template_agreement_executed" model="mail.template">
+            <field name="name">Agreement: Executed Agreement</field>
+            <field name="model_id" ref="agreement_management.model_agreement_agreement"/>
+            <field name="subject">Fully Executed Agreement – {{ object.number }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="description">Sent with the executed PDF attached when an agreement is fully signed.</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">{{ object.partner_b_id.lang }}</field>
+            <field name="body_html" type="html">
+<div style="margin:0px;padding:0px;font-family:Arial,sans-serif;font-size:13px;color:#333;">
+    <p>Dear Sir / Madam,</p>
+    <p>Please find attached the fully executed copy of
+        <strong>Agreement <t t-out="object.number or ''"/></strong>
+        (<t t-out="object.template_id.name or ''"/>, version <t t-out="object.template_version_id.name or ''"/><t t-if="object.type_id">, <t t-out="object.type_id.name"/></t>)
+        between <strong><t t-out="object.partner_a_id.name or ''"/></strong> and
+        <strong><t t-out="object.partner_b_id.name or ''"/></strong>,
+        executed on <t t-out="format_datetime(object.executed_on, dt_format='medium') if object.executed_on else ''"/>.
+    </p>
+    <table style="border-collapse:collapse;font-size:13px;">
+        <tr><td style="padding:2px 12px 2px 0;color:#666;">Effective from</td><td><t t-out="format_date(object.date_from) if object.date_from else ''"/></td></tr>
+        <tr><td style="padding:2px 12px 2px 0;color:#666;">Effective to</td><td><t t-out="format_date(object.date_to) if object.date_to else '—'"/></td></tr>
+        <tr><td style="padding:2px 12px 2px 0;color:#666;">Signatory A</td><td><t t-out="object.signatory_a_id.name or ''"/></td></tr>
+        <tr><td style="padding:2px 12px 2px 0;color:#666;">Signatory B</td><td><t t-out="object.signatory_b_id.name or ''"/></td></tr>
+    </table>
+    <p>The attached PDF is the official executed document. Please retain it for your records.</p>
+    <p>Regards,<br/><t t-out="object.user_id.name or object.company_id.name"/><br/><t t-out="object.company_id.name or ''"/></p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_annexure_executed" model="mail.template">
+            <field name="name">Agreement: Executed Supplementary Annexure</field>
+            <field name="model_id" ref="agreement_management.model_agreement_annexure"/>
+            <field name="subject">Fully Executed Supplementary Annexure – {{ object.number }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="description">Sent with the executed PDF attached when an annexure is fully signed.</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">{{ object.partner_b_id.lang }}</field>
+            <field name="body_html" type="html">
+<div style="margin:0px;padding:0px;font-family:Arial,sans-serif;font-size:13px;color:#333;">
+    <p>Dear Sir / Madam,</p>
+    <p>Please find attached the fully executed copy of
+        <strong>Supplementary Annexure <t t-out="object.number or ''"/></strong>
+        to Agreement <strong><t t-out="object.agreement_id.number or ''"/></strong>
+        between <strong><t t-out="object.partner_a_id.name or ''"/></strong> and
+        <strong><t t-out="object.partner_b_id.name or ''"/></strong>,
+        effective <t t-out="format_date(object.date_effective) if object.date_effective else ''"/>
+        and executed on <t t-out="format_datetime(object.executed_on, dt_format='medium') if object.executed_on else ''"/>.
+    </p>
+    <p>The original executed agreement remains unchanged; this annexure records the mutually agreed modifications.</p>
+    <p>Regards,<br/><t t-out="object.user_id.name or object.company_id.name"/><br/><t t-out="object.company_id.name or ''"/></p>
+</div>
+            </field>
+        </record>
+
+        <!-- §29 signing notifications -->
+        <record id="mail_template_agreement_ready_party_a" model="mail.template">
+            <field name="name">Agreement: Ready for Signatory A</field>
+            <field name="model_id" ref="agreement_management.model_agreement_agreement"/>
+            <field name="subject">Agreement {{ object.number }} is ready for your signature</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+<div style="margin:0px;padding:0px;font-family:Arial,sans-serif;font-size:13px;color:#333;">
+    <p>Dear <t t-out="object.signatory_a_id.name or ''"/>,</p>
+    <p>Agreement <strong><t t-out="object.number or ''"/></strong> (<t t-out="object.template_id.name or ''"/>)
+        between <t t-out="object.partner_a_id.name or ''"/> and <t t-out="object.partner_b_id.name or ''"/>
+        is ready for your signature as <strong>Party A</strong>.</p>
+    <p>Party B will be invited to sign once you have completed all required signature areas.</p>
+    <p>Regards,<br/><t t-out="object.user_id.name or object.company_id.name"/></p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_agreement_ready_party_b" model="mail.template">
+            <field name="name">Agreement: Ready for Signatory B</field>
+            <field name="model_id" ref="agreement_management.model_agreement_agreement"/>
+            <field name="subject">Agreement {{ object.number }} has been signed by Party A and is ready for your signature</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+<div style="margin:0px;padding:0px;font-family:Arial,sans-serif;font-size:13px;color:#333;">
+    <p>Dear <t t-out="object.signatory_b_id.name or ''"/>,</p>
+    <p>Agreement <strong><t t-out="object.number or ''"/></strong> (<t t-out="object.template_id.name or ''"/>)
+        between <t t-out="object.partner_a_id.name or ''"/> and <t t-out="object.partner_b_id.name or ''"/>
+        has been signed by Party A and is now ready for your signature as <strong>Party B</strong>.</p>
+    <p>Regards,<br/><t t-out="object.user_id.name or object.company_id.name"/></p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_annexure_ready_party_a" model="mail.template">
+            <field name="name">Annexure: Ready for Signatory A</field>
+            <field name="model_id" ref="agreement_management.model_agreement_annexure"/>
+            <field name="subject">Supplementary Annexure {{ object.number }} is ready for your signature</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+<div style="margin:0px;padding:0px;font-family:Arial,sans-serif;font-size:13px;color:#333;">
+    <p>Dear <t t-out="object.signatory_a_id.name or ''"/>,</p>
+    <p>Supplementary Annexure <strong><t t-out="object.number or ''"/></strong> to Agreement
+        <t t-out="object.agreement_id.number or ''"/> is ready for your signature as <strong>Party A</strong>.</p>
+    <p>Regards,<br/><t t-out="object.user_id.name or object.company_id.name"/></p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_annexure_ready_party_b" model="mail.template">
+            <field name="name">Annexure: Ready for Signatory B</field>
+            <field name="model_id" ref="agreement_management.model_agreement_annexure"/>
+            <field name="subject">Supplementary Annexure {{ object.number }} has been signed by Party A and is ready for your signature</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+<div style="margin:0px;padding:0px;font-family:Arial,sans-serif;font-size:13px;color:#333;">
+    <p>Dear <t t-out="object.signatory_b_id.name or ''"/>,</p>
+    <p>Supplementary Annexure <strong><t t-out="object.number or ''"/></strong> to Agreement
+        <t t-out="object.agreement_id.number or ''"/> has been signed by Party A and is ready for your signature as <strong>Party B</strong>.</p>
+    <p>Regards,<br/><t t-out="object.user_id.name or object.company_id.name"/></p>
+</div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================ Templates -->
+    <record id="agreement_template_view_list" model="ir.ui.view">
+        <field name="name">agreement.template.list</field>
+        <field name="model">agreement.template</field>
+        <field name="arch" type="xml">
+            <list string="Agreement Templates">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="status" widget="badge" decoration-success="status == 'active'" decoration-warning="status == 'draft_only'" decoration-danger="status == 'no_version'"/>
+                <field name="active_version_id"/>
+                <field name="draft_version_id" optional="show"/>
+                <field name="version_count" string="Versions"/>
+                <field name="agreement_count" string="Agreements"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_template_view_form" model="ir.ui.view">
+        <field name="name">agreement.template.form</field>
+        <field name="model">agreement.template</field>
+        <field name="arch" type="xml">
+            <form string="Agreement Template">
+                <header>
+                    <button name="action_new_version" type="object" string="New Version" class="btn-primary" icon="fa-plus"/>
+                    <button name="action_view_agreements" type="object" string="View Agreements" icon="fa-file-text-o"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_versions" type="object" class="oe_stat_button" icon="fa-code-fork">
+                            <field name="version_count" widget="statinfo" string="Versions"/>
+                        </button>
+                        <button name="action_view_agreements" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="agreement_count" widget="statinfo" string="Agreements"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Non-Disclosure Agreement"/></h1>
+                    </div>
+                    <group>
+                        <group string="Template">
+                            <field name="code" placeholder="e.g. NDA"/>
+                            <field name="type_id"/>
+                            <field name="description"/>
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Version Status">
+                            <field name="active_version_id"/>
+                            <field name="draft_version_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Versions" name="versions">
+                            <div class="alert alert-info" role="status">
+                                Only one version can be <b>Active</b>. Activating a Draft automatically supersedes the current Active version — no approval workflow. Agreements already created keep the version they were confirmed with.
+                            </div>
+                            <field name="version_ids">
+                                <list decoration-success="state == 'active'" decoration-muted="state == 'superseded'" default_order="id desc">
+                                    <field name="name" string="Version"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'active'" decoration-info="state == 'draft'"/>
+                                    <field name="date_effective"/>
+                                    <field name="activated_on" optional="show"/>
+                                    <field name="activated_by_id" optional="show"/>
+                                    <field name="field_count" string="Fields"/>
+                                    <field name="area_count" string="Signature Areas"/>
+                                    <field name="agreement_count" string="Agreements"/>
+                                    <field name="change_note" optional="show"/>
+                                    <button name="action_activate" type="object" string="Activate" icon="fa-play" class="btn-secondary btn-sm" invisible="state != 'draft'"/>
+                                    <button name="action_preview" type="object" string="Preview" icon="fa-eye" class="btn-link btn-sm"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="agreement_template_view_search" model="ir.ui.view">
+        <field name="name">agreement.template.search</field>
+        <field name="model">agreement.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_id"/>
+                <filter name="has_active" string="With Active Version" domain="[('active_version_id', '!=', False)]"/>
+                <filter name="no_active" string="No Active Version" domain="[('active_version_id', '=', False)]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Type" context="{'group_by': 'type_id'}"/>
+                    <filter name="group_status" string="Status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement_template" model="ir.actions.act_window">
+        <field name="name">Agreement Templates</field>
+        <field name="res_model">agreement.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first agreement template</p>
+            <p>A template holds the document content, the dynamic fields and the signature locations per version. Agreements are created from the Active version only.</p>
+        </field>
+    </record>
+
+    <!-- ============================================================= Versions -->
+    <record id="agreement_template_version_view_list" model="ir.ui.view">
+        <field name="name">agreement.template.version.list</field>
+        <field name="model">agreement.template.version</field>
+        <field name="arch" type="xml">
+            <list string="Template Versions" decoration-success="state == 'active'" decoration-muted="state == 'superseded'">
+                <field name="template_id"/>
+                <field name="name" string="Version"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-info="state == 'draft'"/>
+                <field name="date_effective"/>
+                <field name="activated_on" optional="show"/>
+                <field name="activated_by_id" optional="hide"/>
+                <field name="superseded_on" optional="hide"/>
+                <field name="field_count" string="Fields"/>
+                <field name="area_count" string="Signature Areas"/>
+                <field name="agreement_count" string="Agreements"/>
+                <field name="change_note" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_template_version_view_form" model="ir.ui.view">
+        <field name="name">agreement.template.version.form</field>
+        <field name="model">agreement.template.version</field>
+        <field name="arch" type="xml">
+            <form string="Template Version">
+                <header>
+                    <button name="action_activate" type="object" string="Activate Version" class="btn-primary" icon="fa-play" invisible="state != 'draft'" confirm="This version will become the only Active version of the template and any current Active version will be superseded. Existing agreements are not affected. Continue?"/>
+                    <button name="action_preview" type="object" string="Preview Layout" icon="fa-eye"/>
+                    <button name="action_set_draft" type="object" string="Reset to Draft" invisible="state != 'superseded'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,superseded"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_agreements" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="agreement_count" widget="statinfo" string="Agreements"/>
+                        </button>
+                    </div>
+                    <field name="is_locked" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="template_id" readonly="is_locked" options="{'no_create': True}" placeholder="Template"/>
+                            <span> — v</span><field name="name" readonly="is_locked" class="oe_inline" placeholder="1.0"/>
+                        </h1>
+                    </div>
+                    <div class="alert alert-secondary" role="status" invisible="not is_locked">
+                        <i class="fa fa-lock me-1"/>This version is locked. Content, dynamic fields and signature locations can only be edited on a Draft version — use <b>New Version</b> on the template.
+                    </div>
+                    <group>
+                        <group string="Version">
+                            <field name="date_effective"/>
+                            <field name="change_note"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Lifecycle">
+                            <field name="activated_on"/>
+                            <field name="activated_by_id"/>
+                            <field name="superseded_on"/>
+                            <field name="superseded_by_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content" name="content">
+                            <div class="alert alert-info" role="status">
+                                Placeholders: <code>{{agreement_number}}</code> <code>{{party_a}}</code> <code>{{party_a_address}}</code> <code>{{party_b}}</code> <code>{{party_b_address}}</code>
+                                <code>{{signatory_a}}</code> <code>{{signatory_a_title}}</code> <code>{{signatory_b}}</code> <code>{{signatory_b_title}}</code> <code>{{effective_from}}</code> <code>{{effective_to}}</code>
+                                <code>{{execution_date}}</code> <code>{{template_code}}</code> <code>{{template_version}}</code> <code>{{agreement_type}}</code> <code>{{company}}</code> <code>{{today}}</code>,
+                                the technical name of any dynamic field (e.g. <code>{{contract_value}}</code>), <code>{{page_break}}</code> and <code>{{sig:CODE}}</code> for a signature location.
+                                Locations not placed in the content are appended in an execution block at the end of the document.
+                            </div>
+                            <field name="content" readonly="is_locked" nolabel="1"/>
+                        </page>
+                        <page string="Dynamic Fields" name="fields">
+                            <div class="alert alert-info" role="status">
+                                Fields appear under <b>Other Information</b> on agreements created from this version; values are entered per agreement, stored as Odoo properties and available in search, filters and group-by. Mandatory fields block confirmation until completed.
+                            </div>
+                            <field name="agreement_field_ids" readonly="is_locked" context="{'default_applies_to': 'agreement'}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="applies_to" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="key"/>
+                                    <field name="field_type"/>
+                                    <field name="selection_values" invisible="field_type not in ('selection', 'tags')" placeholder="One value per line"/>
+                                    <field name="required"/>
+                                    <field name="editable"/>
+                                    <field name="searchable"/>
+                                    <field name="default_value" optional="hide"/>
+                                    <field name="help" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Signature Locations" name="areas">
+                            <div class="alert alert-info" role="status">
+                                Each location is assigned to a party and can be placed anywhere in the content with <code>{{sig:CODE}}</code> — on the same page, on different pages or in different sections. Required locations must be signed before the party can complete signing; Party B locations stay locked until Party A has completed.
+                            </div>
+                            <field name="agreement_area_ids" readonly="is_locked" context="{'default_applies_to': 'agreement'}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="applies_to" column_invisible="1"/>
+                                    <field name="code"/>
+                                    <field name="placeholder"/>
+                                    <field name="name"/>
+                                    <field name="page"/>
+                                    <field name="position" optional="show"/>
+                                    <field name="party"/>
+                                    <field name="kind"/>
+                                    <field name="required"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Annexure Setup" name="annexure">
+                            <div class="alert alert-info" role="status">
+                                Supplementary Annexures created for agreements of this version start with the content below and use these annexure-specific fields and signature locations.
+                            </div>
+                            <field name="annexure_content" readonly="is_locked" nolabel="1"/>
+                            <separator string="Annexure Dynamic Fields"/>
+                            <field name="annexure_field_ids" readonly="is_locked" context="{'default_applies_to': 'annexure'}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="applies_to" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="key"/>
+                                    <field name="field_type"/>
+                                    <field name="selection_values" invisible="field_type not in ('selection', 'tags')" placeholder="One value per line"/>
+                                    <field name="required"/>
+                                    <field name="editable"/>
+                                    <field name="searchable"/>
+                                </list>
+                            </field>
+                            <separator string="Annexure Signature Locations"/>
+                            <field name="annexure_area_ids" readonly="is_locked" context="{'default_applies_to': 'annexure'}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="applies_to" column_invisible="1"/>
+                                    <field name="code"/>
+                                    <field name="placeholder"/>
+                                    <field name="name"/>
+                                    <field name="page"/>
+                                    <field name="party"/>
+                                    <field name="kind"/>
+                                    <field name="required"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="agreement_template_version_view_search" model="ir.ui.view">
+        <field name="name">agreement.template.version.search</field>
+        <field name="model">agreement.template.version</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="template_id"/>
+                <field name="name" string="Version"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="active" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="superseded" string="Superseded" domain="[('state', '=', 'superseded')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_template" string="Template" context="{'group_by': 'template_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement_template_version" model="ir.actions.act_window">
+        <field name="name">Template Versions</field>
+        <field name="res_model">agreement.template.version</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_template': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No template version yet</p>
+            <p>Versions are created from a template. Activate a Draft to make it the version used for new agreements.</p>
+        </field>
+    </record>
+</odoo>

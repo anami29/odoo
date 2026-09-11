@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="agreement_type_commercial" model="agreement.type">
+            <field name="name">Commercial</field>
+            <field name="code">COM</field>
+            <field name="sequence">10</field>
+            <field name="description">Service and supply frameworks with a commercial value.</field>
+        </record>
+        <record id="agreement_type_confidentiality" model="agreement.type">
+            <field name="name">Confidentiality</field>
+            <field name="code">CONF</field>
+            <field name="sequence">20</field>
+            <field name="description">Non-disclosure agreements and confidentiality undertakings.</field>
+        </record>
+        <record id="agreement_type_vendor" model="agreement.type">
+            <field name="name">Vendor</field>
+            <field name="code">VND</field>
+            <field name="sequence">30</field>
+            <field name="description">Vendor empanelment and onboarding.</field>
+        </record>
+
+        <record id="annexure_type_scope" model="agreement.annexure.type">
+            <field name="name">Scope Addition</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="annexure_type_commercial" model="agreement.annexure.type">
+            <field name="name">Commercial Revision</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="annexure_type_dates" model="agreement.annexure.type">
+            <field name="name">Date / Term Revision</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="annexure_type_clauses" model="agreement.annexure.type">
+            <field name="name">Clause Amendment</field>
+            <field name="sequence">40</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_annexure_view_form" model="ir.ui.view">
+        <field name="name">agreement.annexure.form</field>
+        <field name="model">agreement.annexure</field>
+        <field name="arch" type="xml">
+            <form string="Supplementary Annexure">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_preview" type="object" string="Preview" icon="fa-eye" invisible="state == 'executed'"/>
+                    <button name="action_sign_party_a" type="object" string="Sign as Party A" class="btn-primary" icon="fa-pencil" invisible="not can_sign_a"/>
+                    <button name="action_sign_party_b" type="object" string="Sign as Party B" class="btn-primary" icon="fa-pencil" invisible="not can_sign_b"/>
+                    <button name="action_resend_notification" type="object" string="Resend Signing Notification" icon="fa-bell-o" invisible="state not in ('pending_a', 'pending_b')"/>
+                    <button name="action_print_executed" type="object" string="Print / Download Signed Annexure" class="btn-primary" icon="fa-print" invisible="state != 'executed'"/>
+                    <button name="action_email_executed" type="object" string="Email Executed Annexure" icon="fa-envelope-o" invisible="state != 'executed'"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state not in ('draft', 'pending_a')" confirm="Cancel this annexure?"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft" invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending_a,pending_b,executed"/>
+                </header>
+                <sheet>
+                    <field name="can_sign_a" invisible="1"/>
+                    <field name="can_sign_b" invisible="1"/>
+                    <field name="is_locked" invisible="1"/>
+                    <field name="executed_pdf_attachment_id" invisible="1"/>
+                    <field name="template_version_id" invisible="1"/>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_parent" type="object" class="oe_stat_button" icon="fa-link">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="agreement_id" readonly="1" options="{'no_open': True}"/></span>
+                                <span class="o_stat_text">Parent Agreement</span>
+                            </div>
+                        </button>
+                        <button name="action_view_signatures" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="state == 'draft'">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="signature_signed_count"/> / <field name="signature_required_count"/></span>
+                                <span class="o_stat_text">Required Signatures</span>
+                            </div>
+                        </button>
+                        <button name="action_view_executed_pdf" type="object" class="oe_stat_button" icon="fa-file-pdf-o" invisible="not executed_pdf_attachment_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Executed PDF</span>
+                                <span class="o_stat_text">Official copy</span>
+                            </div>
+                        </button>
+                        <button name="action_view_distribution" type="object" class="oe_stat_button" icon="fa-envelope-o">
+                            <field name="distribution_count" widget="statinfo" string="Emails Sent"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Executed" bg_color="text-bg-success" invisible="state != 'executed'"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger" invisible="state != 'cancel'"/>
+                    <div class="oe_title">
+                        <label for="number"/>
+                        <h1><field name="number" readonly="1" placeholder="New — assigned on confirmation"/></h1>
+                    </div>
+                    <group>
+                        <group string="Annexure Information" name="annexure_info">
+                            <field name="agreement_id" readonly="is_locked" options="{'no_create': True}"/>
+                            <field name="annexure_type_id" readonly="is_locked"/>
+                            <field name="summary" readonly="is_locked" placeholder="Short summary of the changes recorded by this annexure"/>
+                            <field name="template_id"/>
+                            <field name="template_version_name" string="Template Version"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Parties (inherited from the parent agreement)" name="parties">
+                            <field name="partner_a_id"/>
+                            <field name="signatory_a_id"/>
+                            <field name="partner_b_id"/>
+                            <field name="signatory_b_id"/>
+                        </group>
+                        <group string="Dates" name="dates">
+                            <field name="date_effective" readonly="is_locked"/>
+                            <field name="parent_date_from"/>
+                            <field name="parent_date_to"/>
+                        </group>
+                        <group string="Execution" name="execution_summary">
+                            <field name="executed_on"/>
+                            <field name="signing_progress" widget="progressbar" invisible="state == 'draft'"/>
+                            <field name="signature_status_summary" string="Signatures" invisible="state == 'draft'"/>
+                            <field name="executed_pdf" filename="executed_pdf_filename" widget="binary" invisible="not executed_pdf_attachment_id"/>
+                            <field name="executed_pdf_filename" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Other Information" name="other_information">
+                            <div class="alert alert-info" role="status" invisible="is_locked">
+                                Annexure-specific fields defined by the template version of the parent agreement. Mandatory fields must be completed before confirmation.
+                            </div>
+                            <field name="annexure_properties" columns="2" readonly="is_locked" nolabel="1"/>
+                        </page>
+                        <page string="Content" name="content">
+                            <div class="alert alert-info" role="status" invisible="is_locked">
+                                Amended clauses, revised terms or additional scope. Placeholders such as <code>{{parent_number}}</code>, <code>{{party_a}}</code>, <code>{{effective_from}}</code>, <code>{{summary}}</code>, dynamic field names and <code>{{sig:CODE}}</code> are resolved on preview and execution. The original executed agreement is never modified.
+                            </div>
+                            <field name="content" readonly="is_locked" nolabel="1"/>
+                        </page>
+                        <page string="Document" name="document">
+                            <field name="document_html" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Execution" name="execution">
+                            <group>
+                                <group string="Execution Record">
+                                    <field name="confirmed_on"/>
+                                    <field name="confirmed_by_id"/>
+                                    <field name="signed_a_on"/>
+                                    <field name="signed_b_on"/>
+                                    <field name="executed_on"/>
+                                    <field name="executed_hash"/>
+                                </group>
+                                <group string="Executed PDF">
+                                    <field name="executed_pdf_attachment_id" readonly="1" invisible="not executed_pdf_attachment_id"/>
+                                    <div colspan="2" invisible="executed_pdf_attachment_id" class="text-muted">Generated automatically when all required signatures are completed.</div>
+                                </group>
+                            </group>
+                            <separator string="Signature Areas"/>
+                            <field name="signature_ids" readonly="1" nolabel="1">
+                                <list decoration-success="state == 'signed'" decoration-warning="state == 'ready'" decoration-muted="state == 'locked'" create="0" delete="0">
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="code"/>
+                                    <field name="page"/>
+                                    <field name="name"/>
+                                    <field name="party"/>
+                                    <field name="signatory_id"/>
+                                    <field name="kind" optional="show"/>
+                                    <field name="required"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'signed'" decoration-warning="state == 'ready'" decoration-muted="state == 'locked'"/>
+                                    <field name="signed_on"/>
+                                    <field name="signer_name" optional="show"/>
+                                    <field name="signature" widget="image" options="{'size': [120, 40]}"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Distribution" name="distribution">
+                            <field name="distribution_ids" readonly="1" nolabel="1">
+                                <list create="0" delete="0" decoration-danger="state == 'exception'">
+                                    <field name="sent_on"/>
+                                    <field name="sender_id"/>
+                                    <field name="mode"/>
+                                    <field name="partner_ids" widget="many2many_tags"/>
+                                    <field name="subject"/>
+                                    <field name="attachment_id"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'sent'" decoration-danger="state == 'exception'" decoration-info="state == 'outgoing'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="agreement_annexure_view_list" model="ir.ui.view">
+        <field name="name">agreement.annexure.list</field>
+        <field name="model">agreement.annexure</field>
+        <field name="arch" type="xml">
+            <list string="Supplementary Annexures" decoration-success="state == 'executed'" decoration-muted="state == 'cancel'" decoration-info="state in ('pending_a', 'pending_b')">
+                <field name="number"/>
+                <field name="agreement_id"/>
+                <field name="annexure_type_id"/>
+                <field name="partner_a_id" optional="hide"/>
+                <field name="partner_b_id"/>
+                <field name="template_id" optional="show"/>
+                <field name="template_version_name" string="Version" optional="show"/>
+                <field name="date_effective"/>
+                <field name="summary" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'executed'" decoration-warning="state == 'pending_a'" decoration-info="state == 'pending_b'" decoration-danger="state == 'cancel'"/>
+                <field name="executed_on" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_annexure_view_search" model="ir.ui.view">
+        <field name="name">agreement.annexure.search</field>
+        <field name="model">agreement.annexure</field>
+        <field name="arch" type="xml">
+            <search string="Supplementary Annexures">
+                <field name="number" filter_domain="['|', ('number', 'ilike', self), ('agreement_id', 'ilike', self)]"/>
+                <field name="agreement_id"/>
+                <field name="annexure_type_id"/>
+                <field name="partner_a_id"/>
+                <field name="partner_b_id"/>
+                <field name="template_id"/>
+                <field name="date_effective"/>
+                <field name="annexure_properties"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="pending_a" string="Pending Party A Signature" domain="[('state', '=', 'pending_a')]"/>
+                <filter name="pending_b" string="Pending Party B Signature" domain="[('state', '=', 'pending_b')]"/>
+                <filter name="executed" string="Fully Signed / Executed" domain="[('state', '=', 'executed')]"/>
+                <separator/>
+                <filter name="my_signature" string="Pending My Signature"
+                        domain="['|', '&amp;', ('state', '=', 'pending_a'), ('signatory_a_id.user_ids', 'in', [uid]), '&amp;', ('state', '=', 'pending_b'), ('signatory_b_id.user_ids', 'in', [uid])]"/>
+                <filter name="in_signing" string="In Signing" domain="[('state', 'in', ('pending_a', 'pending_b'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_agreement" string="Parent Agreement" context="{'group_by': 'agreement_id'}"/>
+                    <filter name="group_type" string="Annexure Type" context="{'group_by': 'annexure_type_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_partner_b" string="Party B" context="{'group_by': 'partner_b_id'}"/>
+                    <filter name="group_template" string="Template" context="{'group_by': 'template_id'}"/>
+                    <filter name="group_year" string="Effective Year" context="{'group_by': 'date_effective:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement_annexure" model="ir.actions.act_window">
+        <field name="name">Supplementary Annexures</field>
+        <field name="res_model">agreement.annexure</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="agreement_annexure_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No supplementary annexure yet</p>
+            <p>Annexures record changes during the validity period of a Fully Signed / Executed agreement without modifying the original. Create them from the executed agreement.</p>
+        </field>
+    </record>
+</odoo>

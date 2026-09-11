@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_agreement" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.agreement</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="60"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Agreements" string="Agreements" name="agreement_management" groups="agreement_management.group_agreement_manager">
+                    <block title="Executed Document Distribution" name="agreement_distribution_block">
+                        <setting id="agreement_auto_email_setting" string="Automatically Email Executed Documents" help="Send the executed PDF to the default recipients as soon as an agreement or annexure is Fully Signed / Executed. When disabled, users send it manually from the document.">
+                            <field name="agreement_auto_email"/>
+                            <div class="content-group mt16">
+                                <div class="text-muted mb-1">Default recipients</div>
+                                <div class="d-flex align-items-center"><field name="agreement_email_party_a"/><label for="agreement_email_party_a" class="ms-2 mb-0"/></div>
+                                <div class="d-flex align-items-center"><field name="agreement_email_party_b"/><label for="agreement_email_party_b" class="ms-2 mb-0"/></div>
+                                <div class="d-flex align-items-center"><field name="agreement_email_signatory_a"/><label for="agreement_email_signatory_a" class="ms-2 mb-0"/></div>
+                                <div class="d-flex align-items-center"><field name="agreement_email_signatory_b"/><label for="agreement_email_signatory_b" class="ms-2 mb-0"/></div>
+                                <div class="row mt8">
+                                    <label for="agreement_email_extra_partner_ids" class="col-lg-4 o_light_label"/>
+                                    <field name="agreement_email_extra_partner_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="agreement_email_templates_setting" string="Email Templates" help="Templates used for automatic and manual distribution. The stored executed PDF is always attached automatically.">
+                            <div class="content-group">
+                                <div class="row">
+                                    <label for="agreement_executed_template_id" class="col-lg-4 o_light_label"/>
+                                    <field name="agreement_executed_template_id" options="{'no_create': True}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="agreement_annexure_template_id" class="col-lg-4 o_light_label"/>
+                                    <field name="agreement_annexure_template_id" options="{'no_create': True}"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Parties &amp; Signing" name="agreement_signing_block">
+                        <setting id="agreement_allow_same_party_setting" string="Allow Party A and Party B to be identical" help="By default the system prevents Party A and Party B from being the same partner.">
+                            <field name="agreement_allow_same_party"/>
+                        </setting>
+                        <setting id="agreement_facilitated_signing_setting" string="Tablet signing captured by internal users" help="Let any Agreement User open the signing screen on a shared tablet so the designated signatory signs in person. When disabled, only the signatory's own user or an Agreement Manager can open the signing screen.">
+                            <field name="agreement_allow_facilitated_signing"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_agreement_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'agreement_management', 'bin_size': False}</field>
+    </record>
+</odoo>

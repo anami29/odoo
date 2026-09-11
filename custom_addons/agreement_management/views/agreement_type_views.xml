@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_type_view_list" model="ir.ui.view">
+        <field name="name">agreement.type.list</field>
+        <field name="model">agreement.type</field>
+        <field name="arch" type="xml">
+            <list string="Agreement Types" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description" optional="show"/>
+                <field name="template_count" string="Templates"/>
+                <field name="agreement_count" string="Agreements"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_type_view_form" model="ir.ui.view">
+        <field name="name">agreement.type.form</field>
+        <field name="model">agreement.type</field>
+        <field name="arch" type="xml">
+            <form string="Agreement Type">
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_agreements" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="agreement_count" widget="statinfo" string="Agreements"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="agreement_type_view_search" model="ir.ui.view">
+        <field name="name">agreement.type.search</field>
+        <field name="model">agreement.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement_type" model="ir.actions.act_window">
+        <field name="name">Agreement Types</field>
+        <field name="res_model">agreement.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Define agreement types / categories</p>
+            <p>Types classify templates and agreements (e.g. Commercial, Confidentiality, Vendor) and are available as filters and group-by criteria.</p>
+        </field>
+    </record>
+
+    <record id="agreement_annexure_type_view_list" model="ir.ui.view">
+        <field name="name">agreement.annexure.type.list</field>
+        <field name="model">agreement.annexure.type</field>
+        <field name="arch" type="xml">
+            <list string="Annexure Types" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="description" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_agreement_annexure_type" model="ir.actions.act_window">
+        <field name="name">Annexure Types</field>
+        <field name="res_model">agreement.annexure.type</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Define supplementary annexure types</p>
+            <p>Scope additions, commercial revisions, date changes, clause amendments…</p>
+        </field>
+    </record>
+</odoo>

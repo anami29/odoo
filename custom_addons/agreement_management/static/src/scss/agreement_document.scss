@@ -1,0 +1,15 @@
+// Backend rendering of the document preview (Document tab) — the same inline
+// styles are embedded in the HTML, this only tunes the container.
+.o_field_html .agr-sig,
+.o_form_view .agr-sig {
+    box-sizing: border-box;
+}
+.o_form_view .agr-execution-block {
+    border-top: 1px solid #dee2e6;
+    padding-top: 6px;
+}
+.o_form_view .agr-ph {
+    background: rgba(113, 75, 103, 0.08);
+    border-radius: 2px;
+    padding: 0 2px;
+}

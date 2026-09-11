@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="module_category_agreements" model="ir.module.category">
+            <field name="name">Agreements</field>
+            <field name="description">Agreement templates, signing workflow, executed documents and annexures.</field>
+            <field name="sequence">45</field>
+        </record>
+
+        <!-- §5.1 Agreement User -->
+        <record id="group_agreement_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_agreements"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Create agreements, enter information, preview, submit for signing, participate in signing where authorised, view agreements, download and email executed PDFs where permitted.</field>
+        </record>
+
+        <!-- §5.2 Agreement Manager -->
+        <record id="group_agreement_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_agreements"/>
+            <field name="implied_ids" eval="[(4, ref('group_agreement_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">Manage templates and versions, activate versions, configure signature locations and dynamic fields, manage agreements, annexures, execution and distribution records.</field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <!-- Agreement User: only agreements they are involved in (§31) -->
+        <record id="rule_agreement_user" model="ir.rule">
+            <field name="name">Agreement: user sees own / involved agreements</field>
+            <field name="model_id" ref="model_agreement_agreement"/>
+            <field name="domain_force">['|', '|', '|', '|',
+                ('user_id', '=', user.id),
+                ('create_uid', '=', user.id),
+                ('message_partner_ids', 'in', [user.partner_id.id]),
+                ('signatory_a_id', '=', user.partner_id.id),
+                ('signatory_b_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_agreement_user'))]"/>
+        </record>
+        <record id="rule_agreement_manager" model="ir.rule">
+            <field name="name">Agreement: manager sees all</field>
+            <field name="model_id" ref="model_agreement_agreement"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_agreement_manager'))]"/>
+        </record>
+        <record id="rule_agreement_company" model="ir.rule">
+            <field name="name">Agreement: multi-company</field>
+            <field name="model_id" ref="model_agreement_agreement"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_annexure_user" model="ir.rule">
+            <field name="name">Annexure: user sees annexures of own / involved agreements</field>
+            <field name="model_id" ref="model_agreement_annexure"/>
+            <field name="domain_force">['|', '|', '|', '|',
+                ('user_id', '=', user.id),
+                ('agreement_id.user_id', '=', user.id),
+                ('message_partner_ids', 'in', [user.partner_id.id]),
+                ('signatory_a_id', '=', user.partner_id.id),
+                ('signatory_b_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_agreement_user'))]"/>
+        </record>
+        <record id="rule_annexure_manager" model="ir.rule">
+            <field name="name">Annexure: manager sees all</field>
+            <field name="model_id" ref="model_agreement_annexure"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_agreement_manager'))]"/>
+        </record>
+        <record id="rule_annexure_company" model="ir.rule">
+            <field name="name">Annexure: multi-company</field>
+            <field name="model_id" ref="model_agreement_annexure"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_template_company" model="ir.rule">
+            <field name="name">Agreement Template: multi-company</field>
+            <field name="model_id" ref="model_agreement_template"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="rule_template_version_company" model="ir.rule">
+            <field name="name">Agreement Template Version: multi-company</field>
+            <field name="model_id" ref="model_agreement_template_version"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="rule_signature_company" model="ir.rule">
+            <field name="name">Agreement Signature: multi-company</field>
+            <field name="model_id" ref="model_agreement_signature"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="rule_distribution_company" model="ir.rule">
+            <field name="name">Agreement Distribution: multi-company</field>
+            <field name="model_id" ref="model_agreement_distribution"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+    </data>
+</odoo>

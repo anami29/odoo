@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_signature_view_list" model="ir.ui.view">
+        <field name="name">agreement.signature.list</field>
+        <field name="model">agreement.signature</field>
+        <field name="arch" type="xml">
+            <list string="Signature Areas" create="0" delete="0" decoration-success="state == 'signed'" decoration-warning="state == 'ready'" decoration-muted="state == 'locked'">
+                <field name="sequence" column_invisible="1"/>
+                <field name="document_name"/>
+                <field name="code"/>
+                <field name="page"/>
+                <field name="name"/>
+                <field name="position" optional="hide"/>
+                <field name="party"/>
+                <field name="signatory_id"/>
+                <field name="kind" optional="show"/>
+                <field name="required"/>
+                <field name="state" widget="badge" decoration-success="state == 'signed'" decoration-warning="state == 'ready'" decoration-muted="state == 'locked'"/>
+                <field name="signed_on" optional="show"/>
+                <field name="signer_name" optional="show"/>
+                <field name="signed_by_user_id" optional="hide"/>
+                <field name="signer_ip" optional="hide"/>
+                <field name="signature" widget="image" options="{'size': [120, 40]}"/>
+                <field name="company_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_signature_view_form" model="ir.ui.view">
+        <field name="name">agreement.signature.form</field>
+        <field name="model">agreement.signature</field>
+        <field name="arch" type="xml">
+            <form string="Signature Area" create="0" delete="0">
+                <header>
+                    <button name="action_sign" type="object" string="Open Signing Screen" class="btn-primary" invisible="state != 'ready'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Location">
+                            <field name="document_name"/>
+                            <field name="agreement_id" invisible="not agreement_id" readonly="1"/>
+                            <field name="annexure_id" invisible="not annexure_id" readonly="1"/>
+                            <field name="code" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="page" readonly="1"/>
+                            <field name="position" readonly="1"/>
+                            <field name="party" readonly="1"/>
+                            <field name="kind" readonly="1"/>
+                            <field name="required" readonly="1"/>
+                        </group>
+                        <group string="Signature record">
+                            <field name="signatory_id"/>
+                            <field name="signer_name"/>
+                            <field name="signed_on"/>
+                            <field name="signed_by_user_id"/>
+                            <field name="signer_ip"/>
+                            <field name="signature" widget="image" readonly="1" options="{'size': [300, 100]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="agreement_signature_view_search" model="ir.ui.view">
+        <field name="name">agreement.signature.search</field>
+        <field name="model">agreement.signature</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="document_name"/>
+                <field name="name"/>
+                <field name="signatory_id"/>
+                <filter name="signed" string="Signed" domain="[('signature', '!=', False)]"/>
+                <filter name="unsigned" string="Awaiting" domain="[('signature', '=', False)]"/>
+                <filter name="required" string="Required" domain="[('required', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_document" string="Document" context="{'group_by': 'document_name'}"/>
+                    <filter name="group_party" string="Party" context="{'group_by': 'party'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement_signature" model="ir.actions.act_window">
+        <field name="name">Signature Areas</field>
+        <field name="res_model">agreement.signature</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_document': 1}</field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_agreement" model="ir.actions.report">
+        <field name="name">Agreement Document</field>
+        <field name="model">agreement.agreement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">agreement_management.report_agreement_document</field>
+        <field name="report_file">agreement_management.report_agreement_document</field>
+        <field name="print_report_name">('%s - %s' % ((object.number or 'Agreement').replace('/', '-'), 'Executed' if object.state == 'executed' else 'Preview'))</field>
+        <field name="binding_model_id" ref="model_agreement_agreement"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_agreement_annexure" model="ir.actions.report">
+        <field name="name">Supplementary Annexure Document</field>
+        <field name="model">agreement.annexure</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">agreement_management.report_agreement_annexure_document</field>
+        <field name="report_file">agreement_management.report_agreement_annexure_document</field>
+        <field name="print_report_name">('%s - %s' % ((object.number or 'Annexure').replace('/', '-'), 'Executed' if object.state == 'executed' else 'Preview'))</field>
+        <field name="binding_model_id" ref="model_agreement_annexure"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_agreement_version" model="ir.actions.report">
+        <field name="name">Template Layout Preview</field>
+        <field name="model">agreement.template.version</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">agreement_management.report_agreement_version_sample</field>
+        <field name="report_file">agreement_management.report_agreement_version_sample</field>
+        <field name="print_report_name">('Template %s v%s - Preview' % (object.template_id.code, object.name))</field>
+        <field name="binding_model_id" ref="model_agreement_template_version"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

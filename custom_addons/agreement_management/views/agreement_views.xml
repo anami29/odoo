@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_view_form" model="ir.ui.view">
+        <field name="name">agreement.agreement.form</field>
+        <field name="model">agreement.agreement</field>
+        <field name="arch" type="xml">
+            <form string="Agreement">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_preview" type="object" string="Preview" icon="fa-eye" invisible="state == 'executed'"/>
+                    <button name="action_sign_party_a" type="object" string="Sign as Party A" class="btn-primary" icon="fa-pencil" invisible="not can_sign_a"/>
+                    <button name="action_sign_party_b" type="object" string="Sign as Party B" class="btn-primary" icon="fa-pencil" invisible="not can_sign_b"/>
+                    <button name="action_resend_notification" type="object" string="Resend Signing Notification" icon="fa-bell-o" invisible="state not in ('pending_a', 'pending_b')"/>
+                    <button name="action_print_executed" type="object" string="Print / Download Signed Agreement" class="btn-primary" icon="fa-print" invisible="state != 'executed'"/>
+                    <button name="action_email_executed" type="object" string="Email Executed Agreement" icon="fa-envelope-o" invisible="state != 'executed'"/>
+                    <button name="action_create_annexure" type="object" string="Create Supplementary Annexure" icon="fa-files-o" invisible="state != 'executed'"/>
+                    <button name="action_reselect_active_version" type="object" string="Use Current Active Version" invisible="state != 'draft'" groups="agreement_management.group_agreement_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state not in ('draft', 'pending_a')" confirm="Cancel this agreement? Pending signing activities will be removed."/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft" invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending_a,pending_b,executed"/>
+                </header>
+                <sheet>
+                    <field name="can_sign_a" invisible="1"/>
+                    <field name="can_sign_b" invisible="1"/>
+                    <field name="is_locked" invisible="1"/>
+                    <field name="executed_pdf_attachment_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_annexures" type="object" class="oe_stat_button" icon="fa-files-o">
+                            <field name="annexure_count" widget="statinfo" string="Annexures"/>
+                        </button>
+                        <button name="action_view_signatures" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="state == 'draft'">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"><field name="signature_signed_count"/> / <field name="signature_required_count"/></span>
+                                <span class="o_stat_text">Required Signatures</span>
+                            </div>
+                        </button>
+                        <button name="action_view_executed_pdf" type="object" class="oe_stat_button" icon="fa-file-pdf-o" invisible="not executed_pdf_attachment_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Executed PDF</span>
+                                <span class="o_stat_text">Official copy</span>
+                            </div>
+                        </button>
+                        <button name="action_view_distribution" type="object" class="oe_stat_button" icon="fa-envelope-o">
+                            <field name="distribution_count" widget="statinfo" string="Emails Sent"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Executed" bg_color="text-bg-success" invisible="state != 'executed'"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger" invisible="state != 'cancel'"/>
+                    <div class="oe_title">
+                        <label for="number"/>
+                        <h1><field name="number" readonly="1" placeholder="New — assigned on confirmation"/></h1>
+                    </div>
+                    <group>
+                        <group string="Agreement Information" name="agreement_info">
+                            <field name="template_id" readonly="is_locked" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="template_version_id" readonly="1" options="{'no_create': True}"/>
+                            <field name="type_id" readonly="is_locked"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="is_locked"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Parties" name="parties">
+                            <field name="partner_a_id" readonly="is_locked"/>
+                            <field name="signatory_a_id" readonly="is_locked" context="{'default_parent_id': partner_a_id, 'default_type': 'contact'}"/>
+                            <field name="partner_b_id" readonly="is_locked"/>
+                            <field name="signatory_b_id" readonly="is_locked" context="{'default_parent_id': partner_b_id, 'default_type': 'contact'}"/>
+                        </group>
+                        <group string="Dates" name="dates">
+                            <field name="date_from" readonly="is_locked"/>
+                            <field name="date_to" readonly="is_locked"/>
+                        </group>
+                        <group string="Execution" name="execution_summary">
+                            <field name="executed_on"/>
+                            <field name="signing_progress" widget="progressbar" invisible="state == 'draft'"/>
+                            <field name="signature_status_summary" string="Signatures" invisible="state == 'draft'"/>
+                            <field name="executed_pdf" filename="executed_pdf_filename" widget="binary" invisible="not executed_pdf_attachment_id"/>
+                            <field name="executed_pdf_filename" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Other Information" name="other_information">
+                            <div class="alert alert-info" role="status" invisible="is_locked">
+                                The fields below are defined by the template version. Mandatory fields must be completed before the agreement can be confirmed.
+                            </div>
+                            <div class="alert alert-secondary" role="status" invisible="not is_locked">
+                                <i class="fa fa-lock me-1"/>Values are locked; they were captured from the template version locked to this agreement.
+                            </div>
+                            <field name="agreement_properties" columns="2" readonly="is_locked" nolabel="1"/>
+                            <separator string="Internal Notes"/>
+                            <field name="note" nolabel="1" placeholder="Internal notes (not part of the document)…"/>
+                        </page>
+                        <page string="Document" name="document">
+                            <field name="document_html" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Execution" name="execution">
+                            <group>
+                                <group string="Execution Record">
+                                    <field name="confirmed_on"/>
+                                    <field name="confirmed_by_id"/>
+                                    <field name="signed_a_on"/>
+                                    <field name="signed_b_on"/>
+                                    <field name="executed_on"/>
+                                    <field name="executed_hash"/>
+                                </group>
+                                <group string="Executed PDF">
+                                    <field name="executed_pdf_attachment_id" readonly="1" invisible="not executed_pdf_attachment_id"/>
+                                    <div colspan="2" invisible="executed_pdf_attachment_id" class="text-muted">
+                                        The final executed PDF is generated automatically when all required Party A and Party B signatures are completed, then stored on this record as the official executed copy.
+                                    </div>
+                                    <div colspan="2" invisible="not executed_pdf_attachment_id" class="text-muted">
+                                        This PDF is the official executed document. It is never regenerated, even if the template, its versions, dynamic fields or this record change.
+                                    </div>
+                                </group>
+                            </group>
+                            <separator string="Signature Areas"/>
+                            <field name="signature_ids" readonly="1" nolabel="1">
+                                <list decoration-success="state == 'signed'" decoration-warning="state == 'ready'" decoration-muted="state == 'locked'" create="0" delete="0">
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="code"/>
+                                    <field name="page"/>
+                                    <field name="name"/>
+                                    <field name="position" optional="hide"/>
+                                    <field name="party"/>
+                                    <field name="signatory_id"/>
+                                    <field name="kind" optional="show"/>
+                                    <field name="required"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'signed'" decoration-warning="state == 'ready'" decoration-muted="state == 'locked'"/>
+                                    <field name="signed_on"/>
+                                    <field name="signer_name" optional="show"/>
+                                    <field name="signed_by_user_id" optional="hide"/>
+                                    <field name="signer_ip" optional="hide"/>
+                                    <field name="signature" widget="image" options="{'size': [120, 40]}"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Distribution" name="distribution">
+                            <field name="distribution_ids" readonly="1" nolabel="1">
+                                <list create="0" delete="0" decoration-danger="state == 'exception'">
+                                    <field name="sent_on"/>
+                                    <field name="sender_id"/>
+                                    <field name="mode"/>
+                                    <field name="partner_ids" widget="many2many_tags"/>
+                                    <field name="email_to" optional="hide"/>
+                                    <field name="subject"/>
+                                    <field name="attachment_id"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'sent'" decoration-danger="state == 'exception'" decoration-info="state == 'outgoing'"/>
+                                    <field name="failure_reason" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="History" name="history">
+                            <separator string="Supplementary Annexures"/>
+                            <field name="annexure_ids" readonly="1" nolabel="1">
+                                <list create="0" delete="0" decoration-success="state == 'executed'">
+                                    <field name="number"/>
+                                    <field name="annexure_type_id"/>
+                                    <field name="date_effective"/>
+                                    <field name="summary"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'executed'" decoration-warning="state in ('pending_a', 'pending_b')"/>
+                                    <field name="executed_on"/>
+                                    <field name="executed_pdf_attachment_id"/>
+                                </list>
+                            </field>
+                            <div class="text-muted mt-2">The full audit trail — creation, confirmation, each party's signing, execution, PDF generation and every email distribution — is recorded in the chatter below.</div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="agreement_view_list" model="ir.ui.view">
+        <field name="name">agreement.agreement.list</field>
+        <field name="model">agreement.agreement</field>
+        <field name="arch" type="xml">
+            <list string="Agreements" decoration-success="state == 'executed'" decoration-muted="state == 'cancel'" decoration-info="state in ('pending_a', 'pending_b')">
+                <field name="number"/>
+                <field name="template_id"/>
+                <field name="template_version_name" string="Version"/>
+                <field name="partner_a_id"/>
+                <field name="partner_b_id"/>
+                <field name="signatory_a_id" optional="show"/>
+                <field name="signatory_b_id" optional="show"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state" widget="badge" decoration-success="state == 'executed'" decoration-warning="state == 'pending_a'" decoration-info="state == 'pending_b'" decoration-danger="state == 'cancel'"/>
+                <field name="executed_on" optional="show"/>
+                <field name="annexure_count" string="Annexures" optional="show"/>
+                <field name="type_id" optional="hide"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="agreement_properties" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="agreement_view_kanban" model="ir.ui.view">
+        <field name="name">agreement.agreement.kanban</field>
+        <field name="model">agreement.agreement</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column" quick_create="false">
+                <field name="number"/>
+                <field name="display_name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex flex-column">
+                            <strong><field name="display_name"/></strong>
+                            <div><field name="template_id"/> <small class="text-muted">v<field name="template_version_name"/></small></div>
+                            <div><field name="partner_b_id"/></div>
+                            <div class="text-muted small"><field name="date_from"/> → <field name="date_to"/></div>
+                            <field name="agreement_properties" widget="properties"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="agreement_view_search" model="ir.ui.view">
+        <field name="name">agreement.agreement.search</field>
+        <field name="model">agreement.agreement</field>
+        <field name="arch" type="xml">
+            <search string="Agreements">
+                <field name="number" filter_domain="['|', ('number', 'ilike', self), ('template_id', 'ilike', self)]"/>
+                <field name="template_id"/>
+                <field name="template_version_id"/>
+                <field name="partner_a_id"/>
+                <field name="partner_b_id"/>
+                <field name="signatory_a_id"/>
+                <field name="signatory_b_id"/>
+                <field name="type_id"/>
+                <field name="user_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="executed_on"/>
+                <field name="agreement_properties"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="pending_a" string="Pending Party A Signature" domain="[('state', '=', 'pending_a')]"/>
+                <filter name="pending_b" string="Pending Party B Signature" domain="[('state', '=', 'pending_b')]"/>
+                <filter name="executed" string="Fully Signed / Executed" domain="[('state', '=', 'executed')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('state', '=', 'cancel')]"/>
+                <separator/>
+                <filter name="my_signature" string="Pending My Signature"
+                        domain="['|', '&amp;', ('state', '=', 'pending_a'), ('signatory_a_id.user_ids', 'in', [uid]), '&amp;', ('state', '=', 'pending_b'), ('signatory_b_id.user_ids', 'in', [uid])]"/>
+                <filter name="in_signing" string="In Signing" domain="[('state', 'in', ('pending_a', 'pending_b'))]"/>
+                <filter name="my_agreements" string="My Agreements" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="effective_this_year" string="Effective This Year"
+                        domain="[('date_from', '>=', (context_today() + relativedelta(month=1, day=1)).strftime('%Y-%m-%d')), ('date_from', '&lt;=', (context_today() + relativedelta(month=12, day=31)).strftime('%Y-%m-%d'))]"/>
+                <filter name="expiring_90" string="Expiring in 90 Days"
+                        domain="[('date_to', '>=', context_today().strftime('%Y-%m-%d')), ('date_to', '&lt;=', (context_today() + relativedelta(days=90)).strftime('%Y-%m-%d'))]"/>
+                <filter name="expired" string="Expired" domain="[('date_to', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter name="has_annexures" string="Has Annexures" domain="[('annexure_count', '>', 0)]"/>
+                <filter name="executed_this_year" string="Executed This Year"
+                        domain="[('executed_on', '>=', (context_today() + relativedelta(month=1, day=1)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_template" string="Template" context="{'group_by': 'template_id'}"/>
+                    <filter name="group_version" string="Template Version" context="{'group_by': 'template_version_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_partner_a" string="Party A" context="{'group_by': 'partner_a_id'}"/>
+                    <filter name="group_partner_b" string="Party B" context="{'group_by': 'partner_b_id'}"/>
+                    <filter name="group_year" string="Effective Year" context="{'group_by': 'date_from:year'}"/>
+                    <filter name="group_type" string="Agreement Type" context="{'group_by': 'type_id'}"/>
+                    <filter name="group_user" string="Responsible" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_agreement" model="ir.actions.act_window">
+        <field name="name">Agreements</field>
+        <field name="res_model">agreement.agreement</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="agreement_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first agreement</p>
+            <p>Select a template (its Active version is applied automatically), the parties and signatories, complete the template fields, preview and confirm to open the Party A → Party B signing workflow.</p>
+        </field>
+    </record>
+
+    <record id="action_agreement_pending_my_signature" model="ir.actions.act_window">
+        <field name="name">Pending My Signature</field>
+        <field name="res_model">agreement.agreement</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="agreement_view_search"/>
+        <field name="context">{'search_default_my_signature': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Nothing awaits your signature</p>
+            <p>Agreements where you are the designated signatory whose turn it is appear here.</p>
+        </field>
+    </record>
+
+    <record id="action_agreement_in_signing" model="ir.actions.act_window">
+        <field name="name">In Signing</field>
+        <field name="res_model">agreement.agreement</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="agreement_view_search"/>
+        <field name="context">{'search_default_in_signing': 1, 'search_default_group_state': 1}</field>
+    </record>
+
+    <record id="action_agreement_execution_records" model="ir.actions.act_window">
+        <field name="name">Execution Records</field>
+        <field name="res_model">agreement.agreement</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="agreement_view_search"/>
+        <field name="domain">[('state', '=', 'executed')]</field>
+        <field name="context">{'search_default_group_year': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No executed agreement yet</p>
+            <p>Fully signed agreements with their execution timestamp and official executed PDF are listed here.</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_agreement_mail_templates" model="ir.actions.act_window">
+        <field name="name">Email Templates</field>
+        <field name="res_model">mail.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('model', 'in', ('agreement.agreement', 'agreement.annexure'))]</field>
+        <field name="context">{'default_model': 'agreement.agreement'}</field>
+    </record>
+
+    <menuitem id="menu_agreement_root" name="Agreements" web_icon="agreement_management,static/description/icon.png" sequence="45" groups="agreement_management.group_agreement_user"/>
+
+    <menuitem id="menu_agreement_agreements" name="Agreements" parent="menu_agreement_root" sequence="10"/>
+    <menuitem id="menu_agreement_agreement" name="Agreements" parent="menu_agreement_agreements" action="action_agreement" sequence="10"/>
+    <menuitem id="menu_agreement_annexure" name="Supplementary Annexures" parent="menu_agreement_agreements" action="action_agreement_annexure" sequence="20"/>
+
+    <menuitem id="menu_agreement_templates" name="Templates" parent="menu_agreement_root" sequence="20" groups="agreement_management.group_agreement_manager"/>
+    <menuitem id="menu_agreement_template" name="Agreement Templates" parent="menu_agreement_templates" action="action_agreement_template" sequence="10"/>
+    <menuitem id="menu_agreement_template_version" name="Template Versions" parent="menu_agreement_templates" action="action_agreement_template_version" sequence="20"/>
+
+    <menuitem id="menu_agreement_signing" name="Signing" parent="menu_agreement_root" sequence="30"/>
+    <menuitem id="menu_agreement_pending_my_signature" name="Pending My Signature" parent="menu_agreement_signing" action="action_agreement_pending_my_signature" sequence="10"/>
+    <menuitem id="menu_agreement_in_signing" name="In Signing" parent="menu_agreement_signing" action="action_agreement_in_signing" sequence="20"/>
+    <menuitem id="menu_agreement_signature_areas" name="Signature Areas" parent="menu_agreement_signing" action="action_agreement_signature" sequence="30"/>
+
+    <menuitem id="menu_agreement_reporting" name="Reporting" parent="menu_agreement_root" sequence="40"/>
+    <menuitem id="menu_agreement_execution_records" name="Execution Records" parent="menu_agreement_reporting" action="action_agreement_execution_records" sequence="10"/>
+    <menuitem id="menu_agreement_distribution" name="Distribution Log" parent="menu_agreement_reporting" action="action_agreement_distribution" sequence="20"/>
+
+    <menuitem id="menu_agreement_config" name="Configuration" parent="menu_agreement_root" sequence="90" groups="agreement_management.group_agreement_manager"/>
+    <menuitem id="menu_agreement_config_settings" name="Settings" parent="menu_agreement_config" action="action_agreement_config_settings" sequence="0" groups="base.group_system"/>
+    <menuitem id="menu_agreement_type" name="Agreement Types" parent="menu_agreement_config" action="action_agreement_type" sequence="10"/>
+    <menuitem id="menu_agreement_annexure_type" name="Annexure Types" parent="menu_agreement_config" action="action_agreement_annexure_type" sequence="20"/>
+    <menuitem id="menu_agreement_mail_templates" name="Email Templates" parent="menu_agreement_config" action="action_agreement_mail_templates" sequence="30"/>
+</odoo>
